@@ -1,0 +1,13 @@
+{   
+  "name": "custom-hotbar",   
+  "title": "Custom Hotbar",   
+  "description": "Add a second, customizable and fully operational Macro Hotbar above the first.",
+  "author": "Norc",
+  "version": "0.0.1",
+  "minimumCoreVersion": "0.6.0",
+  "compatibleCoreVersion":"0.6.2",
+  "scripts": ["custom-hotbar.js"],
+  "packs": [],
+  "manifest": "https://raw.githubusercontent.com/norc/custom-hotbar/master/module.json",
+  "download": "https://raw.githubusercontent.com/norc/custom-hotbar/master/dist/custom-hotbar.zip"
+}
