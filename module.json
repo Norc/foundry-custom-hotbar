@@ -7,6 +7,7 @@
   "minimumCoreVersion": "0.6.0",
   "compatibleCoreVersion":"0.6.2",
   "scripts": ["custom-hotbar.js"],
+  "styles": ["./css/custom-hotbar.css"],
   "packs": [],
   "manifest": "https://raw.githubusercontent.com/norc/foundry-custom-hotbar/master/module.json",
   "download": "https://raw.githubusercontent.com/norc/foundry-custom-hotbar/master/dist/custom-hotbar.zip"
