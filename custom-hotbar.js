@@ -362,10 +362,15 @@ class CustomHotbar extends Hotbar {
   }
 */
 
-Hooks.on("ready", async () => {
-  async function customHotbarInit() { 
-  let myCustomHotbar = new CustomHotbar();
-  myCustomHotbar.macros = myCustomHotbar.getData();
+let world = "world";
+const moduleName = "custom-hotbar";
+let tmpChbMacros = [];
+let chbMacros = [];
+
+
+async function customHotbarInit() { 
+  ui.CustomHotbar = new CustomHotbar();
+  ui.CustomHotbar.macros = ui.CustomHotbar.getData();
   let obj = {
       left: 100,
       top: 100,
@@ -377,13 +382,28 @@ Hooks.on("ready", async () => {
       renderData: "init"
   };
   
-  await myCustomHotbar.render(true, obj);
-  
-  ui.CustomHotbar = duplicate(myCustomHotbar);
-  }
+  await ui.CustomHotbar.render(true, obj);
+}
 
+async function chbStoreMacro() {
+  tmpChbMacros[0] = [123456,0];
+  tmpChbMacros[1] = [7890,1];
+  await game.user.setFlag("world", "customHotbar", tmpChbMacros);
+  //tmpChbMacros = game.user.getFlag("world",'custom-hotbar');
+  console.log(tmpChbMacros); 
+/*
+  await game.user.unsetFlag('custom-hotbar','chbMacros');
+  //slot: 1, macro: null, key: 1, cssClass: "inactive", icon: "null")
+  await game.user.setFlag("world", "customHotbar",[123456,1]);
+*/
+}
+
+
+Hooks.on("ready", async () => {
 customHotbarInit();
+chbStoreMacro();
 });
+
 
 
 //DEFINE customHotbarDrop Hook!!
