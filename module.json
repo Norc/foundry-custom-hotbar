@@ -8,6 +8,6 @@
   "compatibleCoreVersion":"0.6.2",
   "scripts": ["custom-hotbar.js"],
   "packs": [],
-  "manifest": "https://raw.githubusercontent.com/norc/custom-hotbar/master/module.json",
-  "download": "https://raw.githubusercontent.com/norc/custom-hotbar/master/dist/custom-hotbar.zip"
+  "manifest": "https://raw.githubusercontent.com/norc/foundry-custom-hotbar/master/module.json",
+  "download": "https://raw.githubusercontent.com/norc/foundry-custom-hotbar/master/dist/custom-hotbar.zip"
 }
