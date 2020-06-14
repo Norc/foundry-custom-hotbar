@@ -374,7 +374,8 @@ let obj = {
     renderContext: "Norc",
     renderData: "manual"
 };
-ui.CustomHotbar = duplicate(myCustomHotbar);
-await ui.CustomHotbar.render(true, obj);
+ui.CustomHotbar = myCustomHotbar;
+//ui.CustomHotbar = duplicate(myCustomHotbar);
+await myCustomHotbar.render(true, obj);
 
 //DEFINE customHotbarDrop Hook!!
