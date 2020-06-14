@@ -362,20 +362,28 @@ class CustomHotbar extends Hotbar {
   }
 */
 
-let myCustomHotbar = new CustomHotbar();
-myCustomHotbar.macros = myCustomHotbar.getData();
-let obj = {
-    left: 100,
-    top: 100,
-    width: 502,
-    height: 52,
-    scale: 1.0,
-    log: true,
-    renderContext: "Norc",
-    renderData: "manual"
-};
-ui.CustomHotbar = myCustomHotbar;
-//ui.CustomHotbar = duplicate(myCustomHotbar);
-await myCustomHotbar.render(true, obj);
+Hooks.on("ready", async () => {
+  async function customHotbarInit() { 
+  let myCustomHotbar = new CustomHotbar();
+  myCustomHotbar.macros = myCustomHotbar.getData();
+  let obj = {
+      left: 100,
+      top: 100,
+      width: 502,
+      height: 52,
+      scale: 1.0,
+      log: true,
+      renderContext: "custom-hotbar",
+      renderData: "init"
+  };
+  
+  await myCustomHotbar.render(true, obj);
+  
+  ui.CustomHotbar = duplicate(myCustomHotbar);
+  }
+
+customHotbarInit();
+});
+
 
 //DEFINE customHotbarDrop Hook!!
