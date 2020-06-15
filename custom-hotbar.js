@@ -366,6 +366,7 @@ let world = "world";
 const moduleName = "custom-hotbar";
 let tmpChbMacros = [];
 let chbMacros = [];
+let slot = -1;
 
 
 async function customHotbarInit() { 
@@ -385,25 +386,35 @@ async function customHotbarInit() {
   await ui.CustomHotbar.render(true, obj);
 }
 
-async function chbStoreMacro() {
-  tmpChbMacros[0] = [123456,0];
-  tmpChbMacros[1] = [7890,1];
-  await game.user.setFlag("world", "customHotbar", tmpChbMacros);
-  //tmpChbMacros = game.user.getFlag("world",'custom-hotbar');
-  console.log(tmpChbMacros); 
-/*
-  await game.user.unsetFlag('custom-hotbar','chbMacros');
+async function chbStoreMacro(ID,slot) {
   //slot: 1, macro: null, key: 1, cssClass: "inactive", icon: "null")
-  await game.user.setFlag("world", "customHotbar",[123456,1]);
-*/
+  //only need to set macro and slot number, 2nd and 3rd items in list
+  //chbMacros[0] = [12345,`0`];
+  //chbMacros[1] = [e7890,1];
+  console.log(ID);
+  console.log(slot);
+  chbMacros[slot]=chbMacros[ID,slot];
+  console.log(chbMacros);
+  await chbUnsetMacro(slot);
+  await game.user.setFlag('custom-hotbar', 'macros', chbMacros[slot]=[ID,slot]);
+  console.log(chbMacros);
 }
 
+async function chbUnsetMacro(slot) {
+  //unset all custom hotbar flags
+  await game.user.setFlag('custom-hotbar', 'macros', chbMacros[slot]=null);
+}
+
+async function chbResetMacros() {
+  //unset all custom hotbar flags
+  await game.user.unsetFlag('custom-hotbar','macros');
+}
 
 Hooks.on("ready", async () => {
 customHotbarInit();
-chbStoreMacro();
+chbStoreMacro(12345,1);
+chbStoreMacro(67890,2);
+//chbResetMacros();
 });
-
-
 
 //DEFINE customHotbarDrop Hook!!
