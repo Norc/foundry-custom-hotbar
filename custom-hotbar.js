@@ -76,7 +76,10 @@ class CustomHotbar extends Hotbar {
    * @return {Array.<Object>}
    */
   getCustomHotbarMacros(page=1) {
-    const macros = new Array(10).fill(null);
+    const macros = Array.fromRange(50).map(m => null);
+    for ( let [k, v] of Object.entries(game.user.getFlag("custom-hotbar","chbMacroMap")) ) {
+      macros[parseInt(k)-1] = v
+    }
     const start = (page-1) * 10;
     return macros.slice(start, start+10).map((m, i) => {
       return {
@@ -106,21 +109,25 @@ class CustomHotbar extends Hotbar {
 
     // Update the hotbar data
     const update = duplicate(ui.CustomHotbar);
-    if ( macro ) update.macros[slot,macro] = macro.id;
+    console.log(slot);
+    if ( macro ) await chbSetMacro(macro.id,slot);
     else {
-      delete update.macros[slot];
-      update.macros[`-=${slot}`] = null;
+      await chbUnsetMacro(slot);
+//      update.macros[`-=${slot}`] = null;
     }
-    if ( fromSlot && (fromSlot in myCustomHotbar) ) {
+/*disabled case for now due to UI limitation
+    if ( fromSlot && (fromSlot in ui.CustomHotbar) ) {
       delete update.macros[fromSlot];
       update.macros[`-=${fromSlot}`] = null;
     }
+*/
+    ui.CustomHotbar.render();
     return update;
   };
 
         /* -------------------------------------------- */
   /**
-   * Collapse the myCustomHotbar, minimizing its display.
+   * Collapse the ui.CustomHotbar, minimizing its display.
    * @return {Promise}    A promise which resolves once the collapse animation completes
    */
   async collapse() {
@@ -184,8 +191,9 @@ class CustomHotbar extends Hotbar {
         name: "Remove",
         icon: '<i class="fas fa-times"></i>',
         callback: li => {
-          myCustomHotbar = this.assignCustomHotbarMacro(null, li.data("slot"));
-        }
+//          ui.CustomHotbar = this.assignCustomHotbarMacro(null, li.data("slot"));
+            this.assignCustomHotbarMacro(null, li.data("slot"));
+      }
       },
       {
         name: "Delete",
@@ -240,7 +248,10 @@ class CustomHotbar extends Hotbar {
 
     // Only handle Macro drops
     const macro = await this._getDropMacro(data);
-    if ( macro ) await this.assignCustomHotbarMacro(macro, li.dataset.slot, {fromSlot: data.slot});
+    if ( macro ) {
+      await this.assignCustomHotbarMacro(macro, li.dataset.slot, {fromSlot: data.slot});
+      ui.CustomHotbar.render();
+    }
   }
 
   /* -------------------------------------------- */
@@ -253,12 +264,12 @@ class CustomHotbar extends Hotbar {
   async _onClickMacro(event) {
     event.preventDefault();
     const li = event.currentTarget;
-    myCustomHotbar = this;
+    ui.CustomHotbar = this;
 
     // Case 1 - create a new Macro
     if ( li.classList.contains("inactive") ) {
       const macro = await Macro.create({name: "New Macro", type: "chat", scope: "global"});
-      myCustomHotbar = await this.assignCustomHotbarMacro(macro, li.dataset.slot);
+      ui.CustomHotbar = await this.assignCustomHotbarMacro(macro, li.dataset.slot);
       macro.sheet.render(true);
     }
 
@@ -363,7 +374,7 @@ class CustomHotbar extends Hotbar {
 
 let world = "world";
 const moduleName = "custom-hotbar";
-let chbMacros = [];
+let chbMacroMap = [].fill(10,null);
 let slot = -1;
 
 
@@ -384,35 +395,38 @@ async function customHotbarInit() {
   await ui.CustomHotbar.render(true, obj);
 }
 
-async function chbStoreMacro(ID,slot) {
-  //slot: 1, macro: null, key: 1, cssClass: "inactive", icon: "null")
-  //only need to set macro and slot number, 2nd and 3rd items in list
-  //chbMacros[0] = [12345,`0`];
-  //chbMacros[1] = [e7890,1];
-  console.log(ID);
+async function chbSetMacro(ID,slot) {
+  //final format: slot: 1, macro: null, key: 1, cssClass: "inactive", icon: "null")
+  //only need to set macro ID for slot number
   console.log(slot);
-  chbMacros[slot]=chbMacros[ID];
-  console.log(chbMacros);
-//  await chbUnsetMacro(slot);
-  await game.user.setFlag('custom-hotbar', 'macroMap', chbMacros[slot]=ID);
-  console.log(chbMacros);
+  console.log(ID);
+  chbMacroMap[slot]=ID;
+  await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
 }
 
 async function chbUnsetMacro(slot) {
   //unset all custom hotbar flags
-  await game.user.setFlag('custom-hotbar', 'macroMap', chbMacros[slot]=null);
+  chbMacroMap[slot]=null;
+  await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
 }
 
 async function chbResetMacros() {
   //unset all custom hotbar flags
-  await game.user.unsetFlag('custom-hotbar','macroMap');
+  await game.user.unsetFlag('custom-hotbar','chbMacroMap');
 }
 
 Hooks.on("ready", async () => {
 customHotbarInit();
-chbStoreMacro("12345",1);
-chbStoreMacro("67890",2);
-//chbResetMacros();
+console.log(chbMacroMap);
+if(!game.user.getFlag("custom-hotbar","chbMacroMap")) game.user.setFlag("custom-hotbar","chbMacroMap", chbMacroMap);
+ui.CustomHotbar.assignCustomHotbarMacro(game.macros.get("OywSAMO8HKVUNYK0"), 3);
+ui.CustomHotbar.assignCustomHotbarMacro(game.macros.get("tTk67L6Vo4fuahBm"), 2);
+ui.customHotbar.getCustomHotbarMacros(1);
+ui.hotbar.render();
 });
+
+Hooks.on("renderCustomHotbar", async () => {
+  console.log("The custom hotbar just rendered!")
+  });
 
 //DEFINE customHotbarDrop Hook!!
