@@ -264,12 +264,11 @@ class CustomHotbar extends Hotbar {
   async _onClickMacro(event) {
     event.preventDefault();
     const li = event.currentTarget;
-    ui.CustomHotbar = this;
 
     // Case 1 - create a new Macro
     if ( li.classList.contains("inactive") ) {
       const macro = await Macro.create({name: "New Macro", type: "chat", scope: "global"});
-      ui.CustomHotbar = await this.assignCustomHotbarMacro(macro, li.dataset.slot);
+      ui.CustomHotbar = await ui.CustomHotbar.assignCustomHotbarMacro(macro, li.dataset.slot);
       macro.sheet.render(true);
     }
 
@@ -419,8 +418,6 @@ Hooks.on("ready", async () => {
 customHotbarInit();
 console.log(chbMacroMap);
 if(!game.user.getFlag("custom-hotbar","chbMacroMap")) game.user.setFlag("custom-hotbar","chbMacroMap", chbMacroMap);
-ui.CustomHotbar.assignCustomHotbarMacro(game.macros.get("OywSAMO8HKVUNYK0"), 3);
-ui.CustomHotbar.assignCustomHotbarMacro(game.macros.get("tTk67L6Vo4fuahBm"), 2);
 ui.customHotbar.getCustomHotbarMacros(1);
 ui.hotbar.render();
 });
