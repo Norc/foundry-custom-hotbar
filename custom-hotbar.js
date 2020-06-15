@@ -98,15 +98,14 @@ class CustomHotbar extends Hotbar {
    */
   async assignCustomHotbarMacro(macro, slot, {fromSlot=null}={}) {
     if ( !(macro instanceof Macro) && (macro !== null) ) throw new Error("Invalid Macro provided");
-    const myCustomHotbar = this;
 
     // If a slot was not provided, get the first available slot
-    slot = slot ? parseInt(slot) : Array.fromRange(10).find(i => !(i in myCustomHotbar));
+    slot = slot ? parseInt(slot) : Array.fromRange(10).find(i => !(i in ui.CustomHotbar));
     if ( !slot ) throw new Error("No available Hotbar slot exists");
     if ( slot < 1 || slot > 10 ) throw new Error("Invalid Hotbar slot requested");
 
     // Update the hotbar data
-    const update = duplicate(myCustomHotbar);
+    const update = duplicate(ui.CustomHotbar);
     if ( macro ) update.macros[slot,macro] = macro.id;
     else {
       delete update.macros[slot];
@@ -364,7 +363,6 @@ class CustomHotbar extends Hotbar {
 
 let world = "world";
 const moduleName = "custom-hotbar";
-let tmpChbMacros = [];
 let chbMacros = [];
 let slot = -1;
 
@@ -393,27 +391,27 @@ async function chbStoreMacro(ID,slot) {
   //chbMacros[1] = [e7890,1];
   console.log(ID);
   console.log(slot);
-  chbMacros[slot]=chbMacros[ID,slot];
+  chbMacros[slot]=chbMacros[ID];
   console.log(chbMacros);
-  await chbUnsetMacro(slot);
-  await game.user.setFlag('custom-hotbar', 'macros', chbMacros[slot]=[ID,slot]);
+//  await chbUnsetMacro(slot);
+  await game.user.setFlag('custom-hotbar', 'macroMap', chbMacros[slot]=ID);
   console.log(chbMacros);
 }
 
 async function chbUnsetMacro(slot) {
   //unset all custom hotbar flags
-  await game.user.setFlag('custom-hotbar', 'macros', chbMacros[slot]=null);
+  await game.user.setFlag('custom-hotbar', 'macroMap', chbMacros[slot]=null);
 }
 
 async function chbResetMacros() {
   //unset all custom hotbar flags
-  await game.user.unsetFlag('custom-hotbar','macros');
+  await game.user.unsetFlag('custom-hotbar','macroMap');
 }
 
 Hooks.on("ready", async () => {
 customHotbarInit();
-chbStoreMacro(12345,1);
-chbStoreMacro(67890,2);
+chbStoreMacro("12345",1);
+chbStoreMacro("67890",2);
 //chbResetMacros();
 });
 
