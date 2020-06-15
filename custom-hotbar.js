@@ -112,6 +112,7 @@ class CustomHotbar extends Hotbar {
     console.log(slot);
     if ( macro ) await chbSetMacro(macro.id,slot);
     else {
+      console.log('Unsetting!');
       await chbUnsetMacro(slot);
 //      update.macros[`-=${slot}`] = null;
     }
@@ -371,10 +372,8 @@ class CustomHotbar extends Hotbar {
   }
 */
 
-let world = "world";
 const moduleName = "custom-hotbar";
-let chbMacroMap = [].fill(10,null);
-let slot = -1;
+let chbMacroMap = [];
 
 
 async function customHotbarInit() { 
@@ -390,7 +389,13 @@ async function customHotbarInit() {
       renderContext: "custom-hotbar",
       renderData: "init"
   };
-  
+  //if(!game.user.getFlag("custom-hotbar","chbMacroMap")) game.user.setFlag("custom-hotbar","chbMacroMap", chbMacroMap);
+  tempFlag = [];
+  tempFlag = game.user.getFlag("custom-hotbar","chbMacroMap");
+  for (i=1; i <= 10; i++) {
+    chbMacroMap[i] = tempFlag[i];
+  }
+  await ui.CustomHotbar.getCustomHotbarMacros(1);
   await ui.CustomHotbar.render(true, obj);
 }
 
@@ -415,15 +420,12 @@ async function chbResetMacros() {
 }
 
 Hooks.on("ready", async () => {
-customHotbarInit();
-console.log(chbMacroMap);
-if(!game.user.getFlag("custom-hotbar","chbMacroMap")) game.user.setFlag("custom-hotbar","chbMacroMap", chbMacroMap);
-ui.CustomHotbar.getCustomHotbarMacros(1);
-ui.hotbar.render();
+  customHotbarInit();
 });
 
 Hooks.on("renderCustomHotbar", async () => {
   console.log("The custom hotbar just rendered!")
+  console.log(chbMacroMap);
   });
 
 //DEFINE customHotbarDrop Hook!!
