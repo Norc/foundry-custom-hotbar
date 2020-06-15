@@ -29,7 +29,7 @@ class CustomHotbar extends Hotbar {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "custom-hotbar",
-      template: "templates/hud/CustomHotbar.html",
+      template: "modules/custom-hotbar/templates/CustomHotbar.html",
       popOut: false,
       dragDrop: [{ dragSelector: ".macro", dropSelector: "#custom-macro-list" }]
     });
