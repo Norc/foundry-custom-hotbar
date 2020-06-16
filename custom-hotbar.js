@@ -67,6 +67,9 @@ class CustomHotbar extends Hotbar {
   }
   return macros;
 }
+  _getMacrosByPage(page) {
+	  return this._getCustomMacrosByPage(page);
+	}
 
 	/* -------------------------------------------- */
 
