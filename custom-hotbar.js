@@ -429,3 +429,15 @@ Hooks.on("renderCustomHotbar", async () => {
   });
 
 //DEFINE customHotbarDrop Hook!!
+
+let newHP = token.data.actorData.data.valueOf(current_hp_actor)+=3;
+token.update({"actorData.data.valueOf(current_hp_actor)": newVal});
+
+/*let canvas.tokens.controlled[0].data.actorData.data.attributes.valueOf(current_hp_actor) = canvas.tokens.controlled[0].data.actorData.data.valueOf(current_hp_actor)+=3; */
+
+let newHP = 0
+macroToken = canvas.tokens.controlled[0].data.actorData.data.valueOf(current_hp_actor).attributes.hp.value;
+newHP = macroToken.data.actorData.data.valueOf(current_hp_actor).attributes.hp.value;
+newHP +=3;
+macroToken = await macroToken.update({"actorData.data.valueOf(current_hp_actor).attributes.hp.value": newHP});
+canvas.tokens.controlled[0].data.actorData.data.valueOf(current_hp_actor).attributes.hp.value;
