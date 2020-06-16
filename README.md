@@ -4,6 +4,7 @@ Foundry VTT module to add an extra functional macro hotbar above the first.
 **Manifest**: Use this manifest link to install the module(https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/master/module.json), or manually deploy the zip file from the Dist folder.
 
 
+
 **PLEASE NOTE:** This is an early BETA version! Certain features have not yet been implemented, such as dragging macros onto the hotbar from the usual Macro hotbar or from a character sheet. Dragging onto the hotbar from the Modules folder or clicking a blank macro slot are the current methods to set macros onto the Custom Hotbar. Improved event handling will be released soon.
 
 **Features:**
