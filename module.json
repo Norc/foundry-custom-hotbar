@@ -1,11 +1,14 @@
 {   
     "name": "custom-hotbar",   
     "title": "Custom Hotbar",   
-    "description": "An extra fully functional hotbar (1 row only) above the first",   
+    "description": "An extra fully functional hotbar (1 row only) above the first. Beta.",   
     "author": "Norc",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "minimumCoreVersion": "0.5.0",
     "compatibleCoreVersion":"0.6.2",
     "scripts": ["custom-hotbar.js"],
-    "styles": ["./css/custom-hotbar.css"]
+    "styles": ["./css/custom-hotbar.css"],
+    "manifest": "https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/master/module.json",
+    "download": "https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/master/custom-hotbar.zip",
+    "url": "https://github.com/Norc/foundry-custom-hotbar"
   }
