@@ -29,7 +29,7 @@ class CustomHotbar extends Hotbar {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "custom-hotbar",
-      template: "templates/hud/CustomHotbar.html",
+      template: "modules/custom-hotbar/templates/CustomHotbar.html",
       popOut: false,
       dragDrop: [{ dragSelector: ".macro", dropSelector: "#custom-macro-list" }]
     });
@@ -67,6 +67,9 @@ class CustomHotbar extends Hotbar {
   }
   return macros;
 }
+  _getMacrosByPage(page) {
+	  return this._getCustomMacrosByPage(page);
+	}
 
 	/* -------------------------------------------- */
 
@@ -372,11 +375,14 @@ class CustomHotbar extends Hotbar {
   }
 */
 
-const moduleName = "custom-hotbar";
 let chbMacroMap = [];
 
-
 async function customHotbarInit() { 
+  const flags = chbGetMacros();
+  if (!flags) {
+    // ensure flag has a value
+    await chbResetMacros();
+  }
   ui.CustomHotbar = new CustomHotbar();
   ui.CustomHotbar.macros = ui.CustomHotbar.getData();
   let obj = {
@@ -390,7 +396,6 @@ async function customHotbarInit() {
       renderData: "init"
   };
   //if(!game.user.getFlag("custom-hotbar","chbMacroMap")) game.user.setFlag("custom-hotbar","chbMacroMap", chbMacroMap);
-  tempFlag = [];
   tempFlag = game.user.getFlag("custom-hotbar","chbMacroMap");
   for (i=1; i <= 10; i++) {
     chbMacroMap[i] = tempFlag[i];
@@ -399,13 +404,33 @@ async function customHotbarInit() {
   await ui.CustomHotbar.render(true, obj);
 }
 
+function chbGetMacros() {
+  return game.user.getFlag('custom-hotbar', 'chbMacroMap');
+}
+
 async function chbSetMacro(ID,slot) {
   //final format: slot: 1, macro: null, key: 1, cssClass: "inactive", icon: "null")
   //only need to set macro ID for slot number
   console.log(slot);
   console.log(ID);
   chbMacroMap[slot]=ID;
+  await game.user.unsetFlag('custom-hotbar','chbMacroMap');
   await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
+  await ui.CustomHotbar.render();
+}
+
+async function chbSetMacros(macros) {
+  /**
+   * !
+   * ! Assumes a single page custom hotbar with slots 1-10
+   * !
+   */
+  for(let slot = 1; slot < 11; slot++) {
+    chbMacroMap[slot]=macros[slot];
+  }
+  await game.user.unsetFlag('custom-hotbar','chbMacroMap');
+  await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
+  await ui.CustomHotbar.render();
 }
 
 async function chbUnsetMacro(slot) {
@@ -417,6 +442,7 @@ async function chbUnsetMacro(slot) {
 async function chbResetMacros() {
   //unset all custom hotbar flags
   await game.user.unsetFlag('custom-hotbar','chbMacroMap');
+  return game.user.setFlag('custom-hotbar', 'chbMacroMap', []);
 }
 
 Hooks.on("ready", async () => {
@@ -425,19 +451,7 @@ Hooks.on("ready", async () => {
 
 Hooks.on("renderCustomHotbar", async () => {
   console.log("The custom hotbar just rendered!")
-  console.log(chbMacroMap);
+  // console.log(chbMacroMap);
   });
 
-//DEFINE customHotbarDrop Hook!!
-
-let newHP = token.data.actorData.data.valueOf(current_hp_actor)+=3;
-token.update({"actorData.data.valueOf(current_hp_actor)": newVal});
-
-/*let canvas.tokens.controlled[0].data.actorData.data.attributes.valueOf(current_hp_actor) = canvas.tokens.controlled[0].data.actorData.data.valueOf(current_hp_actor)+=3; */
-
-let newHP = 0
-macroToken = canvas.tokens.controlled[0].data.actorData.data.valueOf(current_hp_actor).attributes.hp.value;
-newHP = macroToken.data.actorData.data.valueOf(current_hp_actor).attributes.hp.value;
-newHP +=3;
-macroToken = await macroToken.update({"actorData.data.valueOf(current_hp_actor).attributes.hp.value": newHP});
-canvas.tokens.controlled[0].data.actorData.data.valueOf(current_hp_actor).attributes.hp.value;
+//TO DO DEFINE customHotbarDrop Hook!!
