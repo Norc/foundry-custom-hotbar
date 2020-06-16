@@ -9,6 +9,6 @@
     "scripts": ["custom-hotbar.js"],
     "styles": ["./css/custom-hotbar.css"],
     "manifest": "https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/master/module.json",
-    "download": "https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/master/custom-hotbar.zip",
+    "download": "https://github.com/Norc/foundry-custom-hotbar/releases/download/1.0.1/foundry-custom-hotbar-1.0.1.zip",
     "url": "https://github.com/Norc/foundry-custom-hotbar"
   }
