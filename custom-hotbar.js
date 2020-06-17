@@ -250,6 +250,8 @@ class CustomHotbar extends Hotbar {
     // Allow for a Hook function to handle the event
     let customSlot = li.dataset.slot;
     console.log(li.dataset.slot);
+    console.log(this);
+    console.log(data);
     if ( Hooks.call("customHotbarDrop", this, data, customSlot) === false ) return;
 
     // Only handle Macro drops
@@ -292,6 +294,8 @@ class CustomHotbar extends Hotbar {
    * @private
    */
   async _getDropMacro(data) {
+    console.log("in _getDropMacro");
+    console.log(data);
     if ( data.type !== "Macro" ) return null;
 
     // Case 1 - Data explicitly provided (but no ID)
@@ -473,6 +477,23 @@ async function chbResetMacros() {
   return game.user.setFlag('custom-hotbar', 'chbMacroMap', []);
 }
 
+async function chbItemToMacro(item) {
+  const command = `MinorQOL.doRoll(event, "${item.name}", {type: "${item.type}", versatile: false});`;
+  let macro = game.macros.entities.find(m => m.name.startsWith(item.name)  &&  m.data.command === command);
+  if (!macro) {
+      console("attempting to create macro");
+      macro = await Macro.create({
+          name: `${item.name} - ${item.type}`,
+          type: "script",
+          img: item.img,
+          command: command,
+          flags: { "dnd5e.itemMacro": true }
+      }, { displaySheet: false });
+  }
+  console.log(macro);
+  return macro;
+}
+
 Hooks.on("ready", async () => {
   customHotbarInit();
 });
@@ -486,10 +507,34 @@ Hooks.on("renderCustomHotbar", async () => {
     if ( Hooks.call("hotbarDrop", this, data, li.dataset.slot) === false ) return;
 */
 
-Hooks.on("customHotbarDrop", async (data, customSlot) => {
+Hooks.on("customHotbarDrop", async (chb, data, customSlot) => {
+  let macro = {};
   console.log("Calling custom hotbar drop");
-    // Only handle Macro drops
-    const macro = await ui.CustomHotbar._getDropMacro(data);
+  console.log(data);
+  console.log(data.type);
+  if(data.type == "Item" && data.type !== "Macro") {
+    console.log("Attempting item to Macro conversion...")
+    const command = `MinorQOL.doRoll(event, "${data.name}", {type: "${data.type}", versatile: false});`;
+    macro = game.macros.entities.find(m => m.name.startsWith(data.name)  &&  m.data.command === command);
+    if (!macro) {
+        console.log("attempting to create macro");
+        macro = await Macro.create({
+            name: `${data.name} - ${data.type}`,
+            type: "script",
+            img: data.img,
+            command: command,
+            flags: { "dnd5e.itemMacro": true }
+        }, { displaySheet: false });
+    }
+  } else {
+    console.log("Cannot convert `${data.type}` to macro");
+  }
+  console.log(macro);
+/*
+  // Only handle Macro drops
+    macro = await duplicate(ui.CustomHotbar._getDropMacro(macro));
+    console.log(macro);
+*/
     if ( macro ) {
       await ui.CustomHotbar.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.slot});
       console.log(data);
@@ -499,4 +544,4 @@ Hooks.on("customHotbarDrop", async (data, customSlot) => {
 
   });
 
-//TO DO get customHotbarDrop Hook to work
+//TO DO make customHotbarDrop work with non-QoL items and improve functioning.
