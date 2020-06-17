@@ -248,7 +248,9 @@ class CustomHotbar extends Hotbar {
     const li = event.target.closest(".macro");
 
     // Allow for a Hook function to handle the event
-    if ( Hooks.call("customHotbarDrop", this, data, li.dataset.slot) === false ) return;
+    let customSlot = li.dataset.slot;
+    console.log(li.dataset.slot);
+    if ( Hooks.call("customHotbarDrop", this, data, customSlot) === false ) return;
 
     // Only handle Macro drops
     const macro = await this._getDropMacro(data);
@@ -484,15 +486,17 @@ Hooks.on("renderCustomHotbar", async () => {
     if ( Hooks.call("hotbarDrop", this, data, li.dataset.slot) === false ) return;
 */
 
-Hooks.on("customHotbarDrop", async () => {
+Hooks.on("customHotbarDrop", async (data, customSlot) => {
   console.log("Calling custom hotbar drop");
     // Only handle Macro drops
     const macro = await ui.CustomHotbar._getDropMacro(data);
     if ( macro ) {
-      await ui.CustomHotbar.assignCustomHotbarMacro(macro, li.dataset.slot, {fromSlot: data.slot});
+      await ui.CustomHotbar.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.slot});
+      console.log(data);
+      chbSetMacro(customSlot, macro.ID);
       ui.CustomHotbar.render();
     }
-  chbGetMacros.SetMacro(li.dataset.slot, this.ID)
+
   });
 
 //TO DO get customHotbarDrop Hook to work
