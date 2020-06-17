@@ -133,11 +133,10 @@ pointer-events: all;
 } 
 
 #custom-hotbar-directory-controls {
-    max-height: 33%
+    max-height: 100%
 }
 
-
-//Disable macro directory (unnecessary) and page controls (for now)
+/*Disable macro directory (unnecessary) and page controls (for now) */
 #custom-hotbar-directory-controls a#custom-macro-directory {
     display: none;
 }

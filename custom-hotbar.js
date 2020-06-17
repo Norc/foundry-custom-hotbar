@@ -283,6 +283,32 @@ class CustomHotbar extends Hotbar {
     }
   }
 
+  /**
+   * Get the Macro entity being dropped in the customHotbar. If the data comes from a non-World source, create the Macro
+   * @param {Object} data             The data transfer attached to the DragEvent
+   * @return {Promise<Macro|null>}    A Promise which returns the dropped Macro, or null
+   * @private
+   */
+  async _getDropMacro(data) {
+    if ( data.type !== "Macro" ) return null;
+
+    // Case 1 - Data explicitly provided (but no ID)
+    if ( data.data && !data.id ) {
+      return await Macro.create(data.data);
+    }
+
+    // Case 2 - Imported from a Compendium pack
+    else if ( data.pack ) {
+      const createData = await game.packs.get(data.pack).getEntry(data.id);
+      return Macro.create(createData);
+    }
+
+    // Case 3 - Imported from a World ID
+    else {
+      return game.macros.get(data.id);
+    }
+  }
+
 }
 
   /* -------------------------------------------- */
@@ -454,4 +480,19 @@ Hooks.on("renderCustomHotbar", async () => {
   // console.log(chbMacroMap);
   });
 
-//TO DO DEFINE customHotbarDrop Hook!!
+/*     // Allow for a Hook function to handle the event
+    if ( Hooks.call("hotbarDrop", this, data, li.dataset.slot) === false ) return;
+*/
+
+Hooks.on("customHotbarDrop", async () => {
+  console.log("Calling custom hotbar drop");
+    // Only handle Macro drops
+    const macro = await ui.CustomHotbar._getDropMacro(data);
+    if ( macro ) {
+      await ui.CustomHotbar.assignCustomHotbarMacro(macro, li.dataset.slot, {fromSlot: data.slot});
+      ui.CustomHotbar.render();
+    }
+  chbGetMacros.SetMacro(li.dataset.slot, this.ID)
+  });
+
+//TO DO get customHotbarDrop Hook to work
