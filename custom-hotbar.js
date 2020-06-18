@@ -31,6 +31,8 @@ class CustomHotbar extends Hotbar {
       id: "custom-hotbar",
       template: "modules/custom-hotbar/templates/CustomHotbar.html",
       popOut: false,
+      //optional disable drag start entirely:
+      //dragDrop: [{ dragSelector: ".macro", dropSelector: "#custom-macro-list" }]
       dragDrop: [{ dragSelector: ".macro", dropSelector: "#custom-macro-list" }]
     });
   }    
@@ -117,14 +119,13 @@ class CustomHotbar extends Hotbar {
     else {
       console.log('Unsetting!');
       await chbUnsetMacro(slot);
-//      update.macros[`-=${slot}`] = null;
     }
-/*disabled case for now due to UI limitation
-    if ( fromSlot && (fromSlot in ui.CustomHotbar) ) {
+
+    //disabled due to UI limitations?
+if ( fromSlot && (fromSlot in ui.CustomHotbar) ) {
       delete update.macros[fromSlot];
       update.macros[`-=${fromSlot}`] = null;
     }
-*/
     ui.CustomHotbar.render();
     return update;
   };
@@ -195,7 +196,6 @@ class CustomHotbar extends Hotbar {
         name: "Remove",
         icon: '<i class="fas fa-times"></i>',
         callback: li => {
-//          ui.CustomHotbar = this.assignCustomHotbarMacro(null, li.data("slot"));
             ui.CustomHotbar.assignCustomHotbarMacro(null, li.data("slot"));
       }
       },
@@ -317,6 +317,9 @@ class CustomHotbar extends Hotbar {
 
 }
 
+//TO DO: Remaining Event Handling
+//       Not listed: canvas On-drop event after 0.7, will also re-enable the drag option then.
+
   /* -------------------------------------------- */
 
   /**
@@ -365,48 +368,7 @@ class CustomHotbar extends Hotbar {
   }
 */  
 
-  /**
-   * Event handler for the drop portion of a drag-and-drop event.
-   * @private
-   */
-
-   /*
-   _onDrop(event) {
-    event.preventDefault();
-
-    // Try to extract the data
-    let data;
-    try {
-      data = JSON.parse(event.dataTransfer.getData('text/plain'));
-    }
-    catch (err) {
-      return false;
-    }
-
-    // Acquire the cursor position transformed to Canvas coordinates
-    const [x, y] = [event.clientX, event.clientY];
-    const t = this.stage.worldTransform;
-    data.x = (x - t.tx) / canvas.stage.scale.x;
-    data.y = (y - t.ty) / canvas.stage.scale.y;
-
-    // Dropped Actor
-    if ( data.type === "Actor" ) canvas.tokens._onDropActorData(event, data);
-    
-    // Dropped Journal Entry
-    else if ( data.type === "JournalEntry" ) canvas.notes._onDropData(event, data);
-
-    // Dropped Macro (clear slot)
-    else if ( data.type === "Macro" ) {
-//??      game.user.assignHotbarMacro(null, data.slot);
-    }
-
-    // Dropped Tile artwork
-    else if ( data.type === "Tile" ) {
-      return canvas.tiles._onDropTileData(event, data);
-    }
-  }
-*/
-
+  
 let chbMacroMap = [];
 
 async function customHotbarInit() { 
@@ -514,34 +476,48 @@ Hooks.on("customHotbarDrop", async (chb, data, customSlot) => {
   console.log(data.type);
   if(data.type == "Item" && data.type !== "Macro") {
     console.log("Attempting item to Macro conversion...")
-    const command = `MinorQOL.doRoll(event, "${data.name}", {type: "${data.type}", versatile: false});`;
+
+    m = game.macros;
     macro = game.macros.entities.find(m => m.name.startsWith(data.name)  &&  m.data.command === command);
     if (!macro) {
+      if(game.dnd5e.macros) {
+        //check for various roll modifying modules, MQoL and Better Rolls. Mess?
+        //Set item macro syntax appropriately for active modules.
+        let command = '';
+        if(game.modules.get("minor-qol")) command = `MinorQOL.doRoll(event, "${data.data.name}", {type: "${data.data.type}", versatile: false});`
+        if(game.modules.get("betterrolls5e")) command = `BetterRolls.quickRollById("${data.data._id}", "${data.data._id}");`
+        if(command == '') command = `game.dnd5e.rollItemMacro("${data.data.name}");`
+        //MinorQoL version
+        //const command = `MinorQOL.doRoll(event, "${data.name}", {type: "${data.type}", versatile: false});`;
         console.log("attempting to create macro");
         macro = await Macro.create({
-            name: `${data.name} - ${data.type}`,
+            name: `${data.data.name} - ${data.data.type}`,
             type: "script",
-            img: data.img,
+            img: data.data.img,
             command: command,
             flags: { "dnd5e.itemMacro": true }
         }, { displaySheet: false });
+      } else {
+        console.log("Auto-roll macro creation is only currently supported for D&D 5E game system.");
+        macro = await Macro.create({
+          name: `${data.data.name} - ${data.data.type}`,
+          type: "script",
+          img: data.data.img,
+          command: "",
+          flags: { "dnd5e.itemMacro": true }
+      }, { displaySheet: false });
+      }
     }
   } else {
     console.log("Cannot convert `${data.type}` to macro");
   }
   console.log(macro);
-/*
-  // Only handle Macro drops
-    macro = await duplicate(ui.CustomHotbar._getDropMacro(macro));
-    console.log(macro);
-*/
-    if ( macro ) {
-      await ui.CustomHotbar.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.slot});
-      console.log(data);
-      chbSetMacro(customSlot, macro.ID);
-      ui.CustomHotbar.render();
-    }
 
   });
 
-//TO DO make customHotbarDrop work with non-QoL items and improve functioning.
+//TO DO for 1.5:
+//get betterrolls actor ID... grrr
+//set fromSlot for on-drop?
+//shfit-digit keybind
+//delete hover
+//hook pre-delete regualar hot macro??
