@@ -29,7 +29,7 @@ class CustomHotbar extends Hotbar {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "custom-hotbar",
-      template: "modules/custom-hotbar/templates/CustomHotbar.html",
+      template: "modules/custom-hotbar/templates/customHotbar.html",
       popOut: false,
       //optional disable drag start entirely:
       //dragDrop: [{ dragSelector: ".macro", dropSelector: "#custom-macro-list" }]
@@ -456,6 +456,30 @@ async function chbItemToMacro(item) {
   return macro;
 }
 
+async function customHotbarMacroCreator(macro, slot, {fromSlot=null}={}) {
+    if ( !(macro instanceof Macro) && (macro !== null) ) throw new Error("Invalid Macro provided");
+
+    // If a slot was not provided, get the first available slot
+    slot = slot ? parseInt(slot) : Array.fromRange(50).find(i => !(i in macroMap));
+    if ( !slot ) throw new Error("No available slot exists on that Custom Hotbar");
+    if ( slot < 1 || slot > 50 ) throw new Error("Invalid Custom Hotbar slot requested");
+
+    // Update the hotbar data
+    const update = duplicate(bar);
+    if ( macro ) update[slot] = macro.id;
+    else {
+      delete update[slot];
+      update[`-=${slot}`] = null;
+    }
+    if ( fromSlot && (fromSlot in bar) ) {
+      delete update[fromSlot];
+      update[`-=${fromSlot}`] = null;
+    }
+    await game.user.unsetFlag('custom-hotbar', 'chbMacroMap');
+    await game.user.setFlag('custom-hotbar', 'chbMacroMap', update);
+    //return this.update({bar: update});
+};
+
 Hooks.on("ready", async () => {
   customHotbarInit();
 });
@@ -470,50 +494,81 @@ Hooks.on("renderCustomHotbar", async () => {
 */
 
 Hooks.on("customHotbarDrop", async (chb, data, customSlot) => {
-  let macro = {};
+  let macro = null;
   console.log("Calling custom hotbar drop");
   console.log(data);
   console.log(data.type);
-  if(data.type == "Item" && data.type !== "Macro") {
-    console.log("Attempting item to Macro conversion...")
+  if(data.type == "Macro") {
+    macro = await chb._getDropMacro(data);
+  } else {
+    if(data.type == "Item") {
+      console.log("Attempting item to Macro conversion...")
+      if (!macro) {
+        /*tposney pseudocode:
+          oldCreate = game.user.assignHotbarMacro
+          game.user.assignHotbarmacro = NorcsHotbarmacrocreator
+          Then search Hoooks._hooks for the handler you want (since there could be multiple)
+          call the handler with (bar, data, slot)
+          game.user.assignHotbarMacro = oldCreate
+        */        
+        //temporarily hijack assignHotbarMacro to create on CustomHotbar instead
+        oldCreateMacro = game.user.assignHotbarMacro;
+        game.user.assignHotbarmacro = customHotbarMacroCreator;
+        await customHotbarMacroCreator(data, customSlot);
+        game.user.assignHotbarMacro = oldCreateMacro;
 
-    m = game.macros;
-    macro = game.macros.entities.find(m => m.name.startsWith(data.name)  &&  m.data.command === command);
-    if (!macro) {
-      if(game.dnd5e.macros) {
-        //check for various roll modifying modules, MQoL and Better Rolls. Mess?
-        //Set item macro syntax appropriately for active modules.
-        let command = '';
-        if(game.modules.get("minor-qol")) command = `MinorQOL.doRoll(event, "${data.data.name}", {type: "${data.data.type}", versatile: false});`
-        if(game.modules.get("betterrolls5e")) command = `BetterRolls.quickRollById("${data.data._id}", "${data.data._id}");`
-        if(command == '') command = `game.dnd5e.rollItemMacro("${data.data.name}");`
-        //MinorQoL version
-        //const command = `MinorQOL.doRoll(event, "${data.name}", {type: "${data.type}", versatile: false});`;
-        console.log("attempting to create macro");
-        macro = await Macro.create({
+        /* Norc's original attempt
+          //check for various roll modifying modules, MQoL and Better Rolls. Mess?
+          //Set item macro syntax appropriately for active modules.
+          let command = '';
+          if(game.modules.get("minor-qol")) command = `MinorQOL.doRoll(event, "${data.data.name}", {type: "${data.data.type}", versatile: false});`
+          if(game.modules.get("betterrolls5e")) command = `BetterRolls.quickRollById("${data.data._id}", "${data.data._id}");`
+          if(command == '') command = `game.dnd5e.rollItemMacro("${data.data.name}");`
+          //MinorQoL version
+          //const command = `MinorQOL.doRoll(event, "${data.name}", {type: "${data.type}", versatile: false});`;
+          console.log("attempting to create macro");
+          macro = await Macro.create({
+              name: `${data.data.name} - ${data.data.type}`,
+              type: "script",
+              img: data.data.img,
+              command: command,
+              flags: { "dnd5e.itemMacro": true }
+          }, { displaySheet: false });
+
+        } else {
+          console.log("Auto-roll macro creation is only currently supported for D&D 5E game system.");
+          macro = await Macro.create({
             name: `${data.data.name} - ${data.data.type}`,
             type: "script",
             img: data.data.img,
-            command: command,
+            command: "",
             flags: { "dnd5e.itemMacro": true }
         }, { displaySheet: false });
+        */
+        }
       } else {
-        console.log("Auto-roll macro creation is only currently supported for D&D 5E game system.");
-        macro = await Macro.create({
-          name: `${data.data.name} - ${data.data.type}`,
-          type: "script",
-          img: data.data.img,
-          command: "",
-          flags: { "dnd5e.itemMacro": true }
-      }, { displaySheet: false });
+        console.log("Cannot convert `${data.type}` to macro");
       }
-    }
-  } else {
-    console.log("Cannot convert `${data.type}` to macro");
   }
   console.log(macro);
+  chb.render();
+});
 
-  });
+/*
+        //temporarily hijack assignHotbarMacro to create on CustomHotbar instead
+        oldCreateMacro = game.user.assignHotbarMacro
+        game.user.assignHotbarmacro = customHotbarMacroCreator
+        //Then search Hooks._hooks for the handler you want (since there could be multiple)
+          //_onDrop(event) - Handle clearing slot on drop onto canvas
+
+          // Remove hotbar Macro
+          //if ( ui.CustomHotbar._hover ) game.user.assignHotbarMacro(null, ui.hotbar._hover);
+
+          //call the handler with (bar, data, slot)
+        //restore the original logic 
+        game.user.assignHotbarMacro = oldCreate
+*/
+
 
 //TO DO for 1.5:
 //get betterrolls actor ID... grrr
@@ -521,3 +576,10 @@ Hooks.on("customHotbarDrop", async (chb, data, customSlot) => {
 //shfit-digit keybind
 //delete hover
 //hook pre-delete regualar hot macro??
+//drop from macro directory onto canvas: no available hotbar slot exists error
+
+//CODE REFACTORING?
+//build global scope functions into class?
+//make sure CustomHotbar (case) is only used in Object Type Name.
+//make macroMap named customHotbar, and make it an object instead of an array?
+//renumber custom hotbar slots to +100 per bar?
