@@ -244,14 +244,6 @@ class CustomHotbar extends Hotbar {
   }
 
   /** @override */
-  _onDragStart(event) {
-    const li = event.currentTarget.closest(".macro");
-    if ( !li.dataset.macroId ) return false;
-    const dragData = { type: "Macro", id: li.dataset.macroId, slot: li.dataset.slot };
-    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
-  }
-
-  /** @override */
   async _onDrop(event) {
     event.preventDefault();
 
