@@ -110,6 +110,7 @@ class CustomHotbar extends Hotbar {
     console.log(slot);
     console.log(fromSlot);
     if ( !(macro instanceof Macro) && (macro !== null) ) throw new Error("Invalid Macro provided");
+    const chbMacros = ui.CustomHotbar.macros;
 
     // If a slot was not provided, get the first available slot
     slot = slot ? parseInt(slot) : Array.fromRange(10).find(i => !(i in ui.CustomHotbar));
@@ -125,12 +126,17 @@ class CustomHotbar extends Hotbar {
       await chbUnsetMacro(slot);
     }
 
-    //disabled due to UI limitations?
-if ( fromSlot && (fromSlot in ui.CustomHotbar) ) {
-      delete update.macros[fromSlot];
-      update.macros[`-=${fromSlot}`] = null;
+    //trying to make this bit work. needs to be different beause I have macros as Array instead of Object?
+    if ( fromSlot && (chbMacros[fromSlot]!==null) ) {
+      console.log(`trying to delete slot ${fromSlot} in CustomHotbar`);
+        await chbUnsetMacro(fromSlot);
     }
+
     ui.CustomHotbar.render();
+    //if(game.user.assignHotbarMacro === assignCustomHotbarMacro) {
+    //  console.log("Reverting monkey hotpatch at end of assignCustomHotbarMacro!");
+    //  game.user.assignHotbarMacro = oldCreateMacro; 
+    //}
     return update;
   };
 
@@ -238,6 +244,14 @@ if ( fromSlot && (fromSlot in ui.CustomHotbar) ) {
   }
 
   /** @override */
+  _onDragStart(event) {
+    const li = event.currentTarget.closest(".macro");
+    if ( !li.dataset.macroId ) return false;
+    const dragData = { type: "Macro", id: li.dataset.macroId, slot: li.dataset.slot };
+    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+  }
+
+  /** @override */
   async _onDrop(event) {
     event.preventDefault();
 
@@ -260,7 +274,7 @@ if ( fromSlot && (fromSlot in ui.CustomHotbar) ) {
     
     console.log("Attempting monkey hotpatch!");
     game.user.assignHotbarMacro = this.assignCustomHotbarMacro;
-    if ( Hooks.call("hotbarDrop", this, data, customSlot) === false ) {
+    if ( Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
       //add secondary call here for MQoL/Better rolls? "if _hooks.hotbarDrop or HotbarHandler something something?"
       //issue appears to be with code in area of line 50-70 of MQoL 
       console.log("hotbarDrop not found, reverting monkey hotpatch!")
@@ -277,6 +291,8 @@ if ( fromSlot && (fromSlot in ui.CustomHotbar) ) {
     if ( macro ) {
       console.log("macro provided:");
       console.log(macro);
+      console.log("fromSlot:")
+      console.log(data.slot);
       await game.user.assignHotbarMacro(macro, li.dataset.slot, {fromSlot: data.slot});
     }
 
