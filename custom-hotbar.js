@@ -253,18 +253,24 @@ if ( fromSlot && (fromSlot in ui.CustomHotbar) ) {
 
     // Allow for a Hook function to handle the event
     let customSlot = li.dataset.slot;
-    console.log(li.dataset.slot);
-    console.log(this);
-    console.log(data);
 
-    //temporarily hijack assignHotbarMacro to create on CustomHotbar instead
+    //temporarily hijack assignHotbarMacro to trick core/modules to auto-create macros for CustomHotbar instead
     let oldCreateMacro = {}
     oldCreateMacro = game.user.assignHotbarMacro;
     
     console.log("Attempting monkey hotpatch!");
     game.user.assignHotbarMacro = this.assignCustomHotbarMacro;
-    if ( Hooks.call("hotbarDrop", this, data, customSlot) === false ) return; 
-    console.log("hotbarDrop true");
+    if ( Hooks.call("hotbarDrop", this, data, customSlot) === false ) {
+      //add secondary call here for MQoL/Better rolls? "if _hooks.hotbarDrop or HotbarHandler something something?"
+      //issue appears to be with code in area of line 50-70 of MQoL 
+      console.log("hotbarDrop not found, reverting monkey hotpatch!")
+      game.user.assignHotbarMacro = oldCreateMacro; 
+      return; 
+    } else {
+      console.log("hotbarDrop true");
+    }
+    await sleep(1000);
+ 
 
     // Only handle Macro drops
     const macro = await this._getDropMacro(data);
@@ -274,10 +280,8 @@ if ( fromSlot && (fromSlot in ui.CustomHotbar) ) {
       await game.user.assignHotbarMacro(macro, li.dataset.slot, {fromSlot: data.slot});
     }
 
-    await sleep(10000);
     console.log("Reverting monkey hotpatch!")
     game.user.assignHotbarMacro = oldCreateMacro; 
-    ui.CustomHotbar.render();
   }
 
   /* -------------------------------------------- */
@@ -475,7 +479,7 @@ async function chbItemToMacro(item) {
 }
 
 function sleep(ms) {
-  console.log("Taking a break...");
+  console.log(`Taking a break... for ${ms}ms`);
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
