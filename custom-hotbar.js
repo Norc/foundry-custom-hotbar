@@ -110,7 +110,7 @@ class CustomHotbar extends Hotbar {
     console.log(slot);
     console.log(fromSlot);
     if ( !(macro instanceof Macro) && (macro !== null) ) throw new Error("Invalid Macro provided");
-    const chbMacros = ui.CustomHotbar.macros;
+    const chbMacros = game.user.getFlag('custom-hotbar','chbMacroMap');
 
     // If a slot was not provided, get the first available slot
     slot = slot ? parseInt(slot) : Array.fromRange(10).find(i => !(i in ui.CustomHotbar));
@@ -126,10 +126,22 @@ class CustomHotbar extends Hotbar {
       await chbUnsetMacro(slot);
     }
 
-    //trying to make this bit work. needs to be different beause I have macros as Array instead of Object?
-    if ( fromSlot && (chbMacros[fromSlot]!==null) ) {
-      console.log(`trying to delete slot ${fromSlot} in CustomHotbar`);
+    //is null handled okay?
+    if ( chbMacros[fromSlot] ) { //|| core hotbar fromSlot here) {
+      //check to see if it was moved from CustomHotbar, otherwise remove it from regular hotbar
+      console.log(macro.ID);
+      console.log(chbMacros[fromSlot]);
+      if (chbMacros[fromSlot].value == macro.ID) {
+
+        console.log("internal move detected!");
+        console.log(`trying to delete slot ${fromSlot} in CustomHotbar`);
         await chbUnsetMacro(fromSlot);
+      } else {
+        //make sure I'm not accidentally monkey patched here :P
+        console.log("drop from core macro hotbar detected!");
+        game.user.assignHotbarMacro(null, fromSlot);
+
+      }
     }
 
     ui.CustomHotbar.render();
@@ -246,7 +258,7 @@ class CustomHotbar extends Hotbar {
   /** @override */
   async _onDrop(event) {
     event.preventDefault();
-
+    console.log("custom-hotbar drop detected!");
     // Try to extract the data
     let data;
     try {
