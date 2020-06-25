@@ -521,10 +521,15 @@ at DragDrop._handleDrop (foundry.js:13836)
 
 
 //TO DO for 1.5:
-//edge case when copying from core to custom hotbars (drag and drop straight up, or within 1 slot of either direction, fails to trigger drop event 99% of the time)
-//edge case where if you drag from Custom onto Core, and you have a Core macro in same slot, the core slot is incorrectly blanked.
-//hook pre-delete regualar hotbar macro to deal with canvas drop? Or make the drop handler ONLY handle dropping onto Core or Custom hotbar maybe, if possible?
-//otherwise just wait for 0.7....
+//1. edge case when copying from core to custom hotbars (drag and drop straight up, or within 1 slot of either direction, fails to trigger drop event 99% of the time)
+      // No idea why the hotbar drop isn't DETECTED AT ALL.  
+
+//2. edge case where if you drag from Custom onto Core, and you have a Core macro in same slot, the core slot is incorrectly blanked.
+      //must be somehow passing a fromSlot to the core assignHotbarMacro somehow.
+
+//3. Dropping onto canvas from customHotbar blanks the slot in the core hotbar (which makes sense)
+    //hook pre-delete regualar hotbar macro to deal with canvas drop? Or make the drop handler ONLY handle dropping onto Core or Custom hotbar maybe, if possible?
+    //otherwise just wait for 0.7....
 
 
 //Milestones Future:
