@@ -44,12 +44,12 @@ class CustomHotbar extends Hotbar {
  
   getData(options) {
     this.macros = this._getCustomMacrosByPage(this.page);
-  return {
-    page: this.page,
-    macros: this.macros,
-    barClass: this._collapsed ? "collapsed" : ""
-  };
-}
+    return {
+      page: this.page,
+      macros: this.macros,
+      barClass: this._collapsed ? "collapsed" : ""
+    };
+  }
 
   /* -------------------------------------------- */
 
@@ -68,7 +68,8 @@ class CustomHotbar extends Hotbar {
     m.icon = m.macro ? m.macro.data.img : null;
   }
   return macros;
-}
+ }
+
   _getMacrosByPage(page) {
 	  return this._getCustomMacrosByPage(page);
 	}
@@ -351,33 +352,39 @@ class CustomHotbar extends Hotbar {
     }
   }
 
-}
-
-//TO DO: Remaining Event Handling
-//       Not listed: canvas On-drop event after 0.7, will also re-enable the drag option then.
-
   /* -------------------------------------------- */
 
   /**
-   * Handle number key presses
+   * Handle number key presses for custom hotbar
    * @param {Event} event       The original digit key press
    * @param {boolean} up        Is it a keyup?
    * @param {Object}modifiers   What modifiers affect the keypress?
    * @private
    */
 /*
-   _onDigit(event, up, modifiers) {
-    if ( modifiers.hasFocus || up ) return;
+  _onDigit(event, up, modifiers) {
+  if ( up ) return;
+  if (modifiers.isShift) {
     const num = parseInt(event.key);
-//??     If (modifiers.key is not Shift) {
-    const slot = ui.hotbar.macros.find(m => m.key === num);
-//??     } else {    
-//??     const slot = ui.CustomHotbar.macros.find(m => m.key === num);
-//??     }
+//      const slot = ui.hotbar.macros.find(m => m.key === num);
+    const slot = ui.CustomHotbar.macros.find(m => m.key === num);
     if ( slot.macro ) slot.macro.execute();
     this._handled.add(modifiers.key);
+    }
   }
 */
+}
+
+window.addEventListener('keypress', (e)=>{
+  if( (48 <= e.which <=57)  && e.shiftKey) { 
+    console.log("You pressed shift and:");
+    //translate keypress into slot number
+    const num = parseInt(e.code.slice(e.code.length -1));
+    const slot = ui.CustomHotbar.macros.find(m => m.key === num);
+    if ( ui.CustomHotbar.macros[num] ) slot.macro.execute();
+    //this._handled.add(modifiers.key);
+   }
+});
 
   /* -------------------------------------------- */
 
@@ -499,7 +506,7 @@ Hooks.on("ready", async () => {
 Hooks.on("renderCustomHotbar", async () => {
   console.log("The custom hotbar just rendered!");
   // console.log(chbMacroMap);
-  });
+});
 
 
 /*FIX ERROR
@@ -509,14 +516,14 @@ at User.assignHotbarMacro (foundry.js:29725)
 at Canvas._onDrop (foundry.js:11425)
 at DragDrop.callback (foundry.js:13785)
 at DragDrop._handleDrop (foundry.js:13836)
-*/
+
+Macro execute for spell, than cancel : uncaught in promise, 5e error?)
 
 
 //TO DO for 1.5:
 //shfit-digit keybind
-
+////copy when pasting between hotbars?
 //hook pre-delete regualar hot macro??
-//drop from macro directory onto canvas: no available hotbar slot exists error? Prevent with monkey hotbatch for canvas drop?
 
 
 //Milestones Future:
@@ -527,3 +534,5 @@ at DragDrop._handleDrop (foundry.js:13836)
 //make sure CustomHotbar (case) is only used in Object Type Name.
 //make macroMap named customHotbar, and make it an object instead of an array?
 //renumber custom hotbar slots to +100 per bar?
+*/
+

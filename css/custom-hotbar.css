@@ -84,6 +84,17 @@ pointer-events: all;
     font-weight: bold;
 }
 
+#custom-hotbar .macro .custom-macro-key {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    padding: 1px 3px;
+    background: #111;
+    color: #f0f0e0;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
 #custom-hotbar img {
     box-sizing: border-box;
     border-radius: px;

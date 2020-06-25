@@ -12,7 +12,7 @@
             {{#each macros}}
             <li class="macro {{this.cssClass}}" data-slot="{{this.slot}}"
                 {{#if this.macro}}data-macro-id="{{this.macro._id}}"{{/if}}>
-                <span class="macro-key">{{this.key}}</span>
+                <span class="custom-macro-key">Sh-{{this.key}}</span>
                 {{#if this.icon}}
                 <img class="macro-icon" src="{{this.icon}}"/>
                 {{/if}}
