@@ -105,7 +105,7 @@ class CustomHotbar extends Hotbar {
    * @return {Promise}          A Promise which resolves once the User update is complete
    */
   async assignCustomHotbarMacro(macro, slot, {fromSlot=null}={}) {
-    console.log("In assignCustomHotbarMarcro")
+    console.log("In assignCustomHotbarMarcro");
     console.log(macro);
     console.log(slot);
     console.log(fromSlot);
@@ -145,10 +145,8 @@ class CustomHotbar extends Hotbar {
     }
 
     ui.CustomHotbar.render();
-    //if(game.user.assignHotbarMacro === assignCustomHotbarMacro) {
-    //  console.log("Reverting monkey hotpatch at end of assignCustomHotbarMacro!");
-    //  game.user.assignHotbarMacro = oldCreateMacro; 
-    //}
+    //new code suggested by tposney. creates hook to allow reassignment of monky hotpatch?
+    Hooks.callAll("customHotbarAssignComplete");
     return update;
   };
 
@@ -273,12 +271,13 @@ class CustomHotbar extends Hotbar {
     let customSlot = li.dataset.slot;
 
     //temporarily hijack assignHotbarMacro to trick core/modules to auto-create macros for CustomHotbar instead
-    let oldCreateMacro = {}
-    oldCreateMacro = game.user.assignHotbarMacro;
-    
+    //revert once assign custom macro complete
     console.log("Attempting monkey hotpatch!");
-    game.user.assignHotbarMacro = this.assignCustomHotbarMacro;
-    if ( Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
+    let coreAssignHotbarMacro = game.user.assignHotbarMacro;
+    game.user.assignHotbarMacro = this.assignCustomHotbarMacro; 
+    Hooks.once("customHotbarAssignComplete", () => game.user.assignHotbarMacro = coreAssignHotbarMacro);
+  
+    if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
       //add secondary call here for MQoL/Better rolls? "if _hooks.hotbarDrop or HotbarHandler something something?"
       //issue appears to be with code in area of line 50-70 of MQoL 
       console.log("hotbarDrop not found, reverting monkey hotpatch!")
@@ -287,9 +286,7 @@ class CustomHotbar extends Hotbar {
     } else {
       console.log("hotbarDrop true");
     }
-    await sleep(1000);
  
-
     // Only handle Macro drops
     const macro = await this._getDropMacro(data);
     if ( macro ) {
@@ -299,9 +296,6 @@ class CustomHotbar extends Hotbar {
       console.log(data.slot);
       await game.user.assignHotbarMacro(macro, li.dataset.slot, {fromSlot: data.slot});
     }
-
-    console.log("Reverting monkey hotpatch!")
-    game.user.assignHotbarMacro = oldCreateMacro; 
   }
 
   /* -------------------------------------------- */
@@ -498,11 +492,6 @@ async function chbItemToMacro(item) {
   return macro;
 }
 
-function sleep(ms) {
-  console.log(`Taking a break... for ${ms}ms`);
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 Hooks.on("ready", async () => {
   customHotbarInit();
 });
@@ -524,8 +513,6 @@ at DragDrop._handleDrop (foundry.js:13836)
 
 
 //TO DO for 1.5:
-//get betterrolls actor ID... grrr
-//set fromSlot for on-drop?
 //shfit-digit keybind
 
 //hook pre-delete regualar hot macro??
