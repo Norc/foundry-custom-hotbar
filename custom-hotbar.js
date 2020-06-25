@@ -129,19 +129,30 @@ class CustomHotbar extends Hotbar {
 
     //is null handled okay?
     //if ( chbMacros[fromSlot] ) { //|| core hotbar fromSlot here) {
-      //check to see if it was moved from CustomHotbar, otherwise remove it from regular hotbar
-    //  console.log(macro.ID);
-    //  console.log(chbMacros[fromSlot]);
+    console.log("Finding move origin");
     if ( fromSlot ) {
-      console.log("internal move detected!");
-      console.log(`trying to delete slot ${fromSlot} in CustomHotbar`);
-      await chbUnsetMacro(fromSlot);
-    } else {
-      console.log("drop from core macro hotbar detected!");
-//        game.user.assignHotbarMacro(null, fromSlot);
-    }
-    //  }
+//      fromSlot-=1;
+      console.log(macro);
+      console.log(fromSlot);
+      console.log(ui.CustomHotbar.macros);
+      //not really sure why I need this -1 kludge
+      console.log(ui.CustomHotbar.macros[fromSlot-1].macro);
+      console.log(ui.CustomHotbar.macros[fromSlot-1].macro === macro);
 
+      //IMPROVE THIS LOGIC TO DETECT CROSS-BAR DROPS      
+      if (ui.CustomHotbar.macros[fromSlot-1].macro === macro) {
+        console.log("internal move detected!");
+        if ( fromSlot != slot ) {
+          console.log(`trying to delete slot ${fromSlot} in CustomHotbar`);
+          await chbUnsetMacro(fromSlot);
+        }
+      } else {
+        console.log("drop from core macro hotbar detected!");
+        //game.user.assignHotbarMacro(macro, fromSlot);
+      }
+    } else {
+      console.log("non-hotbar drop detected!");
+    }
 
     ui.CustomHotbar.render();
     //new code suggested by tposney. creates hook to allow reassignment of monky hotpatch?
@@ -254,6 +265,8 @@ class CustomHotbar extends Hotbar {
 
   /** @override */
   async _onDrop(event) {
+    //NOT SURE WHY IT WORKS BETTER WITH THIS COMMENTED OUT
+    //need to comment out in core code?
     //event.preventDefault();
     console.log("custom-hotbar drop detected!");
     // Try to extract the data
@@ -293,7 +306,7 @@ class CustomHotbar extends Hotbar {
       console.log(macro);
       console.log("fromSlot:")
       console.log(data.slot);
-      await game.user.assignHotbarMacro(macro, li.dataset.slot, {fromSlot: data.slot});
+      await game.user.assignHotbarMacro(macro, customSlot, {fromSlot: data.slot});
     }
   }
 
@@ -351,16 +364,7 @@ class CustomHotbar extends Hotbar {
   }
 }
 
-window.addEventListener('keypress', (e)=>{
-  if( (48 <= e.which <=57)  && e.shiftKey) { 
-    console.log("You pressed shift and:");
-    //translate keypress into slot number
-    const num = parseInt(e.code.slice(e.code.length -1));
-    const slot = ui.CustomHotbar.macros.find(m => m.key === num);
-    if ( ui.CustomHotbar.macros[num] ) slot.macro.execute();
-    //this._handled.add(modifiers.key);
-   }
-});
+
 
 //does this even work with Custom Hotbar disabled? it does not seem to for core Hotbar when Custom Hotbar is on.
   /* -------------------------------------------- */
@@ -476,6 +480,18 @@ async function chbItemToMacro(item) {
   return macro;
 }
 
+window.addEventListener('keypress', (e)=>{
+  if( (48 <= e.which <=57)  && e.shiftKey) { 
+    console.log("You pressed shift and:");
+    //translate keypress into slot number
+    const num = parseInt(e.code.slice(e.code.length -1));
+    const slot = ui.CustomHotbar.macros.find(m => m.key === num);
+    if ( ui.CustomHotbar.macros[num] ) slot.macro.execute();
+    //not sure what to do here
+    //this._handled.add(modifiers.key);
+   }
+});
+
 Hooks.on("ready", async () => {
   customHotbarInit();
 });
@@ -486,20 +502,25 @@ Hooks.on("renderCustomHotbar", async () => {
 });
 
 
-/*FIX ERROR
-file directory to canvas: 
+/*ERRORS/ISSUES WITH CORE (LOL, SHRUG)
+0.6.4, DND 5E 0.93 (ALL MODS DISABLED)
+
+1. file directory to canvas: 
 foundry.js:29725 Uncaught (in promise) Error: No available Hotbar slot exists
 at User.assignHotbarMacro (foundry.js:29725)
 at Canvas._onDrop (foundry.js:11425)
 at DragDrop.callback (foundry.js:13785)
 at DragDrop._handleDrop (foundry.js:13836)
 
-Macro execute for spell, than cancel : uncaught in promise, 5e error?)
+2. Macro execute for spell, than cancel : uncaught in promise, 5e error?)
+
+3. Drag macro onto itself, it is removed
+
 
 
 //TO DO for 1.5:
 //edge case when copying pasting between hotbars (must have core macro, and must not be a "straight up" drag and drop)
-//edge case where if you drag from Custom onto Core, the Corde slot "straight down" is cleared (related to above, I'm sure)
+//edge case where if you drag from Custom onto Core, the Core slot "straight down" is cleared (related to above, I'm sure)
 //hook pre-delete regualar hotbar macro to deal with canvas drop? Or make the drop handler ONLY handle dropping onto Core or Custom hotbar maybe, if possible?
 //otherwise just wait for 0.7....
 
