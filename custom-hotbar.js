@@ -128,22 +128,20 @@ class CustomHotbar extends Hotbar {
     }
 
     //is null handled okay?
-    if ( chbMacros[fromSlot] ) { //|| core hotbar fromSlot here) {
+    //if ( chbMacros[fromSlot] ) { //|| core hotbar fromSlot here) {
       //check to see if it was moved from CustomHotbar, otherwise remove it from regular hotbar
-      console.log(macro.ID);
-      console.log(chbMacros[fromSlot]);
-      if (chbMacros[fromSlot].value == macro.ID) {
-
-        console.log("internal move detected!");
-        console.log(`trying to delete slot ${fromSlot} in CustomHotbar`);
-        await chbUnsetMacro(fromSlot);
-      } else {
-        //make sure I'm not accidentally monkey patched here :P
-        console.log("drop from core macro hotbar detected!");
-        game.user.assignHotbarMacro(null, fromSlot);
-
-      }
+    //  console.log(macro.ID);
+    //  console.log(chbMacros[fromSlot]);
+    if ( fromSlot ) {
+      console.log("internal move detected!");
+      console.log(`trying to delete slot ${fromSlot} in CustomHotbar`);
+      await chbUnsetMacro(fromSlot);
+    } else {
+      console.log("drop from core macro hotbar detected!");
+//        game.user.assignHotbarMacro(null, fromSlot);
     }
+    //  }
+
 
     ui.CustomHotbar.render();
     //new code suggested by tposney. creates hook to allow reassignment of monky hotpatch?
@@ -256,7 +254,7 @@ class CustomHotbar extends Hotbar {
 
   /** @override */
   async _onDrop(event) {
-    event.preventDefault();
+    //event.preventDefault();
     console.log("custom-hotbar drop detected!");
     // Try to extract the data
     let data;
@@ -282,7 +280,7 @@ class CustomHotbar extends Hotbar {
       //add secondary call here for MQoL/Better rolls? "if _hooks.hotbarDrop or HotbarHandler something something?"
       //issue appears to be with code in area of line 50-70 of MQoL 
       console.log("hotbarDrop not found, reverting monkey hotpatch!")
-      game.user.assignHotbarMacro = oldCreateMacro; 
+      game.user.assignHotbarMacro = coreAssignHotbarMacro; 
       return; 
     } else {
       console.log("hotbarDrop true");
@@ -351,28 +349,6 @@ class CustomHotbar extends Hotbar {
       return game.macros.get(data.id);
     }
   }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Handle number key presses for custom hotbar
-   * @param {Event} event       The original digit key press
-   * @param {boolean} up        Is it a keyup?
-   * @param {Object}modifiers   What modifiers affect the keypress?
-   * @private
-   */
-/*
-  _onDigit(event, up, modifiers) {
-  if ( up ) return;
-  if (modifiers.isShift) {
-    const num = parseInt(event.key);
-//      const slot = ui.hotbar.macros.find(m => m.key === num);
-    const slot = ui.CustomHotbar.macros.find(m => m.key === num);
-    if ( slot.macro ) slot.macro.execute();
-    this._handled.add(modifiers.key);
-    }
-  }
-*/
 }
 
 window.addEventListener('keypress', (e)=>{
@@ -386,6 +362,7 @@ window.addEventListener('keypress', (e)=>{
    }
 });
 
+//does this even work with Custom Hotbar disabled? it does not seem to for core Hotbar when Custom Hotbar is on.
   /* -------------------------------------------- */
 
   /**
@@ -521,13 +498,14 @@ Macro execute for spell, than cancel : uncaught in promise, 5e error?)
 
 
 //TO DO for 1.5:
-//shfit-digit keybind
-////copy when pasting between hotbars?
-//hook pre-delete regualar hot macro??
+//edge case when copying pasting between hotbars (must have core macro, and must not be a "straight up" drag and drop)
+//edge case where if you drag from Custom onto Core, the Corde slot "straight down" is cleared (related to above, I'm sure)
+//hook pre-delete regualar hotbar macro to deal with canvas drop? Or make the drop handler ONLY handle dropping onto Core or Custom hotbar maybe, if possible?
+//otherwise just wait for 0.7....
 
 
 //Milestones Future:
-//delete hover
+//delete hover?
 
 //CODE REFACTORING?
 //build global scope functions into class?
