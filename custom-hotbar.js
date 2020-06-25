@@ -131,7 +131,6 @@ class CustomHotbar extends Hotbar {
     //if ( chbMacros[fromSlot] ) { //|| core hotbar fromSlot here) {
     console.log("Finding move origin");
     if ( fromSlot ) {
-//      fromSlot-=1;
       console.log(macro);
       console.log(fromSlot);
       console.log(ui.CustomHotbar.macros);
@@ -289,6 +288,7 @@ class CustomHotbar extends Hotbar {
     game.user.assignHotbarMacro = this.assignCustomHotbarMacro; 
     Hooks.once("customHotbarAssignComplete", () => game.user.assignHotbarMacro = coreAssignHotbarMacro);
   
+    //does this need to be set to false when done?
     if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
       //add secondary call here for MQoL/Better rolls? "if _hooks.hotbarDrop or HotbarHandler something something?"
       //issue appears to be with code in area of line 50-70 of MQoL 
@@ -516,11 +516,13 @@ at DragDrop._handleDrop (foundry.js:13836)
 
 3. Drag macro onto itself, it is removed
 
+4. Sometimes when you drag off of core, a ghost set of slots to left and right of core slot is grabbed also. Seems to happen if you click near a border between macro slots.
+
 
 
 //TO DO for 1.5:
-//edge case when copying pasting between hotbars (must have core macro, and must not be a "straight up" drag and drop)
-//edge case where if you drag from Custom onto Core, the Core slot "straight down" is cleared (related to above, I'm sure)
+//edge case when copying from core to custom hotbars (drag and drop straight up, or within 1 slot of either direction, fails to trigger drop event 99% of the time)
+//edge case where if you drag from Custom onto Core, and you have a Core macro in same slot, the core slot is incorrectly blanked.
 //hook pre-delete regualar hotbar macro to deal with canvas drop? Or make the drop handler ONLY handle dropping onto Core or Custom hotbar maybe, if possible?
 //otherwise just wait for 0.7....
 
@@ -534,4 +536,3 @@ at DragDrop._handleDrop (foundry.js:13836)
 //make macroMap named customHotbar, and make it an object instead of an array?
 //renumber custom hotbar slots to +100 per bar?
 */
-
