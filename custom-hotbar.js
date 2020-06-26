@@ -264,9 +264,7 @@ class CustomHotbar extends Hotbar {
 
   /** @override */
   async _onDrop(event) {
-    //NOT SURE WHY IT WORKS BETTER WITH THIS COMMENTED OUT
-    //need to comment out in core code?
-    //event.preventDefault();
+    event.preventDefault();
     console.log("custom-hotbar drop detected!");
     // Try to extract the data
     let data;
@@ -281,12 +279,16 @@ class CustomHotbar extends Hotbar {
     // Allow for a Hook function to handle the event
     let customSlot = li.dataset.slot;
 
-    //temporarily hijack assignHotbarMacro to trick core/modules to auto-create macros for CustomHotbar instead
+    //If needed, temporarily hijack assignHotbarMacro to trick core/modules to auto-create macros for CustomHotbar instead
+    //only needs to be done when dropping an item onto the Custom Hotbar.
     //revert once assign custom macro complete
-    console.log("Attempting monkey hotpatch!");
-    let coreAssignHotbarMacro = game.user.assignHotbarMacro;
-    game.user.assignHotbarMacro = this.assignCustomHotbarMacro; 
-    Hooks.once("customHotbarAssignComplete", () => game.user.assignHotbarMacro = coreAssignHotbarMacro);
+    console.log(data.type);
+    if (data.type == "Item") {
+      console.log("Attempting monkey hotpatch!");
+      let coreAssignHotbarMacro = game.user.assignHotbarMacro;
+      game.user.assignHotbarMacro = this.assignCustomHotbarMacro; 
+      Hooks.once("customHotbarAssignComplete", () => game.user.assignHotbarMacro = coreAssignHotbarMacro);
+    }
   
     //does this need to be set to false when done?
     if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
@@ -299,14 +301,21 @@ class CustomHotbar extends Hotbar {
       console.log("hotbarDrop true");
     }
  
-    // Only handle Macro drops
+    // Only handles Macro drops
     const macro = await this._getDropMacro(data);
     if ( macro ) {
       console.log("macro provided:");
       console.log(macro);
       console.log("fromSlot:")
       console.log(data.slot);
-      await game.user.assignHotbarMacro(macro, customSlot, {fromSlot: data.slot});
+      //attempted bugfix?
+      if (game.user.assignHotbarMacro === this.assignCustomHotbarMacro) {
+        console.log("monkey hotpatch active");
+        await game.user.assignHotbarMacro(macro, customSlot, {fromSlot: data.slot});
+      } else {
+        console.log("monkey hotpatch NOT active");
+        await this.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.slot});
+      }
     }
   }
 
