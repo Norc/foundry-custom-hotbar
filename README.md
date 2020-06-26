@@ -1,11 +1,11 @@
 # Custom Hotbar
 Foundry VTT module to add an extra functional macro hotbar above the first. 
 
+**PLEASE NOTE:** This is an early BETA version! There a few known issues involving dragging and dropping between the Core hotbar and the Custom Hotbar. Dragging from Custom Hotbar and dropping on the Canvas also will not be supported until Foundry 0.70.
+
+Everything else should be fully functional.
+
 **Manifest**: Use this manifest link to install the module(https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/master/module.json), or manually deploy the zip file from the Dist folder.
-
-
-
-**PLEASE NOTE:** This is an early BETA version! Certain features have not yet been implemented, such as dragging macros onto the hotbar from the usual Macro hotbar or from a character sheet. Dragging onto the hotbar from the Modules folder or clicking a blank macro slot are the current methods to set macros onto the Custom Hotbar. Improved event handling will be released soon.
 
 **Features:**
 • Adds easy access to 10 additional macros in a separate visual grouping
@@ -15,6 +15,13 @@ Foundry VTT module to add an extra functional macro hotbar above the first.
 • Fully system agnostic
 
 **Changelog:**
+INITIAL BETA RELEASE:
+*v0.1.0* (2020/06/25)
+1. Added ability to automatically handle dragging from character sheet onto custom hotbar, including full MQoL and BetterRolls support.
+2. Added keybinding for CHB: Shift + slot number
+3. Added support for dragging macros around from one CustomHotbar slot to another
+4. General improvements/bugfixes
+
 *v0.0.5* (2020/06/14)
 Basic macro hotbar functionality established (writing to and reading from User.Data.Flags. Also handles the most important events to allow basic custom hotbar funtionality to be performed.
 
@@ -22,9 +29,11 @@ Basic macro hotbar functionality established (writing to and reading from User.D
 Initial version to attempt to display the hotbar in any fashion.
 
 **Roadmap:**
- • Continue to mimic regular Macro Hotbar behavior for new events
+ • Add ability to create multiple Custom Hotbars, not just one
+ • Add ability to pop out Custom Hotbars to new locations
+ • Add option to unlock Custom Hotbar pages 2-5
+ • Add ability to highlight hotbar if various flags/system values are present
+ • Add integraction with Color Picker library to allow control over Custom Hotbar appearance
+ • Continue to mimic regular Macro Hotbar behavior as closely as possible
  • Minor refactoring of code and UI now that basic functionality established
- • Add keyboard shortcut support (shift-digit)
- • Add option to unlock Custom Hotbar rows 2-5
- • Investigate if renumbering slots to 101, 102, etc has any benefits
  *Post 0.7:* Use new Canvas OnDrop hook to allow starting a drag maneuver. This will allow the last missing Hotbar functionality to be added.
