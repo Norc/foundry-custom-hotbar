@@ -152,7 +152,7 @@ class CustomHotbar extends Hotbar {
     } else {
       console.log("non-hotbar drop detected!");
     }
-
+ 
     ui.CustomHotbar.render();
     //new code suggested by tposney. creates hook to allow reassignment of monky hotpatch?
     Hooks.callAll("customHotbarAssignComplete");
