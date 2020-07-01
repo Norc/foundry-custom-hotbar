@@ -117,12 +117,9 @@ export class CustomHotbar extends Hotbar {
    * @return {Promise}          A Promise which resolves once the User update is complete
    */
   async assignCustomHotbarMacro(macro, slot, {fromSlot=null}={}) {
-    console.log("In assignCustomHotbarMarcro");
-    console.log(macro);
-    console.log(slot);
-    console.log(fromSlot);
+    console.debug("Custom Hotbar | assignCustomHotbarMarcro", macro, slot, fromSlot);
     if ( !(macro instanceof Macro) && (macro !== null) ) throw new Error("Invalid Macro provided");
-    const chbMacros = this.populator.chbGetMacros();
+    // const chbMacros = this.populator.chbGetMacros();
 
     // If a slot was not provided, get the first available slot
     slot = slot ? parseInt(slot) : Array.fromRange(10).find(i => !(i in ui.CustomHotbar));
@@ -131,37 +128,34 @@ export class CustomHotbar extends Hotbar {
 
     // Update the hotbar data
     const update = duplicate(ui.CustomHotbar);
-    console.log(slot);
+    console.debug("Custom Hotbar |", slot);
     if ( macro ) await this.populator.chbSetMacro(macro.id,slot);
     else {
-      console.log('Unsetting!');
+      console.debug('Custom Hotbar | Unsetting!');
       await this.populator.chbUnsetMacro(slot);
     }
 
     //is null handled okay?
     //if ( chbMacros[fromSlot] ) { //|| core hotbar fromSlot here) {
-    console.log("Finding move origin");
+    console.debug("Custom Hotbar | Finding move origin");
     if ( fromSlot ) {
-      console.log(macro);
-      console.log(fromSlot);
-      console.log(ui.CustomHotbar.macros);
+      console.debug("Custom Hotbar |", ui.CustomHotbar.macros);
       //not really sure why I need this -1 kludge
-      console.log(ui.CustomHotbar.macros[fromSlot-1].macro);
-      console.log(ui.CustomHotbar.macros[fromSlot-1].macro === macro);
+      console.debug("Custom Hotbar |", ui.CustomHotbar.macros[fromSlot-1]?.macro, ui.CustomHotbar.macros[fromSlot-1]?.macro === macro);
 
       //IMPROVE THIS LOGIC TO DETECT CROSS-BAR DROPS      
-      if (ui.CustomHotbar.macros[fromSlot-1].macro === macro) {
-        console.log("internal move detected!");
+      if (ui.CustomHotbar.macros[fromSlot-1]?.macro === macro) {
+        console.debug("Custom Hotbar | internal move detected!");
         if ( fromSlot != slot ) {
-          console.log(`trying to delete slot ${fromSlot} in CustomHotbar`);
+          console.debug(`Custom Hotbar | trying to delete slot ${fromSlot} in CustomHotbar`);
           await this.populator.chbUnsetMacro(fromSlot);
         }
       } else {
-        console.log("drop from core macro hotbar detected!");
+        console.debug("Custom Hotbar | drop from core macro hotbar detected!");
         //game.user.assignHotbarMacro(macro, fromSlot);
       }
     } else {
-      console.log("non-hotbar drop detected!");
+      console.debug("Custom Hotbar | non-hotbar drop detected!");
     }
  
     ui.CustomHotbar.render();
@@ -276,7 +270,7 @@ export class CustomHotbar extends Hotbar {
   /** @override */
   async _onDrop(event) {
     event.preventDefault();
-    console.log("custom-hotbar drop detected!");
+    console.debug("Custom Hotbar | custom-hotbar drop detected!");
     // Try to extract the data
     let data;
     try {
@@ -293,11 +287,11 @@ export class CustomHotbar extends Hotbar {
     //If needed, temporarily hijack assignHotbarMacro to trick core/modules to auto-create macros for CustomHotbar instead
     //only needs to be done when dropping an item onto the Custom Hotbar.
     //revert once assign custom macro complete
-    console.log(data.type);
+    console.debug("Custom Hotbar | Dropped type:", data.type);
     if (data.type == "Item") {
-      console.log("Attempting monkey hotpatch!");
+      console.debug("Custom Hotbar | Attempting monkey hotpatch!");
       let coreAssignHotbarMacro = game.user.assignHotbarMacro;
-      game.user.assignHotbarMacro = this.assignCustomHotbarMacro; 
+      game.user.assignHotbarMacro = this.assignCustomHotbarMacro.bind(this); 
       Hooks.once("customHotbarAssignComplete", () => game.user.assignHotbarMacro = coreAssignHotbarMacro);
     }
   
@@ -305,26 +299,23 @@ export class CustomHotbar extends Hotbar {
     if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
       //add secondary call here for MQoL/Better rolls? "if _hooks.hotbarDrop or HotbarHandler something something?"
       //issue appears to be with code in area of line 50-70 of MQoL 
-      console.log("hotbarDrop not found, reverting monkey hotpatch!")
+      console.debug("Custom Hotbar | hotbarDrop not found, reverting monkey hotpatch!")
       game.user.assignHotbarMacro = coreAssignHotbarMacro; 
       return; 
     } else {
-      console.log("hotbarDrop true");
+      console.debug("Custom Hotbar | hotbarDrop true");
     }
  
     // Only handles Macro drops
     const macro = await this._getDropMacro(data);
     if ( macro ) {
-      console.log("macro provided:");
-      console.log(macro);
-      console.log("fromSlot:")
-      console.log(data.slot);
+      console.debug("Custom Hotbar | macro provided:", macro, "fromSlot", data.slot);
       //attempted bugfix?
+      // Is this necessary? We want to call `assignCustomHotbarMacro` either way right? Doesn't matter if it's via monkey patch or not.
+      console.debug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
       if (game.user.assignHotbarMacro === this.assignCustomHotbarMacro) {
-        console.log("monkey hotpatch active");
         await game.user.assignHotbarMacro(macro, customSlot, {fromSlot: data.slot});
       } else {
-        console.log("monkey hotpatch NOT active");
         await this.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.slot});
       }
     }
@@ -362,8 +353,7 @@ export class CustomHotbar extends Hotbar {
    * @private
    */
   async _getDropMacro(data) {
-    console.log("in _getDropMacro");
-    console.log(data);
+    console.debug("Custom Hotbar | in _getDropMacro", data);
     if ( data.type !== "Macro" ) return null;
 
     // Case 1 - Data explicitly provided (but no ID)

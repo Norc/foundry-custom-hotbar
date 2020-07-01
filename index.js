@@ -1,5 +1,5 @@
-import { CustomHotbarPopulator }  from './custom-hotbar-populator';
-import { CustomHotbar }  from './custom-hotbar';
+import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
+import { CustomHotbar }  from './custom-hotbar.js';
 
 async function customHotbarInit() { 
   const populator = new CustomHotbarPopulator();
@@ -26,7 +26,7 @@ Hooks.on("ready", async () => {
     if( (48 <= e.which <=57)  && e.shiftKey) { 
       //translate keypress into slot number
       const num = parseInt(e.code.slice(e.code.length -1));
-      console.log("You pressed shift and:", num);
+      console.log("Custom Hotbar | You pressed shift and:", num);
       const slot = ui.CustomHotbar.macros.find(m => m.key === num);
       if ( ui.CustomHotbar.macros[num] ) slot.macro.execute();
       //not sure what to do here

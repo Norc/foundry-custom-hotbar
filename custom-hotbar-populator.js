@@ -61,7 +61,7 @@ export class CustomHotbarPopulator {
         return this._updateFlags();
     }
 
-    _updateFlags() {
+    async _updateFlags() {
         await game.user.unsetFlag('custom-hotbar', 'chbMacroMap');
         return game.user.setFlag('custom-hotbar', 'chbMacroMap', this.macroMap);
     }
