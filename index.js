@@ -2,8 +2,8 @@ import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
 
 async function customHotbarInit() { 
-  const populator = new CustomHotbarPopulator();
-  ui.CustomHotbar = new CustomHotbar(populator);
+  window.CustomHotbar = new CustomHotbarPopulator();
+  ui.CustomHotbar = new CustomHotbar(window.CustomHotbar);
   ui.CustomHotbar.macros = ui.CustomHotbar.getData();
   let obj = {
       left: 100,
