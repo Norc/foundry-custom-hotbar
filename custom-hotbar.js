@@ -1,29 +1,43 @@
-class CustomHotbar extends Hotbar {
-    //copied from foundy.js line 21117 on 20200611
-	constructor(options) {
-        super(options);
-        game.macros.apps.push(this);
-      /**
-       * The currently viewed macro page
-       * @type {number}
-       */
-      this.page = 1;
-      /**
-       * The currently displayed set of macros
-       * @type {Array}
-       */
-      this.macros = [];
-      /**
-       * Track collapsed state
-       * @type {boolean}
-       */
-      this._collapsed = false;
-      /**
-       * Track which hotbar slot is the current hover target, if any
-       * @type {number|null}
-       */
-      this._hover = null;
-    }
+export class CustomHotbar extends Hotbar {
+    //copied from foundry.js line 21117 on 20200611
+    /**
+     * @param {CustomHotbarPopulator} populator
+     * @param {*} options 
+     */
+	constructor(populator, options) {
+    super(options);
+    game.macros.apps.push(this);
+    /**
+     * The currently viewed macro page
+     * @type {number}
+     */
+    this.page = 1;
+    /**
+     * The currently displayed set of macros
+     * @type {Array}
+     */
+    this.macros = [];
+    /**
+     * Track collapsed state
+     * @type {boolean}
+     */
+    this._collapsed = false;
+    /**
+     * Track which hotbar slot is the current hover target, if any
+     * @type {number|null}
+     */
+    this._hover = null;
+
+    /**
+     * 
+     */
+    this.customMacros = [];
+
+    /**
+     * 
+     */
+    this.populator = populator;
+  }
   
   /** @override */
   static get defaultOptions() {
@@ -37,11 +51,9 @@ class CustomHotbar extends Hotbar {
     });
   }    
 
-  
 	/* -------------------------------------------- */
 
   /** @override */
- 
   getData(options) {
     this.macros = this._getCustomMacrosByPage(this.page);
     return {
@@ -59,16 +71,15 @@ class CustomHotbar extends Hotbar {
  * @returns {Array}
  * @private
  */
-
- _getCustomMacrosByPage(page) { 
-  const macros = this.getCustomHotbarMacros(page);
-  for ( let [i, m] of macros.entries() ) {
-    m.key = i<9 ? i+1 : 0;
-    m.cssClass = m.macro ? "active" : "inactive";
-    m.icon = m.macro ? m.macro.data.img : null;
+  _getCustomMacrosByPage(page) { 
+    const macros = this.getCustomHotbarMacros(page);
+    for ( let [i, m] of macros.entries() ) {
+      m.key = i<9 ? i+1 : 0;
+      m.cssClass = m.macro ? "active" : "inactive";
+      m.icon = m.macro ? m.macro.data.img : null;
+    }
+    return macros;
   }
-  return macros;
- }
 
   _getMacrosByPage(page) {
 	  return this._getCustomMacrosByPage(page);
@@ -83,7 +94,7 @@ class CustomHotbar extends Hotbar {
    */
   getCustomHotbarMacros(page=1) {
     const macros = Array.fromRange(50).map(m => null);
-    for ( let [k, v] of Object.entries(game.user.getFlag("custom-hotbar","chbMacroMap")) ) {
+    for ( let [k, v] of Object.entries(this.populator.chbGetMacros())) {
       macros[parseInt(k)-1] = v
     }
     const start = (page-1) * 10;
@@ -106,12 +117,9 @@ class CustomHotbar extends Hotbar {
    * @return {Promise}          A Promise which resolves once the User update is complete
    */
   async assignCustomHotbarMacro(macro, slot, {fromSlot=null}={}) {
-    console.log("In assignCustomHotbarMarcro");
-    console.log(macro);
-    console.log(slot);
-    console.log(fromSlot);
+    console.debug("Custom Hotbar | assignCustomHotbarMarcro", macro, slot, fromSlot);
     if ( !(macro instanceof Macro) && (macro !== null) ) throw new Error("Invalid Macro provided");
-    const chbMacros = game.user.getFlag('custom-hotbar','chbMacroMap');
+    // const chbMacros = this.populator.chbGetMacros();
 
     // If a slot was not provided, get the first available slot
     slot = slot ? parseInt(slot) : Array.fromRange(10).find(i => !(i in ui.CustomHotbar));
@@ -120,37 +128,34 @@ class CustomHotbar extends Hotbar {
 
     // Update the hotbar data
     const update = duplicate(ui.CustomHotbar);
-    console.log(slot);
-    if ( macro ) await chbSetMacro(macro.id,slot);
+    console.debug("Custom Hotbar |", slot);
+    if ( macro ) await this.populator.chbSetMacro(macro.id,slot);
     else {
-      console.log('Unsetting!');
-      await chbUnsetMacro(slot);
+      console.debug('Custom Hotbar | Unsetting!');
+      await this.populator.chbUnsetMacro(slot);
     }
 
     //is null handled okay?
     //if ( chbMacros[fromSlot] ) { //|| core hotbar fromSlot here) {
-    console.log("Finding move origin");
+    console.debug("Custom Hotbar | Finding move origin");
     if ( fromSlot ) {
-      console.log(macro);
-      console.log(fromSlot);
-      console.log(ui.CustomHotbar.macros);
+      console.debug("Custom Hotbar |", ui.CustomHotbar.macros);
       //not really sure why I need this -1 kludge
-      console.log(ui.CustomHotbar.macros[fromSlot-1].macro);
-      console.log(ui.CustomHotbar.macros[fromSlot-1].macro === macro);
+      console.debug("Custom Hotbar |", ui.CustomHotbar.macros[fromSlot-1]?.macro, ui.CustomHotbar.macros[fromSlot-1]?.macro === macro);
 
       //IMPROVE THIS LOGIC TO DETECT CROSS-BAR DROPS      
-      if (ui.CustomHotbar.macros[fromSlot-1].macro === macro) {
-        console.log("internal move detected!");
+      if (ui.CustomHotbar.macros[fromSlot-1]?.macro === macro) {
+        console.debug("Custom Hotbar | internal move detected!");
         if ( fromSlot != slot ) {
-          console.log(`trying to delete slot ${fromSlot} in CustomHotbar`);
-          await chbUnsetMacro(fromSlot);
+          console.debug(`Custom Hotbar | trying to delete slot ${fromSlot} in CustomHotbar`);
+          await this.populator.chbUnsetMacro(fromSlot);
         }
       } else {
-        console.log("drop from core macro hotbar detected!");
+        console.debug("Custom Hotbar | drop from core macro hotbar detected!");
         //game.user.assignHotbarMacro(macro, fromSlot);
       }
     } else {
-      console.log("non-hotbar drop detected!");
+      console.debug("Custom Hotbar | non-hotbar drop detected!");
     }
  
     ui.CustomHotbar.render();
@@ -251,7 +256,7 @@ class CustomHotbar extends Hotbar {
   /*  Event Listeners and Handlers
 	/* -------------------------------------------- */
   /** @override */
-    activateListeners(html) {
+  activateListeners(html) {
     super.activateListeners(html);
     // Macro actions
     html.find('#custom-bar-toggle').click(this._onToggleBar.bind(this));
@@ -265,7 +270,7 @@ class CustomHotbar extends Hotbar {
   /** @override */
   async _onDrop(event) {
     event.preventDefault();
-    console.log("custom-hotbar drop detected!");
+    console.debug("Custom Hotbar | custom-hotbar drop detected!");
     // Try to extract the data
     let data;
     try {
@@ -282,11 +287,11 @@ class CustomHotbar extends Hotbar {
     //If needed, temporarily hijack assignHotbarMacro to trick core/modules to auto-create macros for CustomHotbar instead
     //only needs to be done when dropping an item onto the Custom Hotbar.
     //revert once assign custom macro complete
-    console.log(data.type);
+    console.debug("Custom Hotbar | Dropped type:", data.type);
     if (data.type == "Item") {
-      console.log("Attempting monkey hotpatch!");
+      console.debug("Custom Hotbar | Attempting monkey hotpatch!");
       let coreAssignHotbarMacro = game.user.assignHotbarMacro;
-      game.user.assignHotbarMacro = this.assignCustomHotbarMacro; 
+      game.user.assignHotbarMacro = this.assignCustomHotbarMacro.bind(this); 
       Hooks.once("customHotbarAssignComplete", () => game.user.assignHotbarMacro = coreAssignHotbarMacro);
     }
   
@@ -294,26 +299,23 @@ class CustomHotbar extends Hotbar {
     if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
       //add secondary call here for MQoL/Better rolls? "if _hooks.hotbarDrop or HotbarHandler something something?"
       //issue appears to be with code in area of line 50-70 of MQoL 
-      console.log("hotbarDrop not found, reverting monkey hotpatch!")
+      console.debug("Custom Hotbar | hotbarDrop not found, reverting monkey hotpatch!")
       game.user.assignHotbarMacro = coreAssignHotbarMacro; 
       return; 
     } else {
-      console.log("hotbarDrop true");
+      console.debug("Custom Hotbar | hotbarDrop true");
     }
  
     // Only handles Macro drops
     const macro = await this._getDropMacro(data);
     if ( macro ) {
-      console.log("macro provided:");
-      console.log(macro);
-      console.log("fromSlot:")
-      console.log(data.slot);
+      console.debug("Custom Hotbar | macro provided:", macro, "fromSlot", data.slot);
       //attempted bugfix?
+      // Is this necessary? We want to call `assignCustomHotbarMacro` either way right? Doesn't matter if it's via monkey patch or not.
+      console.debug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
       if (game.user.assignHotbarMacro === this.assignCustomHotbarMacro) {
-        console.log("monkey hotpatch active");
         await game.user.assignHotbarMacro(macro, customSlot, {fromSlot: data.slot});
       } else {
-        console.log("monkey hotpatch NOT active");
         await this.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.slot});
       }
     }
@@ -351,8 +353,7 @@ class CustomHotbar extends Hotbar {
    * @private
    */
   async _getDropMacro(data) {
-    console.log("in _getDropMacro");
-    console.log(data);
+    console.debug("Custom Hotbar | in _getDropMacro", data);
     if ( data.type !== "Macro" ) return null;
 
     // Case 1 - Data explicitly provided (but no ID)
@@ -400,153 +401,4 @@ class CustomHotbar extends Hotbar {
     }
   }
 */  
-
   
-let chbMacroMap = [];
-
-async function customHotbarInit() { 
-  const flags = chbGetMacros();
-  if (!flags) {
-    // ensure flag has a value
-    await chbResetMacros();
-  }
-  ui.CustomHotbar = new CustomHotbar();
-  ui.CustomHotbar.macros = ui.CustomHotbar.getData();
-  let obj = {
-      left: 100,
-      top: 100,
-      width: 502,
-      height: 52,
-      scale: 1.0,
-      log: true,
-      renderContext: "custom-hotbar",
-      renderData: "init"
-  };
-  //if(!game.user.getFlag("custom-hotbar","chbMacroMap")) game.user.setFlag("custom-hotbar","chbMacroMap", chbMacroMap);
-  tempFlag = game.user.getFlag("custom-hotbar","chbMacroMap");
-  for (i=1; i <= 10; i++) {
-    chbMacroMap[i] = tempFlag[i];
-  }
-  await ui.CustomHotbar.getCustomHotbarMacros(1);
-  await ui.CustomHotbar.render(true, obj);
-}
-
-function chbGetMacros() {
-  return game.user.getFlag('custom-hotbar', 'chbMacroMap');
-}
-
-async function chbSetMacro(ID,slot) {
-  //final format: slot: 1, macro: null, key: 1, cssClass: "inactive", icon: "null")
-  //only need to set macro ID for slot number
-  console.log(slot);
-  console.log(ID);
-  chbMacroMap[slot]=ID;
-  await game.user.unsetFlag('custom-hotbar','chbMacroMap');
-  await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
-  await ui.CustomHotbar.render();
-}
-
-async function chbSetMacros(macros) {
-  /**
-   * !
-   * ! Assumes a single page custom hotbar with slots 1-10
-   * !
-   */
-  for(let slot = 1; slot < 11; slot++) {
-    chbMacroMap[slot]=macros[slot];
-  }
-  await game.user.unsetFlag('custom-hotbar','chbMacroMap');
-  await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
-  await ui.CustomHotbar.render();
-}
-
-async function chbUnsetMacro(slot) {
-  //unset all custom hotbar flags
-  chbMacroMap[slot]=null;
-  await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
-}
-
-async function chbResetMacros() {
-  //unset all custom hotbar flags
-  await game.user.unsetFlag('custom-hotbar','chbMacroMap');
-  return game.user.setFlag('custom-hotbar', 'chbMacroMap', []);
-}
-
-async function chbItemToMacro(item) {
-  const command = `MinorQOL.doRoll(event, "${item.name}", {type: "${item.type}", versatile: false});`;
-  let macro = game.macros.entities.find(m => m.name.startsWith(item.name)  &&  m.data.command === command);
-  if (!macro) {
-      console("attempting to create macro");
-      macro = await Macro.create({
-          name: `${item.name} - ${item.type}`,
-          type: "script",
-          img: item.img,
-          command: command,
-          flags: { "dnd5e.itemMacro": true }
-      }, { displaySheet: false });
-  }
-  console.log(macro);
-  return macro;
-}
-
-window.addEventListener('keypress', (e)=>{
-  if( (48 <= e.which <=57)  && e.shiftKey) { 
-    console.log("You pressed shift and:");
-    //translate keypress into slot number
-    const num = parseInt(e.code.slice(e.code.length -1));
-    const slot = ui.CustomHotbar.macros.find(m => m.key === num);
-    if ( ui.CustomHotbar.macros[num] ) slot.macro.execute();
-    //not sure what to do here
-    //this._handled.add(modifiers.key);
-   }
-});
-
-Hooks.on("ready", async () => {
-  customHotbarInit();
-});
-
-Hooks.on("renderCustomHotbar", async () => {
-  console.log("The custom hotbar just rendered!");
-  // console.log(chbMacroMap);
-});
-
-
-/*ERRORS/ISSUES WITH CORE (LOL, SHRUG)
-0.6.4, DND 5E 0.93 (ALL MODS DISABLED)
-
-1. file directory to canvas: 
-foundry.js:29725 Uncaught (in promise) Error: No available Hotbar slot exists
-at User.assignHotbarMacro (foundry.js:29725)
-at Canvas._onDrop (foundry.js:11425)
-at DragDrop.callback (foundry.js:13785)
-at DragDrop._handleDrop (foundry.js:13836)
-
-2. Macro execute for spell, than cancel : uncaught in promise, 5e error?)
-
-3. Drag macro onto itself, it is removed
-
-4. Sometimes when you drag off of core, a ghost set of slots to left and right of core slot is grabbed also. Seems to happen if you click near a border between macro slots.
-
-
-
-//TO DO for 1.5:
-//1. edge case when copying from core to custom hotbars (drag and drop straight up, or within 1 slot of either direction, fails to trigger drop event 99% of the time)
-      // No idea why the hotbar drop isn't DETECTED AT ALL.  
-
-//2. edge case where if you drag from Custom onto Core, and you have a Core macro in same slot, the core slot is incorrectly blanked.
-      //must be somehow passing a fromSlot to the core assignHotbarMacro somehow.
-
-//3. Dropping onto canvas from customHotbar blanks the slot in the core hotbar (which makes sense)
-    //hook pre-delete regualar hotbar macro to deal with canvas drop? Or make the drop handler ONLY handle dropping onto Core or Custom hotbar maybe, if possible?
-    //otherwise just wait for 0.7....
-
-
-//Milestones Future:
-//delete hover?
-
-//CODE REFACTORING?
-//build global scope functions into class?
-//make sure CustomHotbar (case) is only used in Object Type Name.
-//make macroMap named customHotbar, and make it an object instead of an array?
-//renumber custom hotbar slots to +100 per bar?
-*/
