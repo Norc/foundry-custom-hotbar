@@ -1,4 +1,4 @@
-class CustomHotbarPopulator {
+export class CustomHotbarPopulator {
     constructor() { 
         this.macroMap = this.chbGetMacros();
     }
@@ -19,9 +19,8 @@ class CustomHotbarPopulator {
      */
     async chbSetMacro(macroId, slot) {
         console.debug("Custom Hotbar |", "Setting macro", slot, macroId);
-        chbMacroMap[slot] = macroId;
-        await game.user.unsetFlag('custom-hotbar', 'chbMacroMap');
-        await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
+        this.macroMap[slot] = macroId;
+        await this._updateFlags();
         return ui.CustomHotbar.render();
     }
 
@@ -37,10 +36,9 @@ class CustomHotbarPopulator {
          * !
          */
         for (let slot = 1; slot < 11; slot++) {
-            chbMacroMap[slot] = macros[slot];
+            this.macroMap[slot] = macros[slot];
         }
-        await game.user.unsetFlag('custom-hotbar', 'chbMacroMap');
-        await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
+        await this._updateFlags();
         return ui.CustomHotbar.render();
     }
 
@@ -50,20 +48,26 @@ class CustomHotbarPopulator {
      * @return {Promise<unknown>} Promise indicating whether the macro was removed.
      */
     chbUnsetMacro(slot) {
-        chbMacroMap[slot] = null;
-        return game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
+        this.macroMap[slot] = null;
+        return this._updateFlags();
     }
 
     /**
      * Remove all macros from the custom hotbar.
      * @return {Promise<unknown>} Promise indicating whether the macros were removed.
      */
-    async chbResetMacros() {
+    chbResetMacros() {
+        this.macroMap = [];
+        return this._updateFlags();
+    }
+
+    _updateFlags() {
         await game.user.unsetFlag('custom-hotbar', 'chbMacroMap');
-        return game.user.setFlag('custom-hotbar', 'chbMacroMap', []);
+        return game.user.setFlag('custom-hotbar', 'chbMacroMap', this.macroMap);
     }
 
     // TODO: does this belong here?
+    // TODO: Remove? Seems to be unused...
     /**
      * Convert an item to a macro.
      * @param { { name: string, type: string, img: string } } item 
