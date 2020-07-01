@@ -23,7 +23,12 @@ class CustomHotbar extends Hotbar {
        * @type {number|null}
        */
       this._hover = null;
-    }
+
+      /**
+       * 
+       */
+      this.customMacros = [];
+  }
   
   /** @override */
   static get defaultOptions() {
@@ -37,11 +42,9 @@ class CustomHotbar extends Hotbar {
     });
   }    
 
-  
 	/* -------------------------------------------- */
 
   /** @override */
- 
   getData(options) {
     this.macros = this._getCustomMacrosByPage(this.page);
     return {
@@ -59,16 +62,15 @@ class CustomHotbar extends Hotbar {
  * @returns {Array}
  * @private
  */
-
- _getCustomMacrosByPage(page) { 
-  const macros = this.getCustomHotbarMacros(page);
-  for ( let [i, m] of macros.entries() ) {
-    m.key = i<9 ? i+1 : 0;
-    m.cssClass = m.macro ? "active" : "inactive";
-    m.icon = m.macro ? m.macro.data.img : null;
+  _getCustomMacrosByPage(page) { 
+    const macros = this.getCustomHotbarMacros(page);
+    for ( let [i, m] of macros.entries() ) {
+      m.key = i<9 ? i+1 : 0;
+      m.cssClass = m.macro ? "active" : "inactive";
+      m.icon = m.macro ? m.macro.data.img : null;
+    }
+    return macros;
   }
-  return macros;
- }
 
   _getMacrosByPage(page) {
 	  return this._getCustomMacrosByPage(page);
@@ -95,6 +97,9 @@ class CustomHotbar extends Hotbar {
     });
   }
 
+  getAllCustomHotbarMacros() {
+
+  }
 	/* -------------------------------------------- */
 
   /**
@@ -251,7 +256,7 @@ class CustomHotbar extends Hotbar {
   /*  Event Listeners and Handlers
 	/* -------------------------------------------- */
   /** @override */
-    activateListeners(html) {
+  activateListeners(html) {
     super.activateListeners(html);
     // Macro actions
     html.find('#custom-bar-toggle').click(this._onToggleBar.bind(this));
@@ -400,7 +405,6 @@ class CustomHotbar extends Hotbar {
     }
   }
 */  
-
   
 let chbMacroMap = [];
 
@@ -431,63 +435,7 @@ async function customHotbarInit() {
   await ui.CustomHotbar.render(true, obj);
 }
 
-function chbGetMacros() {
-  return game.user.getFlag('custom-hotbar', 'chbMacroMap');
-}
-
-async function chbSetMacro(ID,slot) {
-  //final format: slot: 1, macro: null, key: 1, cssClass: "inactive", icon: "null")
-  //only need to set macro ID for slot number
-  console.log(slot);
-  console.log(ID);
-  chbMacroMap[slot]=ID;
-  await game.user.unsetFlag('custom-hotbar','chbMacroMap');
-  await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
-  await ui.CustomHotbar.render();
-}
-
-async function chbSetMacros(macros) {
-  /**
-   * !
-   * ! Assumes a single page custom hotbar with slots 1-10
-   * !
-   */
-  for(let slot = 1; slot < 11; slot++) {
-    chbMacroMap[slot]=macros[slot];
-  }
-  await game.user.unsetFlag('custom-hotbar','chbMacroMap');
-  await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
-  await ui.CustomHotbar.render();
-}
-
-async function chbUnsetMacro(slot) {
-  //unset all custom hotbar flags
-  chbMacroMap[slot]=null;
-  await game.user.setFlag('custom-hotbar', 'chbMacroMap', chbMacroMap);
-}
-
-async function chbResetMacros() {
-  //unset all custom hotbar flags
-  await game.user.unsetFlag('custom-hotbar','chbMacroMap');
-  return game.user.setFlag('custom-hotbar', 'chbMacroMap', []);
-}
-
-async function chbItemToMacro(item) {
-  const command = `MinorQOL.doRoll(event, "${item.name}", {type: "${item.type}", versatile: false});`;
-  let macro = game.macros.entities.find(m => m.name.startsWith(item.name)  &&  m.data.command === command);
-  if (!macro) {
-      console("attempting to create macro");
-      macro = await Macro.create({
-          name: `${item.name} - ${item.type}`,
-          type: "script",
-          img: item.img,
-          command: command,
-          flags: { "dnd5e.itemMacro": true }
-      }, { displaySheet: false });
-  }
-  console.log(macro);
-  return macro;
-}
+// TODO: create CustomHotbarPopulator...
 
 window.addEventListener('keypress', (e)=>{
   if( (48 <= e.which <=57)  && e.shiftKey) { 
