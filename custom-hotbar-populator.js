@@ -3,6 +3,9 @@ export class CustomHotbarPopulator {
         this.macroMap = this.chbGetMacros();
     }
 
+    
+    //TO DO: Create single chbGetMacro function for completeness and convenience.
+    
     /**
      * Returns all CustomHotbar macros
      * @return {string[]} [slot]: macroId
@@ -64,30 +67,5 @@ export class CustomHotbarPopulator {
     async _updateFlags() {
         await game.user.unsetFlag('custom-hotbar', 'chbMacroMap');
         return game.user.setFlag('custom-hotbar', 'chbMacroMap', this.macroMap);
-    }
-
-    // TODO: does this belong here?
-    // TODO: Remove? Seems to be unused...
-    /**
-     * Convert an item to a macro.
-     * @param { { name: string, type: string, img: string } } item 
-     * @return {Macro} The existing macro, if one was already created for this item before.
-     *                 Otherwise a new macro.
-     */
-    async chbItemToMacro(item) {
-        const command = `MinorQOL.doRoll(event, "${item.name}", {type: "${item.type}", versatile: false});`;
-        let macro = game.macros.entities.find(m => m.name.startsWith(item.name) && m.data.command === command);
-        if (!macro) {
-            console.debug("Custom Hotbar |", "attempting to create macro", item);
-            macro = await Macro.create({
-                name: `${item.name} - ${item.type}`,
-                type: "script",
-                img: item.img,
-                command: command,
-                flags: { "dnd5e.itemMacro": true }
-            }, { displaySheet: false });
-        }
-        console.debug("Custom Hotbar |", "Item to Macro", item, macro);
-        return macro;
     }
 }
