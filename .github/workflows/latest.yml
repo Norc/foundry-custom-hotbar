@@ -1,6 +1,11 @@
 name: Latest Custom Hotbar CI
 
-on: [push]
+on:
+  push:
+    branches: 
+      - master
+    tags:
+      - v*
 
 jobs:
   build:
@@ -11,7 +16,6 @@ jobs:
     - name: Create Release
       id: create_latest_release
       uses: ncipollo/release-action@v1
-      # if: endsWith(github.ref, 'master') # Only update the latest release when pushing to the master branch
       with:
         allowUpdates: true
         name: Latest
