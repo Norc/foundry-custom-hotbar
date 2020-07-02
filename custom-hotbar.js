@@ -260,6 +260,10 @@ export class CustomHotbar extends Hotbar {
     super.activateListeners(html);
     // Macro actions
     html.find('#custom-bar-toggle').click(this._onToggleBar.bind(this));
+    
+    //ADD MOUSEDOWN MOUSEUP EVENTS TO HIDE TOOLTIP
+    //html.find(".macro").click(this._onClickMacro.bind(this)).hover(this._onHoverMacro.bind(this));
+
     //html.find("#custom-macro-directory").click(ev => ui.macros.renderPopout(true));
     //    Disable pages for now, will just work with first page.
     //    html.find(".page-control").click(this._onClickPageControl.bind(this));
@@ -345,6 +349,30 @@ export class CustomHotbar extends Hotbar {
       return macro.execute();
     }
   }
+
+
+
+//MAKE WORK LOL
+//also make sure works for core hotbar
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle mousedown events
+   * @param event
+   * @private
+   */
+  async _onMouseDownMacro(event) {
+    console.log("Mouse Down!");
+    /*document.getElementsByClassName("#hotbar .macro .tooltip").style.display = "none"; */
+  }
+
+  async _onMouseUpMacro(event) {
+    console.log("Mouse Up!");
+    /*document.getElementsByClassName("#hotbar .macro .tooltip").style.display = "block"; */
+  }
+
+//END MAKE WORK LOL
 
   /**
    * Get the Macro entity being dropped in the customHotbar. If the data comes from a non-World source, create the Macro
