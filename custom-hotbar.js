@@ -351,6 +351,30 @@ export class CustomHotbar extends Hotbar {
     }
   }
 
+
+
+//MAKE WORK LOL
+//also make sure works for core hotbar
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle mousedown events
+   * @param event
+   * @private
+   */
+  async _onMouseDownMacro(event) {
+    console.log("Mouse Down!");
+    /*document.getElementsByClassName("#hotbar .macro .tooltip").style.display = "none"; */
+  }
+
+  async _onMouseUpMacro(event) {
+    console.log("Mouse Up!");
+    /*document.getElementsByClassName("#hotbar .macro .tooltip").style.display = "block"; */
+  }
+
+//END MAKE WORK LOL
+
   /**
    * Get the Macro entity being dropped in the customHotbar. If the data comes from a non-World source, create the Macro
    * @param {Object} data             The data transfer attached to the DragEvent
