@@ -256,10 +256,14 @@ export class CustomHotbar extends Hotbar {
   /*  Event Listeners and Handlers
 	/* -------------------------------------------- */
   /** @override */
+  
   activateListeners(html) {
+    event.preventDefault();
     super.activateListeners(html);
     // Macro actions
     html.find('#custom-bar-toggle').click(this._onToggleBar.bind(this));
+//    html.find(".macro").removeEventListener("_onHoverMacro");
+    html.find(".macro").click(this._onClickMacro.bind(this)).hover(this._onHoverMacro.bind(this));
     //html.find("#custom-macro-directory").click(ev => ui.macros.renderPopout(true));
     //    Disable pages for now, will just work with first page.
     //    html.find(".page-control").click(this._onClickPageControl.bind(this));
@@ -329,6 +333,7 @@ export class CustomHotbar extends Hotbar {
    * @private
    */
   async _onClickMacro(event) {
+    console.debug("custom macro click detected!");
     event.preventDefault();
     const li = event.currentTarget;
 
@@ -375,6 +380,42 @@ export class CustomHotbar extends Hotbar {
 }
 
 
+//EXPERIMENTAL WORK IN PROGRESS
+  /* -------------------------------------------- */
+
+  /**
+   * Handle hover events on a macro button to track which slot is the hover target
+   * @param {Event} event   The originating mouseover or mouseleave event
+   * @private
+   */
+    /** @override */
+  _onHoverMacro(event) {
+    console.debug("Custom Hotbar | Macro tooltip override fired!");
+    event.preventDefault();
+    const li = event.currentTarget;
+    const hasAction = !li.classList.contains("inactive");
+
+    // Remove any existing tooltip
+    const tooltip = li.querySelector(".tooltip");
+    if ( tooltip ) li.removeChild(tooltip);
+
+    // Handle hover-in
+    if ( event.type === "mouseenter" ) {
+      this._hover = li.dataset.slot;
+      if ( hasAction ) {
+        const macro = game.macros.get(li.dataset.macroId);
+        const tooltip = document.createElement("SPAN");
+        tooltip.classList.add("tooltip");
+        tooltip.textContent = macro.name;
+        li.appendChild(tooltip);
+      }
+    }
+
+    // Handle hover-out
+    else {
+      this._hover = null;
+    }
+  }
 
 //does this even work with Custom Hotbar disabled? it does not seem to for core Hotbar when Custom Hotbar is on.
   /* -------------------------------------------- */
