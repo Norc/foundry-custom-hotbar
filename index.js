@@ -16,8 +16,20 @@ async function customHotbarInit() {
       renderData: "init"
   };
   // await ui.CustomHotbar.getCustomHotbarMacros(1);
-  await ui.CustomHotbar.render(true, obj);
+  
+  //NEEDS MORE WORKING
+  ui.CustomHotbar.render(true, obj).then( () => {
+      document.getElementsByClassName("macro")[0].dragstart = _onDragStartMacro;
+  });
 }
+
+  /* -------------------------------------------- */
+  //New event handler to modify tooltip in both hotbar and CHB
+  function _onDragStartMacro(event) {
+    //hide tooltip so it doesn't get in the way
+    console.debug("Custom Hotbar | Attempting to hide tooltip.");
+    document.getElementsByClassName("tooltip")[0].style.display = "none";
+  }
 
 Hooks.on("ready", async () => {
   await customHotbarInit();
