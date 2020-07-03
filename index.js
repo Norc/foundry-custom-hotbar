@@ -1,6 +1,6 @@
 import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
-import { HotbarPlus } from './hotbar-plus.js';
+//import { HotbarPlus } from './hotbar-plus.js';
 
 async function customHotbarInit() {
   console.debug("Custom Hotbar | Initializing...");
@@ -20,7 +20,7 @@ async function customHotbarInit() {
   //Not sure why this ISN'T needed?
   //await ui.CustomHotbar.getCustomHotbarMacros(1);
 
-  ui.hotbar = new HotbarPlus(); 
+  //ui.hotbar = new HotbarPlus(); 
   ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) { 
     element.ondragstart = ui.hotbar._onDragStart;
@@ -35,6 +35,14 @@ async function customHotbarInit() {
   ui.CustomHotbar.render(true, obj);
 }
 
+Hooks.on("init", async () => {
+  CONFIG.ui.hotbar = class HotbarPlus extends Hotbar {
+    _onDragStart(...arg) {
+      document.getElementsByClassName("tooltip")[0].style.display = "none";
+      super._onDragStart(...arg);
+    }
+  };
+});
 
 Hooks.on("ready", async () => {
   await customHotbarInit();
