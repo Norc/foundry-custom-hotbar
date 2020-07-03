@@ -4,8 +4,9 @@ export class CustomHotbar extends Hotbar {
      * @param {CustomHotbarPopulator} populator
      * @param {*} options 
      */
-	constructor(populator, options) {
-    super(options);
+  constructor(populator, options) {
+    super(Hotbar);
+    //super(options);
     game.macros.apps.push(this);
     /**
      * The currently viewed macro page
@@ -263,7 +264,7 @@ export class CustomHotbar extends Hotbar {
     // Macro actions
     html.find('#custom-bar-toggle').click(this._onToggleBar.bind(this));
 //    html.find(".macro").removeEventListener("_onHoverMacro");
-    html.find(".macro").click(this._onClickMacro.bind(this)).hover(this._onHoverMacro.bind(this));
+//    html.find(".macro").click(this._onClickMacro.bind(this)).hover(this._onHoverMacro.bind(this));
     //html.find("#custom-macro-directory").click(ev => ui.macros.renderPopout(true));
     //    Disable pages for now, will just work with first page.
     //    html.find(".page-control").click(this._onClickPageControl.bind(this));
@@ -359,7 +360,7 @@ export class CustomHotbar extends Hotbar {
   /* -------------------------------------------- */
 
   /**
-   * Handle mousedown events
+   * Handle mousedown event
    * @param event
    * @private
    */
@@ -368,6 +369,13 @@ export class CustomHotbar extends Hotbar {
     /*document.getElementsByClassName("#hotbar .macro .tooltip").style.display = "none"; */
   }
 
+ /* -------------------------------------------- */
+
+  /**
+   * Handle mouseup event
+   * @param event
+   * @private
+   */
   async _onMouseUpMacro(event) {
     console.log("Mouse Up!");
     /*document.getElementsByClassName("#hotbar .macro .tooltip").style.display = "block"; */
@@ -401,7 +409,7 @@ export class CustomHotbar extends Hotbar {
       return game.macros.get(data.id);
     }
   }
-}
+
 
 
 //EXPERIMENTAL WORK IN PROGRESS
@@ -414,7 +422,6 @@ export class CustomHotbar extends Hotbar {
    */
     /** @override */
   _onHoverMacro(event) {
-    console.debug("Custom Hotbar | Macro tooltip override fired!");
     event.preventDefault();
     const li = event.currentTarget;
     const hasAction = !li.classList.contains("inactive");
@@ -425,22 +432,25 @@ export class CustomHotbar extends Hotbar {
 
     // Handle hover-in
     if ( event.type === "mouseenter" ) {
+      console.debug("Custom Hotbar | Macro tooltip override fired!");
       this._hover = li.dataset.slot;
       if ( hasAction ) {
         const macro = game.macros.get(li.dataset.macroId);
         const tooltip = document.createElement("SPAN");
         tooltip.classList.add("tooltip");
-        tooltip.textContent = macro.name;
+        tooltip.textContent = "Hello World"; //macro.name;
         li.appendChild(tooltip);
       }
     }
 
     // Handle hover-out
     else {
+      console.debug("Custom Hotbar | Mouse out!");
       this._hover = null;
     }
   }
 
+}
 //does this even work with Custom Hotbar disabled? it does not seem to for core Hotbar when Custom Hotbar is on.
   /* -------------------------------------------- */
 
