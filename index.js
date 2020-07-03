@@ -22,10 +22,11 @@ async function customHotbarInit() {
 
   ui.hotbar = new HotbarPlus(); 
   ui.hotbar.render();
+//  ui.hotbar.activateListeners("_onDragStart");
+  document.getElementsByClassName("macro")[0].ondragstart = ui.hotbar._onDragStart;
   ui.CustomHotbar.render(true, obj);
 }
 
-//        html.find('.macro').dragstart(this._onDragStart.bind(this));
 
 Hooks.on("ready", async () => {
   await customHotbarInit();
