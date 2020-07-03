@@ -1,7 +1,9 @@
 import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
+import { HotbarPlus } from './hotbar-plus.js';
 
-async function customHotbarInit() { 
+async function customHotbarInit() {
+  console.debug("Custom Hotbar | Initializing...");
   window.CustomHotbar = new CustomHotbarPopulator();
   ui.CustomHotbar = new CustomHotbar(window.CustomHotbar);
   ui.CustomHotbar.macros = ui.CustomHotbar.getData();
@@ -15,21 +17,15 @@ async function customHotbarInit() {
       renderContext: "custom-hotbar",
       renderData: "init"
   };
-  // await ui.CustomHotbar.getCustomHotbarMacros(1);
-  
-  //NEEDS MORE WORKING
-  ui.CustomHotbar.render(true, obj).then( () => {
-      document.getElementsByClassName("macro")[0].dragstart = _onDragStartMacro;
-  });
+  //Not sure why this ISN'T needed?
+  //await ui.CustomHotbar.getCustomHotbarMacros(1);
+
+  ui.hotbar = new HotbarPlus(); 
+  ui.hotbar.render();
+  ui.CustomHotbar.render(true, obj);
 }
 
-  /* -------------------------------------------- */
-  //New event handler to modify tooltip in both hotbar and CHB
-  function _onDragStartMacro(event) {
-    //hide tooltip so it doesn't get in the way
-    console.debug("Custom Hotbar | Attempting to hide tooltip.");
-    document.getElementsByClassName("tooltip")[0].style.display = "none";
-  }
+//        html.find('.macro').dragstart(this._onDragStart.bind(this));
 
 Hooks.on("ready", async () => {
   await customHotbarInit();
