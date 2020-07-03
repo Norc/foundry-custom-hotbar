@@ -22,8 +22,15 @@ async function customHotbarInit() {
 
   ui.hotbar = new HotbarPlus(); 
   ui.hotbar.render();
-//  ui.hotbar.activateListeners("_onDragStart");
-  document.getElementsByClassName("macro")[0].ondragstart = ui.hotbar._onDragStart;
+  Array.from(document.getElementsByClassName("macro")).forEach(function (element) { 
+    element.ondragstart = ui.hotbar._onDragStart;
+  }); 
+
+/*
+  for (item of document.getElementsByClassName("macro")) {
+    item.ondragstart = ui.hotbar._onDragStart;
+  }
+*/
   ui.CustomHotbar.render(true, obj);
 }
 
