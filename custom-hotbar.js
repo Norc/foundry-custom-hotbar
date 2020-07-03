@@ -261,15 +261,10 @@ export class CustomHotbar extends Hotbar {
   activateListeners(html) {
     event.preventDefault();
     super.activateListeners(html);
-    // Macro actions
     html.find('#custom-bar-toggle').click(this._onToggleBar.bind(this));
-//    html.find(".macro").removeEventListener("_onHoverMacro");
-//    html.find(".macro").click(this._onClickMacro.bind(this)).hover(this._onHoverMacro.bind(this));
     //html.find("#custom-macro-directory").click(ev => ui.macros.renderPopout(true));
     //    Disable pages for now, will just work with first page.
     //    html.find(".page-control").click(this._onClickPageControl.bind(this));
-    // Activate context menu
-    //ui.CustomHotbar._contextMenu(html);
   }
 
   /** @override */
@@ -352,36 +347,24 @@ export class CustomHotbar extends Hotbar {
     }
   }
 
-
-
-//MAKE WORK LOL
-//also make sure works for core hotbar
-
   /* -------------------------------------------- */
 
-  /**
-   * Handle mousedown event
-   * @param event
-   * @private
-   */
-  async _onMouseDownMacro(event) {
-    console.log("Mouse Down!");
-    /*document.getElementsByClassName("#hotbar .macro .tooltip").style.display = "none"; */
+  /** @override */
+  _onDragStart(event) {
+    //hide tooltip so it doesn't get in the way
+    console.debug("Custom Hotbar | Attempting to hide tooltip.");
+    document.getElementsByClassName("tooltip")[0].style.display = "none";
+
+    //same as core for now
+    const li = event.currentTarget.closest(".macro");
+    if ( !li.dataset.macroId ) return false;
+    const dragData = { type: "Macro", id: li.dataset.macroId, slot: li.dataset.slot };
+    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
   }
 
- /* -------------------------------------------- */
 
-  /**
-   * Handle mouseup event
-   * @param event
-   * @private
-   */
-  async _onMouseUpMacro(event) {
-    console.log("Mouse Up!");
-    /*document.getElementsByClassName("#hotbar .macro .tooltip").style.display = "block"; */
-  }
 
-//END MAKE WORK LOL
+
 
   /**
    * Get the Macro entity being dropped in the customHotbar. If the data comes from a non-World source, create the Macro
@@ -438,7 +421,7 @@ export class CustomHotbar extends Hotbar {
         const macro = game.macros.get(li.dataset.macroId);
         const tooltip = document.createElement("SPAN");
         tooltip.classList.add("tooltip");
-        tooltip.textContent = "Hello World"; //macro.name;
+        tooltip.textContent = macro.name;
         li.appendChild(tooltip);
       }
     }
