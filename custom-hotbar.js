@@ -133,6 +133,7 @@ export class CustomHotbar extends Hotbar {
       await this.populator.chbUnsetMacro(slot);
     }
 
+    //functional but needs cleanup
     console.debug("Custom Hotbar | Finding move origin");
     if ( fromSlot ) {
       console.debug("Custom Hotbar |", ui.customHotbar.macros);
@@ -299,14 +300,8 @@ export class CustomHotbar extends Hotbar {
     const macro = await this._getDropMacro(data);
     if ( macro ) {
       console.debug("Custom Hotbar | macro provided:", macro, "fromSlot", data.customSlot);
-
-      // Is this necessary? We want to call `assignCustomHotbarMacro` either way right? Doesn't matter if it's via monkey patch or not.
       console.debug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
-      if (game.user.assignHotbarMacro === this.assignCustomHotbarMacro) {
-        await game.user.assignHotbarMacro(macro, customSlot, {fromSlot: data.customSlot});
-      } else {
         await this.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.customSlot});
-      }
     }
   }
 
