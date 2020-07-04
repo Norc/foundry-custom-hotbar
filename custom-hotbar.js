@@ -45,8 +45,6 @@ export class CustomHotbar extends Hotbar {
       id: "custom-hotbar",
       template: "modules/custom-hotbar/templates/customHotbar.html",
       popOut: false,
-      //optional disable drag start entirely:
-      //dragDrop: [{ dragSelector: null, dropSelector: "#custom-macro-list" }]
       dragDrop: [{ dragSelector: ".macro", dropSelector: "#custom-macro-list" }]
     });
   }    
@@ -135,15 +133,11 @@ export class CustomHotbar extends Hotbar {
       await this.populator.chbUnsetMacro(slot);
     }
 
-    //is null handled okay?
-    //if ( chbMacros[fromSlot] ) { //|| core hotbar fromSlot here) {
     console.debug("Custom Hotbar | Finding move origin");
     if ( fromSlot ) {
       console.debug("Custom Hotbar |", ui.customHotbar.macros);
-      //not really sure why I need this -1 kludge
       console.debug("Custom Hotbar |", ui.customHotbar.macros[fromSlot-1]?.macro, ui.customHotbar.macros[fromSlot-1]?.macro === macro);
-
-      //IMPROVE THIS LOGIC TO DETECT CROSS-BAR DROPS      
+     
       if (ui.customHotbar.macros[fromSlot-1]?.macro === macro) {
         console.debug("Custom Hotbar | internal move detected!");
         if ( fromSlot != slot ) {
@@ -152,14 +146,13 @@ export class CustomHotbar extends Hotbar {
         }
       } else {
         console.debug("Custom Hotbar | drop from core macro hotbar detected!");
-        //game.user.assignHotbarMacro(macro, fromSlot);
       }
     } else {
       console.debug("Custom Hotbar | non-hotbar drop detected!");
     }
  
     ui.customHotbar.render();
-    //new code suggested by tposney. creates hook to allow reassignment of monky hotpatch?
+    //code suggested by tposney. creates hook to allow reassignment of monky hotpatch
     Hooks.callAll("customHotbarAssignComplete");
     return update;
   };
@@ -261,7 +254,6 @@ export class CustomHotbar extends Hotbar {
     event.preventDefault();
     super.activateListeners(html);
     html.find('#custom-bar-toggle').click(this._onToggleBar.bind(this));
-    //html.find("#custom-macro-directory").click(ev => ui.macros.renderPopout(true));
     //    Disable pages for now, will just work with first page.
     //    html.find(".page-control").click(this._onClickPageControl.bind(this));
   }
@@ -296,8 +288,6 @@ export class CustomHotbar extends Hotbar {
   
     //does this need to be set to false when done?
     if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
-      //add secondary call here for MQoL/Better rolls? "if _hooks.hotbarDrop or HotbarHandler something something?"
-      //issue appears to be with code in area of line 50-70 of MQoL 
       console.debug("Custom Hotbar | hotbarDrop not found, reverting monkey hotpatch!")
       game.user.assignHotbarMacro = coreAssignHotbarMacro; 
       return; 
@@ -309,7 +299,7 @@ export class CustomHotbar extends Hotbar {
     const macro = await this._getDropMacro(data);
     if ( macro ) {
       console.debug("Custom Hotbar | macro provided:", macro, "fromSlot", data.customSlot);
-      //attempted bugfix?
+
       // Is this necessary? We want to call `assignCustomHotbarMacro` either way right? Doesn't matter if it's via monkey patch or not.
       console.debug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
       if (game.user.assignHotbarMacro === this.assignCustomHotbarMacro) {
@@ -323,7 +313,7 @@ export class CustomHotbar extends Hotbar {
   /* -------------------------------------------- */
 
   /**
-   * Handle left-click events to
+   * Handle left-click events too
    * @param event
    * @private
    */
@@ -354,7 +344,6 @@ export class CustomHotbar extends Hotbar {
     console.debug("Custom Hotbar | Attempting to hide tooltip.");
     document.getElementsByClassName("tooltip")[0].style.display = "none";
 
-    //same as core for now
     const li = event.currentTarget.closest(".macro");
     if ( !li.dataset.macroId ) return false;
     const dragData = { type: "Macro", id: li.dataset.macroId, customSlot: li.dataset.slot };
@@ -392,9 +381,6 @@ export class CustomHotbar extends Hotbar {
     }
   }
 
-
-
-//EXPERIMENTAL WORK IN PROGRESS
   /* -------------------------------------------- */
 
   /**
@@ -431,31 +417,4 @@ export class CustomHotbar extends Hotbar {
       this._hover = null;
     }
   }
-
 }
-//does this even work with Custom Hotbar disabled? it does not seem to for core Hotbar when Custom Hotbar is on.
-  /* -------------------------------------------- */
-
-  /**
-   * Handle DELETE Keypress Events
-   * @param {KeyboardEvent} event     The originating keyboard event
-   * @param {boolean} up              Is the key being released?
-   * @param {Object} modifiers        The identified modifiers attached to this keypress
-   * @private
-   */
- /*
-   _onDelete(event, up, modifiers) {
-    if ( this.hasFocus ) return;
-    event.preventDefault();
-
-    // Remove hotbar Macro
-    if ( ui.hotbar._hover ) this.assignHotbarMacro(null, ui.hotbar._hover);
-//??    if ( ui.customHotbar._hover ) this.assignCustomHotbarMacro(null, ui.customHotbar._hover);
-
-    // Delete placeables from Canvas layer
-    else if ( canvas.ready && ( canvas.activeLayer instanceof PlaceablesLayer ) ) {
-      return canvas.activeLayer._onDeleteKey(event);
-    }
-  }
-*/  
-  
