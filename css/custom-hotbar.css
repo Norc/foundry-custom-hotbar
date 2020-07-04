@@ -163,16 +163,6 @@ pointer-events: all;
     max-height: 100%
 }
 
-/*Disable macro directory (unnecessary) and page controls (for now) */
-#custom-hotbar-directory-controls a#custom-macro-directory {
-    display: none;
-}
-
-#custom-hotbar-page-controls {
-    display: none;
-}
-
-/*  Disabled for initial release
 #custom-hotbar .bar-controls a.page-control {
     font-size: 1.5em;
     line-height: 12px;
@@ -183,4 +173,3 @@ pointer-events: all;
     font-size: 20px;
     line-height: 8px;
 }
-*/

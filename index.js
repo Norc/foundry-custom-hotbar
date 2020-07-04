@@ -47,17 +47,22 @@ Hooks.on("init", async () => {
 Hooks.on("ready", async () => {
   await customHotbarInit();
 
-  window.addEventListener('keypress', (e) => {
-    if( (48 <= e.which <=57)  && e.shiftKey) { 
-      //translate keypress into slot number
+  window.addEventListener('keydown', (e) => {
+    if( (48 <= e.which <=57)  && e.shiftKey) {
       const num = parseInt(e.code.slice(e.code.length -1));
-      console.log("Custom Hotbar | You pressed shift and:", num);
+      console.debug(`Custom Hotbar | You pressed shift and ${num} on a ${e.target.tagName}`);
+      //disable firing macro on keystrokes meant to enter text
+      if (e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA") {
+        console.debug("Custom Hotbar | Preventing keybind, invalid target.");
+        return;
+      }
+      //translate valid keypress into slot number
       const slot = ui.CustomHotbar.macros.find(m => m.key === num);
       if ( ui.CustomHotbar.macros[num] ) slot.macro.execute();
-      //not sure what to do here
-      //this._handled.add(modifiers.key);
+      return false;
     }
   });
+
 });
 
 Hooks.on("renderCustomHotbar", async () => {
@@ -66,7 +71,7 @@ Hooks.on("renderCustomHotbar", async () => {
 });
 
 
-/*ERRORS/ISSUES WITH CORE (LOL, SHRUG)
+/* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (LOL, SHRUG)
 0.6.4, DND 5E 0.93 (ALL MODS DISABLED)
 
 1. file directory to canvas: 
@@ -83,25 +88,11 @@ at DragDrop._handleDrop (foundry.js:13836)
 4. Sometimes when you drag off of core, a ghost set of slots to left and right of core slot is grabbed also. Seems to happen if you click near a border between macro slots.
 
 
+//ROADMAP
+//Color and position settings
+//multiple hotbars
 
-//TO DO for 1.5:
-//1. edge case when copying from core to custom hotbars (drag and drop straight up, or within 1 slot of either direction, fails to trigger drop event 99% of the time)
-      // No idea why the hotbar drop isn't DETECTED AT ALL.  
-
-//2. edge case where if you drag from Custom onto Core, and you have a Core macro in same slot, the core slot is incorrectly blanked.
-      //must be somehow passing a fromSlot to the core assignHotbarMacro somehow.
-
-//3. Dropping onto canvas from customHotbar blanks the slot in the core hotbar (which makes sense)
-    //hook pre-delete regualar hotbar macro to deal with canvas drop? Or make the drop handler ONLY handle dropping onto Core or Custom hotbar maybe, if possible?
-    //otherwise just wait for 0.7....
-
-
-//Milestones Future:
-//delete hover?
-
-//CODE REFACTORING?
-//build global scope functions into class?
+//CODE REFACTORING
+//comment/dead code cleanup
 //make sure CustomHotbar (case) is only used in Object Type Name.
-//make macroMap named customHotbar, and make it an object instead of an array?
-//renumber custom hotbar slots to +100 per bar?
 */

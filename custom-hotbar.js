@@ -309,14 +309,14 @@ export class CustomHotbar extends Hotbar {
     // Only handles Macro drops
     const macro = await this._getDropMacro(data);
     if ( macro ) {
-      console.debug("Custom Hotbar | macro provided:", macro, "fromSlot", data.slot);
+      console.debug("Custom Hotbar | macro provided:", macro, "fromSlot", data.customSlot);
       //attempted bugfix?
       // Is this necessary? We want to call `assignCustomHotbarMacro` either way right? Doesn't matter if it's via monkey patch or not.
       console.debug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
       if (game.user.assignHotbarMacro === this.assignCustomHotbarMacro) {
-        await game.user.assignHotbarMacro(macro, customSlot, {fromSlot: data.slot});
+        await game.user.assignHotbarMacro(macro, customSlot, {fromSlot: data.customSlot});
       } else {
-        await this.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.slot});
+        await this.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.customSlot});
       }
     }
   }
@@ -358,7 +358,7 @@ export class CustomHotbar extends Hotbar {
     //same as core for now
     const li = event.currentTarget.closest(".macro");
     if ( !li.dataset.macroId ) return false;
-    const dragData = { type: "Macro", id: li.dataset.macroId, slot: li.dataset.slot };
+    const dragData = { type: "Macro", id: li.dataset.macroId, customSlot: li.dataset.slot };
     event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
   }
 
