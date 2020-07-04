@@ -24,7 +24,7 @@ export class CustomHotbarPopulator {
         console.debug("Custom Hotbar |", "Setting macro", slot, macroId);
         this.macroMap[slot] = macroId;
         await this._updateFlags();
-        return ui.CustomHotbar.render();
+        return ui.customHotbar.render();
     }
 
     /**
@@ -42,7 +42,7 @@ export class CustomHotbarPopulator {
             this.macroMap[slot] = macros[slot];
         }
         await this._updateFlags();
-        return ui.CustomHotbar.render();
+        return ui.customHotbar.render();
     }
 
     /**

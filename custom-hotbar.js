@@ -1,5 +1,4 @@
 export class CustomHotbar extends Hotbar {
-    //copied from foundry.js line 21117 on 20200611
     /**
      * @param {CustomHotbarPopulator} populator
      * @param {*} options 
@@ -123,12 +122,12 @@ export class CustomHotbar extends Hotbar {
     // const chbMacros = this.populator.chbGetMacros();
 
     // If a slot was not provided, get the first available slot
-    slot = slot ? parseInt(slot) : Array.fromRange(10).find(i => !(i in ui.CustomHotbar));
+    slot = slot ? parseInt(slot) : Array.fromRange(10).find(i => !(i in ui.customHotbar));
     if ( !slot ) throw new Error("No available Hotbar slot exists");
     if ( slot < 1 || slot > 10 ) throw new Error("Invalid Hotbar slot requested");
 
     // Update the hotbar data
-    const update = duplicate(ui.CustomHotbar);
+    const update = duplicate(ui.customHotbar);
     console.debug("Custom Hotbar |", slot);
     if ( macro ) await this.populator.chbSetMacro(macro.id,slot);
     else {
@@ -140,12 +139,12 @@ export class CustomHotbar extends Hotbar {
     //if ( chbMacros[fromSlot] ) { //|| core hotbar fromSlot here) {
     console.debug("Custom Hotbar | Finding move origin");
     if ( fromSlot ) {
-      console.debug("Custom Hotbar |", ui.CustomHotbar.macros);
+      console.debug("Custom Hotbar |", ui.customHotbar.macros);
       //not really sure why I need this -1 kludge
-      console.debug("Custom Hotbar |", ui.CustomHotbar.macros[fromSlot-1]?.macro, ui.CustomHotbar.macros[fromSlot-1]?.macro === macro);
+      console.debug("Custom Hotbar |", ui.customHotbar.macros[fromSlot-1]?.macro, ui.customHotbar.macros[fromSlot-1]?.macro === macro);
 
       //IMPROVE THIS LOGIC TO DETECT CROSS-BAR DROPS      
-      if (ui.CustomHotbar.macros[fromSlot-1]?.macro === macro) {
+      if (ui.customHotbar.macros[fromSlot-1]?.macro === macro) {
         console.debug("Custom Hotbar | internal move detected!");
         if ( fromSlot != slot ) {
           console.debug(`Custom Hotbar | trying to delete slot ${fromSlot} in CustomHotbar`);
@@ -159,7 +158,7 @@ export class CustomHotbar extends Hotbar {
       console.debug("Custom Hotbar | non-hotbar drop detected!");
     }
  
-    ui.CustomHotbar.render();
+    ui.customHotbar.render();
     //new code suggested by tposney. creates hook to allow reassignment of monky hotpatch?
     Hooks.callAll("customHotbarAssignComplete");
     return update;
@@ -167,7 +166,7 @@ export class CustomHotbar extends Hotbar {
 
         /* -------------------------------------------- */
   /**
-   * Collapse the ui.CustomHotbar, minimizing its display.
+   * Collapse the ui.customHotbar, minimizing its display.
    * @return {Promise}    A promise which resolves once the collapse animation completes
    */
   async collapse() {
@@ -231,7 +230,7 @@ export class CustomHotbar extends Hotbar {
         name: "Remove",
         icon: '<i class="fas fa-times"></i>',
         callback: li => {
-            ui.CustomHotbar.assignCustomHotbarMacro(null, li.data("slot"));
+            ui.customHotbar.assignCustomHotbarMacro(null, li.data("slot"));
       }
       },
       {
@@ -336,7 +335,7 @@ export class CustomHotbar extends Hotbar {
     // Case 1 - create a new Macro
     if ( li.classList.contains("inactive") ) {
       const macro = await Macro.create({name: "New Macro", type: "chat", scope: "global"});
-      await ui.CustomHotbar.assignCustomHotbarMacro(macro, li.dataset.slot);
+      await ui.customHotbar.assignCustomHotbarMacro(macro, li.dataset.slot);
       macro.sheet.render(true);
     }
 
@@ -451,7 +450,7 @@ export class CustomHotbar extends Hotbar {
 
     // Remove hotbar Macro
     if ( ui.hotbar._hover ) this.assignHotbarMacro(null, ui.hotbar._hover);
-//??    if ( ui.CustomHotbar._hover ) this.assignCustomHotbarMacro(null, ui.CustomHotbar._hover);
+//??    if ( ui.customHotbar._hover ) this.assignCustomHotbarMacro(null, ui.customHotbar._hover);
 
     // Delete placeables from Canvas layer
     else if ( canvas.ready && ( canvas.activeLayer instanceof PlaceablesLayer ) ) {

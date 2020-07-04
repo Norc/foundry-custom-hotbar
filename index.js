@@ -4,9 +4,9 @@ import { CustomHotbar }  from './custom-hotbar.js';
 
 async function customHotbarInit() {
   console.debug("Custom Hotbar | Initializing...");
-  window.CustomHotbar = new CustomHotbarPopulator();
-  ui.CustomHotbar = new CustomHotbar(window.CustomHotbar);
-  ui.CustomHotbar.macros = ui.CustomHotbar.getData();
+  window.customHotbar = new CustomHotbarPopulator();
+  ui.customHotbar = new CustomHotbar(window.customHotbar);
+  ui.customHotbar.macros = ui.customHotbar.getData();
   let obj = {
       left: 100,
       top: 100,
@@ -17,22 +17,14 @@ async function customHotbarInit() {
       renderContext: "custom-hotbar",
       renderData: "init"
   };
-  //Not sure why this ISN'T needed?
-  //await ui.CustomHotbar.getCustomHotbarMacros(1);
 
-  //ui.hotbar = new HotbarPlus(); 
   ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) { 
     element.ondragstart = ui.hotbar._onDragStart;
     element.ondragend = ui.hotbar._onDrop;
   }); 
 
-/*
-  for (item of document.getElementsByClassName("macro")) {
-    item.ondragstart = ui.hotbar._onDragStart;
-  }
-*/
-  ui.CustomHotbar.render(true, obj);
+  ui.customHotbar.render(true, obj);
 }
 
 Hooks.on("init", async () => {
@@ -57,8 +49,8 @@ Hooks.on("ready", async () => {
         return;
       }
       //translate valid keypress into slot number
-      const slot = ui.CustomHotbar.macros.find(m => m.key === num);
-      if ( ui.CustomHotbar.macros[num] ) slot.macro.execute();
+      const slot = ui.customHotbar.macros.find(m => m.key === num);
+      if ( ui.customHotbar.macros[num] ) slot.macro.execute();
       return false;
     }
   });
@@ -66,8 +58,8 @@ Hooks.on("ready", async () => {
 });
 
 Hooks.on("renderCustomHotbar", async () => {
+  ui.customHotbar.expand();
   console.debug("Custom Hotbar | The custom hotbar just rendered!");
-  // console.log(chbMacroMap);
 });
 
 
@@ -90,9 +82,6 @@ at DragDrop._handleDrop (foundry.js:13836)
 
 //ROADMAP
 //Color and position settings
+//Freely draggable bar with remembered location
 //multiple hotbars
-
-//CODE REFACTORING
-//comment/dead code cleanup
-//make sure CustomHotbar (case) is only used in Object Type Name.
 */
