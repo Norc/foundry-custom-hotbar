@@ -2,10 +2,8 @@ name: Latest Custom Hotbar CI
 
 on:
   push:
-    branches: 
+    branches:
       - master
-    tags:
-      - v*
 
 jobs:
   build:
