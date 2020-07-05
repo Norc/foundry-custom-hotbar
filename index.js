@@ -1,6 +1,5 @@
 import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
-//import { HotbarPlus } from './hotbar-plus.js';
 
 async function customHotbarInit() {
   console.debug("Custom Hotbar | Initializing...");
@@ -28,7 +27,7 @@ async function customHotbarInit() {
 }
 
 Hooks.on("init", async () => {
-  CONFIG.ui.hotbar = class HotbarPlus extends Hotbar {
+  CONFIG.ui.hotbar = class extends Hotbar {
     _onDragStart(...arg) {
       document.getElementsByClassName("tooltip")[0].style.display = "none";
       super._onDragStart(...arg);
