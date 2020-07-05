@@ -18,10 +18,10 @@ async function customHotbarInit() {
   };
 
   ui.hotbar.render();
-  Array.from(document.getElementsByClassName("macro")).forEach(function (element) { 
+  Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
     element.ondragstart = ui.hotbar._onDragStart;
     element.ondragend = ui.hotbar._onDrop;
-  }); 
+  });
 
   ui.customHotbar.render(true, obj);
 }
