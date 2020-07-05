@@ -1,6 +1,5 @@
 import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
-//import { HotbarPlus } from './hotbar-plus.js';
 
 async function customHotbarInit() {
   console.debug("Custom Hotbar | Initializing...");
@@ -19,16 +18,16 @@ async function customHotbarInit() {
   };
 
   ui.hotbar.render();
-  Array.from(document.getElementsByClassName("macro")).forEach(function (element) { 
+  Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
     element.ondragstart = ui.hotbar._onDragStart;
     element.ondragend = ui.hotbar._onDrop;
-  }); 
+  });
 
   ui.customHotbar.render(true, obj);
 }
 
 Hooks.on("init", async () => {
-  CONFIG.ui.hotbar = class HotbarPlus extends Hotbar {
+  CONFIG.ui.hotbar = class extends Hotbar {
     _onDragStart(...arg) {
       document.getElementsByClassName("tooltip")[0].style.display = "none";
       super._onDragStart(...arg);
