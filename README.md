@@ -17,7 +17,9 @@ Foundry VTT module to add an extra, fully functional macro hotbar above the core
    1. Requests for features that would help support specfic systems are welcomed
 1. Keybinding for new macro slots (shift + digit)
 1. Full Token Hotbar module support
-   This module was originally created to enhance [Stan's Token Hotbar module](https://github.com/janssen-io/foundry-token-hotbar). We encourage you to try the two modules together! ![Custom Hotbar and Token Hotbar in action](https://github.com/janssen-io/foundry-token-hotbar/blob/master/img/thb-custom-hotbar.gif)
+   This module was originally created to enhance [Stan's Token Hotbar module](https://github.com/janssen-io/foundry-token-hotbar). We encourage you to try the two modules together! Custom Hotbar and Token Hotbar in action:
+   
+   <img src="https://github.com/janssen-io/foundry-token-hotbar/blob/master/img/thb-custom-hotbar.gif" width="40%" height = "40%">)
 1. Broad compatibility:
    1. Closely mimics built-in methods to allow modules like Minor Quality of Life and better rollsto use the Custom Hotbar without specific support
    1. Does not interfere with the operation of the original Macro Hotbar
