@@ -2,6 +2,12 @@ import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
 import { CustomHotbarSettings } from './custom-hotbar-settings.js';
 
+Hooks.once('ready', () => {
+    try{window.Ardittristan.ColorSetting.tester} catch {
+        ui.notifications.notify('Please make sure you have the "lib - ColorSettings" module installed', "error", {permanent: true});
+    }
+});
+
 async function customHotbarInit() {
   console.debug("Custom Hotbar | Initializing...");
   window.customHotbar = new CustomHotbarPopulator();
