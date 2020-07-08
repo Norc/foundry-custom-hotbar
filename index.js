@@ -1,5 +1,6 @@
 import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
+import { CustomHotbarSettings } from './custom-hotbar-settings.js';
 
 async function customHotbarInit() {
   console.debug("Custom Hotbar | Initializing...");
@@ -16,6 +17,8 @@ async function customHotbarInit() {
       renderContext: "custom-hotbar",
       renderData: "init"
   };
+
+  game.settings.register("custom-hotbar", "chbColor");
 
   ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
