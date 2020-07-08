@@ -25,6 +25,7 @@ async function customHotbarInit() {
   };
 
   game.settings.register("custom-hotbar", "chbColor");
+  game.settings.register("custom-hotbar", "chbCoreColor");
 
   ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
