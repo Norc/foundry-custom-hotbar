@@ -12,6 +12,7 @@ Foundry VTT module to add an extra, fully functional macro hotbar above the core
   
 ## Features
 1. Adds easy access to 10 additional macros in a separate visual grouping
+1. Provides color and position control over both the existing core hotbar and new custom hotbars 
 1. Fully system agnostic
    1. Tested with 5E, PF2E, and WFRP
    1. Requests for features that would help support specfic systems are welcomed
@@ -25,6 +26,10 @@ Foundry VTT module to add an extra, fully functional macro hotbar above the core
    1. Does not interfere with the operation of the original Macro Hotbar
 
 ## Changelog
+*Version 2.0* (2020/07/09)
+1. Added settings to control Custom Hotbar coloring and position settings
+1. Added settings to provide the same control to the Core Hotbar
+
 *INITIAL RELEASE v1.5* (2020/07/05)
 1. Added ability to automatically handle dragging from character sheet onto custom hotbar, including full MQoL and BetterRolls support.
 1. Added support for all reamining dragging and dropping scenarios, including between Core and Custom Hotbars. 
@@ -39,11 +44,11 @@ Initial version to attempt to display the hotbar in any fashion.
 
 ## Roadmap:
 _Next major version:_
-1. Add better control for location of hotbar, including full popout mode with drag and drop.
-1. Add color customization options for both Core and Custom Hotbar via Color Picker library
+1. Add option to popout hotbars for positioning by dragging and dropping
+1. Add option to unlock Custom Hotbar pages 2-5, just like Core Hotbar
+1. Misc bugfixes, minor features and settings improvements
 
 _Future versions:_
-1. Add option to unlock Custom Hotbar pages 2-5, just like Core Hotbar
 1. Add ability to create multiple Custom Hotbars, not just one
 1. Add ability to highlight hotbar if various flags/system values are present
 
