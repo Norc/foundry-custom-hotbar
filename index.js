@@ -28,16 +28,38 @@ async function customHotbarInit() {
 
 CustomHotbarSettings.register();
 
-//apply settings styles
+//apply settings styles, first for custom hotbar, then for core hotbar
 var css =
-    '#custom-hotbar .macro' 
-  + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
+    '#custom-hotbar' 
+  + ` { bottom: ${game.settings.get("custom-hotbar", "chbYPos")}px; ` 
+  + `   left: ${game.settings.get("custom-hotbar", "chbXPos")}px; `
   + ' }'
-  + '#custom-hotbar' 
-    + ` { bottom: ${game.settings.get("custom-hotbar", "chbYPos")}px; ` 
-    + `   left: ${game.settings.get("custom-hotbar", "chbXPos")}px; `
-    + ' }',
+
+  + '#custom-hotbar #custom-macro-list' 
+  + ` {` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor2")};`
+  + ' }'
+  
+  + '#custom-hotbar .bar-controls' 
+  + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor2")};`
+  + ' }'
+
+  + '#custom-hotbar .macro' 
+  + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor2")};`
+  + ' }'
+
+  + '#custom-hotbar .macro.active:hover' 
+  + ' {' 
+  + `     border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColorActive")};`
+  + ' }'
+
+  + '#custom-hotbar .macro.inactive:hover' 
+  + ' {' 
+  + `     border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColorInactive")};`
+  + ' }'
+  ,
     head = document.head || document.getElementsByTagName('head')[0],
     style = document.createElement('style');
 
@@ -45,37 +67,6 @@ head.appendChild(style);
 
 style.type = 'text/css';
 style.appendChild(document.createTextNode(css));
-
-
-/*var css =
-  '#custom-hotbar .macro' 
-    + ' { background: rgba(255, 255, 255, 0.5); ' 
-    + '   bottom: 0px;'
-    + '   left: 0px;'
-    + ' }'*/
-
-/*
-#custom-hotbar {
-  z-index: 69;
-  position: fixed;
-  bottom: 63px;
-  left: 220px;
-  width: 600px;
-  height: 52px;
-  box-sizing: border-box;
-}
-
-#custom-hotbar .macro {
-  position: relative;
-  flex: 0 0 50px;
-  height: 50px;
-  border: 1px solid #0000ff;
-  border-radius: 3px;
-  background: rgba(0, 0, 200, 0.5);
-  box-shadow: 0 0 5px #000 inset;
-  cursor: pointer;
-}
-*/
 
   ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {

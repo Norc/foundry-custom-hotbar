@@ -44,18 +44,6 @@ pointer-events: all;
     border-radius: 3px;
 }
 
-#custom-hotbar .bar-controls {
-    flex: 0 0 32px;
-    height: 100%;
-    margin: 0 2px;
-    text-align: center;
-    color: #c9c7b8;
-    background: rgba(0, 0, 200, 0.5);
-    border: 1px solid #0000ff;
-    box-shadow: 0 0 3px #444 inset;
-    border-radius: 3px;
-}
-
 #custom-hotbar .macro {
     position: relative;
     flex: 0 0 50px;

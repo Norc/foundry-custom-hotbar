@@ -3,27 +3,51 @@
         "settings": {
             "chbPrimaryColor": {
                 "name": "Custom Hotbar Primary Color:",
-                "nameHint": "Background color for the extra hotbar added by this module"
+                "nameHint": "Background color for the extra hotbar added by this module. Default: #0000FF80"
             },
-            "chbBorderColor": {
+            "chbBorderColor2": {
                 "name": "Custom Hotbar Macro Slot Border Color:",
-                "nameHint": "Border color for the border box around each macro"
+                "nameHint": "Border color for the border box around each macro on the Custom Hotbar. Default: #0000FFff"
             },
             "chbBorderColorActive": {
                 "name": "Custom Hotbar Macro Highlight Color:",
-                "nameHint": "Color of the border around a filled macro slot when you hover over it with the mouse"
+                "nameHint": "Color of the border around a filled macro slot  on the Custom Hotbar when you hover over it with the mouse. Default: #FFFFFFff"
             },
             "chbBorderColorInactive": {
                 "name": "Primary Custom Hotbar Empty Macro Highlight Color:",
-                "nameHint": "Color of the border around an empty macro slot when you hover over it with the mouse"
+                "nameHint": "Color of the border around an empty macro slot on the Custom Hotbar when you hover over it with the mouse. Default: #808080ff"
             },
             "chbXPos":{
-                "name": "Position for the hotbar on the X axis:",
-                "nameHint": "Higher values are further to the right of the screen horizontally"
+                "name": "Position for the custom hotbar on the X axis:",
+                "nameHint": "Higher values are further to the right of the screen horizontally. Default: 220"
             },
             "chbYPos":{
-                "name": "Position for the hotbar on the Y axis:",
-                "nameHint": "Higher values are further up the screen vertically"
+                "name": "Position for the custom hotbar on the Y axis:",
+                "nameHint": "Higher values are further up the screen vertically. Default: 63"
+            },
+            "corePrimaryColor": {
+                "name": "Core Foundry Hotbar Primary Color:",
+                "nameHint": "Background color for the core Foundry hotbar. Default: #00000080"
+            },
+            "coreBorderColor2": {
+                "name": "Core Foundry Macro Slot Border Color:",
+                "nameHint": "Border color for the border box around each macro on the core Foundry hotbar. Default: #000000ff"
+            },
+            "coreBorderColorActive": {
+                "name": "Core Foundry Macro Highlight Color:",
+                "nameHint": "Color of the border around a filled macro slot  on the core Foundry hotbar when you hover over it with the mouse. Default: #ff0000ff"
+            },
+            "coreBorderColorInactive": {
+                "name": "Core Foundry Hotbar Empty Macro Highlight Color:",
+                "nameHint": "Color of the border around an empty macro slot on the core Foundry hotbar when you hover over it with the mouse. Default: #ff6400ff"
+            },
+            "coreXPos":{
+                "name": "Position for the Core Foundry hotbar on the X axis:",
+                "nameHint": "Higher values are further to the right of the screen horizontally. Default: 220"
+            },
+            "coreYPos":{
+                "name": "Position for the Core Foundry hotbar on the Y axis:",
+                "nameHint": "Higher values are further up the screen vertically. Default: 10"
             }
         }
     }
