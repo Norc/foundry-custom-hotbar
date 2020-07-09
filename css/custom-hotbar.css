@@ -1,8 +1,5 @@
 /*Global styles*/
 
-/* Only adjustment needed to core hotbar styling.
-   Prevents it from accidentally catching macro drops */  
-
 #custom-hotbar {
     z-index: 69;
     position: fixed;
