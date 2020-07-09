@@ -35,8 +35,8 @@ var css =
   + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
   + ' }'
   + '#custom-hotbar' 
-    + ' { bottom: 0px; ' 
-    + '   left: 0px;'
+    + ` { bottom: ${game.settings.get("custom-hotbar", "chbYPos")}px; ` 
+    + `   left: ${game.settings.get("custom-hotbar", "chbXPos")}px; `
     + ' }',
     head = document.head || document.getElementsByTagName('head')[0],
     style = document.createElement('style');
