@@ -1,3 +1,9 @@
 {
-    "customHotbar.Settings.chbColor.primaryColor": "Primary Custom Hotbar Color"
+    "customHotbar": {   
+        "settings": {
+            "chbPrimaryColor": {
+                "name": "Primary Custom Hotbar Color"
+            }
+        }
+    }
 }

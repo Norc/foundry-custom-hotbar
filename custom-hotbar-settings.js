@@ -24,7 +24,7 @@ export class CustomHotbarSettings {
 
         //                                     module        key             options
         new window.Ardittristan.ColorSetting("custom-hotbar", "chbCoreColor", {
-            name: "customHotbar.Settings.chbCoreColor.name",      // The name of the setting in the settings menu
+            name: "customHotbar.settings.chbPrimaryColor.name",      // The name of the setting in the settings menu
             //hint: "customHotbar.Settings.chbCoreColor.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
