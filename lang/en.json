@@ -10,19 +10,19 @@
                 "nameHint": "Border color for the border box around each macro on the Custom Hotbar. Default: #0000FFff"
             },
             "chbBorderColorActive": {
-                "name": "Custom Hotbar Macro Highlight Color:",
+                "name": "Custom Hotbar Macro Slot Highlight Color:",
                 "nameHint": "Color of the border around a filled macro slot  on the Custom Hotbar when you hover over it with the mouse. Default: #FFFFFFff"
             },
             "chbBorderColorInactive": {
-                "name": "Primary Custom Hotbar Empty Macro Highlight Color:",
+                "name": "Custom Hotbar Empty Macro Slot Highlight Color:",
                 "nameHint": "Color of the border around an empty macro slot on the Custom Hotbar when you hover over it with the mouse. Default: #808080ff"
             },
             "chbXPos":{
-                "name": "Position for the custom hotbar on the X axis:",
+                "name": "Position for the Custom Hotbar on the X Axis:",
                 "nameHint": "Higher values are further to the right of the screen horizontally. Default: 220"
             },
             "chbYPos":{
-                "name": "Position for the custom hotbar on the Y axis:",
+                "name": "Position for the Custom Hotbar on the Y Axis:",
                 "nameHint": "Higher values are further up the screen vertically. Default: 63"
             },
             "corePrimaryColor": {
@@ -34,19 +34,19 @@
                 "nameHint": "Border color for the border box around each macro on the core Foundry hotbar. Default: #000000ff"
             },
             "coreBorderColorActive": {
-                "name": "Core Foundry Macro Highlight Color:",
+                "name": "Core Foundry Macro Slot Highlight Color:",
                 "nameHint": "Color of the border around a filled macro slot  on the core Foundry hotbar when you hover over it with the mouse. Default: #ff0000ff"
             },
             "coreBorderColorInactive": {
-                "name": "Core Foundry Hotbar Empty Macro Highlight Color:",
+                "name": "Core Foundry Hotbar Empty Macro Slot Highlight Color:",
                 "nameHint": "Color of the border around an empty macro slot on the core Foundry hotbar when you hover over it with the mouse. Default: #ff6400ff"
             },
             "coreXPos":{
-                "name": "Position for the Core Foundry hotbar on the X axis:",
+                "name": "Position for the Core Foundry Hotbar on the X Axis:",
                 "nameHint": "Higher values are further to the right of the screen horizontally. Default: 220"
             },
             "coreYPos":{
-                "name": "Position for the Core Foundry hotbar on the Y axis:",
+                "name": "Position for the Core Foundry Hotbar on the Y Axis:",
                 "nameHint": "Higher values are further up the screen vertically. Default: 10"
             }
         }

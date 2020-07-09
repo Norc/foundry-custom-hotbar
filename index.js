@@ -59,6 +59,38 @@ var css =
   + ' {' 
   + `     border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColorInactive")};`
   + ' }'
+
+
+
+  + '#hotbar' 
+  + ` { bottom: ${game.settings.get("custom-hotbar", "coreYPos")}px; ` 
+  + `   left: ${game.settings.get("custom-hotbar", "coreXPos")}px; `
+  + ' }'
+
+  + '#hotbar #custom-macro-list' 
+  + ` {` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor2")};`
+  + ' }'
+  
+  + '#hotbar .bar-controls' 
+  + ` { background: ${game.settings.get("custom-hotbar", "corePrimaryColor")};` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor2")};`
+  + ' }'
+
+  + '#hotbar .macro' 
+  + ` { background: ${game.settings.get("custom-hotbar", "corePrimaryColor")};` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor2")};`
+  + ' }'
+
+  + '#hotbar .macro.active:hover' 
+  + ' {' 
+  + `     border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColorActive")};`
+  + ' }'
+
+  + '#hotbar .macro.inactive:hover' 
+  + ' {' 
+  + `     border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColorInactive")};`
+  + ' }'
   ,
     head = document.head || document.getElementsByTagName('head')[0],
     style = document.createElement('style');
