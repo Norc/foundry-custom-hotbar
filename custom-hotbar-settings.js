@@ -8,7 +8,7 @@ export class CustomHotbarSettings {
             hint: "customHotbar.settings.chbPrimaryColor.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: "#0000ffff",     // The default color of the setting
+            defaultColor: "#FFFFFFff",     // The default color of the setting
             scope: "client",               // The scope of the setting
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })

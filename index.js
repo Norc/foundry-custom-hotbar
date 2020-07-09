@@ -31,8 +31,8 @@ CustomHotbarSettings.register();
 //apply settings styles
 var css =
     '#custom-hotbar .macro' 
-  + ' { background: rgba(255, 255, 255, 0.5); ' 
-  + '   border: 1px solid #FFFFFFff;'
+  + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
   + ' }'
   + '#custom-hotbar' 
     + ' { bottom: 0px; ' 
