@@ -29,7 +29,15 @@ async function customHotbarInit() {
 CustomHotbarSettings.register();
 
 //apply settings styles
-var css = '#custom-hotbar .macro { background: rgba(255, 255, 255, 0.5); }',
+var css =
+    '#custom-hotbar .macro' 
+  + ' { background: rgba(255, 255, 255, 0.5); ' 
+  + '   border: 1px solid #FFFFFFff;'
+  + ' }'
+  + '#custom-hotbar' 
+    + ' { bottom: 0px; ' 
+    + '   left: 0px;'
+    + ' }',
     head = document.head || document.getElementsByTagName('head')[0],
     style = document.createElement('style');
 
@@ -44,7 +52,7 @@ style.appendChild(document.createTextNode(css));
     + ' { background: rgba(255, 255, 255, 0.5); ' 
     + '   bottom: 0px;'
     + '   left: 0px;'
-    + ' }';*/
+    + ' }'*/
 
 /*
 #custom-hotbar {
