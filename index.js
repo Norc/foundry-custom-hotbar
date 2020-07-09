@@ -18,7 +18,7 @@ async function customHotbarInit() {
       renderData: "init"
   };
 
-  game.settings.register("custom-hotbar", "chbColor");
+CustomHotbarSettings.register();
 
   ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
