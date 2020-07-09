@@ -2,7 +2,28 @@
     "customHotbar": {   
         "settings": {
             "chbPrimaryColor": {
-                "name": "Primary Custom Hotbar Color"
+                "name": "Custom Hotbar Primary Color:",
+                "nameHint": "Background color for the extra hotbar added by this module"
+            },
+            "chbBorderColor": {
+                "name": "Custom Hotbar Macro Slot Border Color:",
+                "nameHint": "Border color for the border box around each macro"
+            },
+            "chbBorderColorActive": {
+                "name": "Custom Hotbar Macro Highlight Color:",
+                "nameHint": "Color of the border around a filled macro slot when you hover over it with the mouse"
+            },
+            "chbBorderColorInactive": {
+                "name": "Primary Custom Hotbar Empty Macro Highlight Color:",
+                "nameHint": "Color of the border around an empty macro slot when you hover over it with the mouse"
+            },
+            "chbXPos":{
+                "name": "Position for the hotbar on the X axis:",
+                "nameHint": "Higher values are further to the right of the screen horizontally"
+            },
+            "chbYPos":{
+                "name": "Position for the hotbar on the Y axis:",
+                "nameHint": "Higher values are further up the screen vertically"
             }
         }
     }

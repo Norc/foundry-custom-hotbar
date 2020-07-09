@@ -3,14 +3,6 @@
 /* Only adjustment needed to core hotbar styling.
    Prevents it from accidentally catching macro drops */  
 
-#hotbar .macro .tooltip {
-    font-size: 72;
-}
-
-#hotbar .macro .tooltip:hover {
-    display: none;
-}
-
 #custom-hotbar {
     z-index: 69;
     position: fixed;

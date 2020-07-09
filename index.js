@@ -24,7 +24,50 @@ async function customHotbarInit() {
       renderData: "init"
   };
 
+
+
 CustomHotbarSettings.register();
+
+//apply settings styles
+var css = '#custom-hotbar .macro { background: rgba(255, 255, 255, 0.5); }',
+    head = document.head || document.getElementsByTagName('head')[0],
+    style = document.createElement('style');
+
+head.appendChild(style);
+
+style.type = 'text/css';
+style.appendChild(document.createTextNode(css));
+
+
+/*var css =
+  '#custom-hotbar .macro' 
+    + ' { background: rgba(255, 255, 255, 0.5); ' 
+    + '   bottom: 0px;'
+    + '   left: 0px;'
+    + ' }';*/
+
+/*
+#custom-hotbar {
+  z-index: 69;
+  position: fixed;
+  bottom: 63px;
+  left: 220px;
+  width: 600px;
+  height: 52px;
+  box-sizing: border-box;
+}
+
+#custom-hotbar .macro {
+  position: relative;
+  flex: 0 0 50px;
+  height: 50px;
+  border: 1px solid #0000ff;
+  border-radius: 3px;
+  background: rgba(0, 0, 200, 0.5);
+  box-shadow: 0 0 5px #000 inset;
+  cursor: pointer;
+}
+*/
 
   ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
