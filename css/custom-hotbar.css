@@ -1,16 +1,5 @@
 /*Global styles*/
 
-/* Only adjustment needed to core hotbar styling.
-   Prevents it from accidentally catching macro drops */  
-
-#hotbar .macro .tooltip {
-    font-size: 72;
-}
-
-#hotbar .macro .tooltip:hover {
-    display: none;
-}
-
 #custom-hotbar {
     z-index: 69;
     position: fixed;
@@ -52,18 +41,6 @@ pointer-events: all;
     margin: 0 2px;
     padding: 0;
     border: 1px solid #0000ff;
-    border-radius: 3px;
-}
-
-#custom-hotbar .bar-controls {
-    flex: 0 0 32px;
-    height: 100%;
-    margin: 0 2px;
-    text-align: center;
-    color: #c9c7b8;
-    background: rgba(0, 0, 200, 0.5);
-    border: 1px solid #0000ff;
-    box-shadow: 0 0 3px #444 inset;
     border-radius: 3px;
 }
 

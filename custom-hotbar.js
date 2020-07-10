@@ -314,6 +314,7 @@ export class CustomHotbar extends Hotbar {
    */
   async _onClickMacro(event) {
     console.debug("custom macro click detected!");
+    
     event.preventDefault();
     const li = event.currentTarget;
 

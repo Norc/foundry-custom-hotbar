@@ -1,5 +1,13 @@
 import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
+import { CustomHotbarSettings } from './custom-hotbar-settings.js';
+//import { CoreHotbarSettings } from './core-hotbar-settings.js';
+
+Hooks.once('ready', () => {
+    try{window.Ardittristan.ColorSetting.tester} catch {
+        ui.notifications.notify('Please make sure you have the "lib - ColorSettings" module installed', "error", {permanent: true});
+    }
+});
 
 async function customHotbarInit() {
   console.debug("Custom Hotbar | Initializing...");
@@ -16,6 +24,82 @@ async function customHotbarInit() {
       renderContext: "custom-hotbar",
       renderData: "init"
   };
+
+
+CustomHotbarSettings.register();
+//CoreHotbarSettings.register();
+
+//apply settings styles, first for custom hotbar, then for core hotbar
+var css =
+    '#custom-hotbar' 
+  + ` { bottom: ${game.settings.get("custom-hotbar", "chbYPos")}px; ` 
+  + `   left: ${game.settings.get("custom-hotbar", "chbXPos")}px; `
+  + ' }'
+
+  + '#custom-hotbar #custom-macro-list' 
+  + ` {` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
+  + ' }'
+  
+  + '#custom-hotbar .bar-controls' 
+  + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
+  + ' }'
+
+  + '#custom-hotbar .macro' 
+  + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
+  + ' }'
+
+  + '#custom-hotbar .macro.active:hover' 
+  + ' {' 
+  + `     border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColorActive")};`
+  + ' }'
+
+  + '#custom-hotbar .macro.inactive:hover' 
+  + ' {' 
+  + `     border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColorInactive")};`
+  + ' }'
+
+
+
+  + '#hotbar' 
+  + ` { bottom: ${game.settings.get("custom-hotbar", "coreYPos")}px; ` 
+  + `   left: ${game.settings.get("custom-hotbar", "coreXPos")}px; `
+  + ' }'
+
+  + '#hotbar #custom-macro-list' 
+  + ` {` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
+  + ' }'
+  
+  + '#hotbar .bar-controls' 
+  + ` { background: ${game.settings.get("custom-hotbar", "corePrimaryColor")};` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
+  + ' }'
+
+  + '#hotbar .macro' 
+  + ` { background: ${game.settings.get("custom-hotbar", "corePrimaryColor")};` 
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
+  + ' }'
+
+  + '#hotbar .macro.active:hover' 
+  + ' {' 
+  + `     border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColorActive")};`
+  + ' }'
+
+  + '#hotbar .macro.inactive:hover' 
+  + ' {' 
+  + `     border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColorInactive")};`
+  + ' }'
+  ,
+    head = document.head || document.getElementsByTagName('head')[0],
+    style = document.createElement('style');
+
+head.appendChild(style);
+
+style.type = 'text/css';
+style.appendChild(document.createTextNode(css));
 
   ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
