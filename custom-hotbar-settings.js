@@ -21,7 +21,7 @@ export class CustomHotbarSettings {
             restricted: true
         });
 
-        
+    
     //CUSTOM HOTBAR SETTINGS    
 
         //                                     module        key             options
@@ -75,11 +75,11 @@ export class CustomHotbarSettings {
             config: true,
             default: "220",
             type: Number,
-            /*choices: {
-            "default": "customHotbar.Settings.chbColor.value.default",
-            "onlyCurrent": "customHotbar.Settings.chbColor.value.onlyCurrent",
-            "no": "ForienQuestLog.Settings.showTasks.no"
-            }, */
+            //choices: {
+            //"default": "customHotbar.Settings.chbColor.value.default",
+            //"onlyCurrent": "customHotbar.Settings.chbColor.value.onlyCurrent",
+            //"no": "ForienQuestLog.Settings.showTasks.no"
+            //},
             onChange: value => {
                 ui.customHotbar.render();
             }
@@ -92,11 +92,11 @@ export class CustomHotbarSettings {
             config: true,
             default: "63",
             type: Number,
-            /*choices: {
-            "default": "customHotbar.Settings.chbColor.value.default",
-            "onlyCurrent": "customHotbar.Settings.chbColor.value.onlyCurrent",
-            "no": "ForienQuestLog.Settings.showTasks.no"
-            }, */
+            //choices: {
+            //"default": "customHotbar.Settings.chbColor.value.default",
+            //"onlyCurrent": "customHotbar.Settings.chbColor.value.onlyCurrent",
+            //"no": "ForienQuestLog.Settings.showTasks.no"
+            //}, 
             onChange: value => {
                 ui.customHotbar.render();
             }

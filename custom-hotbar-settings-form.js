@@ -12,7 +12,7 @@ export class CustomHotbarSettingsForm extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "custom-hotbar-settings-form",
-            title: "Custom Hotbar",
+            title: "Custom Hotbar Settings",
             template: "./modules/custom-hotbar/templates/customHotbarSettings.html",
             classes: ["sheet"],
             width: 500,

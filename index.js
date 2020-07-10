@@ -28,6 +28,7 @@ async function customHotbarInit() {
 
 
 CustomHotbarSettings.register();
+//CoreHotbarSettings.register();
 
 //apply settings styles, first for custom hotbar, then for core hotbar
 var css =
