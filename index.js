@@ -26,7 +26,6 @@ async function customHotbarInit() {
   };
 
 
-
 CustomHotbarSettings.register();
 //CoreHotbarSettings.register();
 
