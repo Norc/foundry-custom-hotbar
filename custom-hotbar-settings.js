@@ -8,15 +8,15 @@ export class CustomHotbarSettings {
         game.settings.registerMenu("custom-hotbar", 'chbSettingsMenu', {
             name: 'Custom Hotbar Settings',
             label: 'Custom Hotbar',
-            icon: 'fas fa-book',
+            icon: 'fas fa-bars',
             type: CustomHotbarSettingsForm,
             restricted: true
         });
 
         game.settings.registerMenu("custom-hotbar", 'coreSettingsMenu', {
-            name: 'Core Foundry Hotbar Settings',
+            name: 'Core Foundry Hotbar Modification Settings',
             label: 'Core Hotbar',
-            icon: 'fas fa-book',
+            icon: 'fas fa-minus',
             type: CoreHotbarSettingsForm,
             restricted: true
         });
