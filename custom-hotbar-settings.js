@@ -1,7 +1,27 @@
+import { CustomHotbarSettingsForm } from './custom-hotbar-settings-form.js';
+import { CoreHotbarSettingsForm } from './core-hotbar-settings-form.js';
+
 export class CustomHotbarSettings {
 
     static register(){
+    //EXPERIMENTAL ATTEMPT AT SUBMENU
+        game.settings.registerMenu("custom-hotbar", 'chbSettingsMenu', {
+            name: 'Custom Hotbar Settings',
+            label: 'Custom Hotbar',
+            icon: 'fas fa-book',
+            type: CustomHotbarSettingsForm,
+            restricted: true
+        });
 
+        game.settings.registerMenu("custom-hotbar", 'coreSettingsMenu', {
+            name: 'Core Foundry Hotbar Settings',
+            label: 'Core Hotbar',
+            icon: 'fas fa-book',
+            type: CoreHotbarSettingsForm,
+            restricted: true
+        });
+
+        
     //CUSTOM HOTBAR SETTINGS    
 
         //                                     module        key             options

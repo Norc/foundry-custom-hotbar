@@ -29,6 +29,7 @@ Foundry VTT module to add an extra, fully functional macro hotbar above the core
 *Version 2.0* (2020/07/09)
 1. Added settings to control Custom Hotbar coloring and position settings
 1. Added settings to provide the same control to the Core Hotbar
+1. Added localization strings for the new settings
 
 *INITIAL RELEASE v1.5* (2020/07/05)
 1. Added ability to automatically handle dragging from character sheet onto custom hotbar, including full MQoL and BetterRolls support.

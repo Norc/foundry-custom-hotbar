@@ -1,5 +1,11 @@
 {
-    "customHotbar": {   
+    "customHotbar": {
+        
+        "general": {
+            "modname": "Custom Hotbar",
+            "mod": "custom-hotbar"
+        },  
+
         "settings": {
             "chbPrimaryColor": {
                 "name": "Custom Hotbar Color:",
@@ -25,6 +31,9 @@
                 "name": "Custom Hotbar Vertical Position:",
                 "nameHint": "Higher values are further up the screen vertically. Default: 63"
             },
+
+
+
             "corePrimaryColor": {
                 "name": "Core Foundry Hotbar Color:",
                 "nameHint": "Background color for the core Foundry hotbar. Default: #00000080"

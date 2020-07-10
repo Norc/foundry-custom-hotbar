@@ -1,6 +1,7 @@
 import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
 import { CustomHotbarSettings } from './custom-hotbar-settings.js';
+//import { CoreHotbarSettings } from './core-hotbar-settings.js';
 
 Hooks.once('ready', () => {
     try{window.Ardittristan.ColorSetting.tester} catch {
