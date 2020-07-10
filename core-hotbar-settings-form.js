@@ -1,4 +1,4 @@
-import { CoreHotbarSettings } from './core-hotbar-settings.js';
+//import { CustomHotbarSettings } from './custom-hotbar-settings.js';
 
 export class CoreHotbarSettingsForm extends FormApplication {
 
@@ -12,7 +12,7 @@ export class CoreHotbarSettingsForm extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "core-hotbar-settings-form",
-            title: "Core Hotbar Settings",
+            title: "Core Hotbar Modification Settings",
             template: "./modules/custom-hotbar/templates/coreHotbarSettings.html",
             classes: ["sheet"],
             width: 500,
