@@ -36,9 +36,9 @@ export class CustomHotbarSettings {
         })
      
         //                                     module        key             options
-        new window.Ardittristan.ColorSetting("custom-hotbar", "chbBorderColor2", {
-            name: "customHotbar.settings.chbBorderColor2.name",      // The name of the setting in the settings menu
-            hint: "customHotbar.settings.chbBorderColor2.nameHint",   // A description of the registered setting and its behavior
+        new window.Ardittristan.ColorSetting("custom-hotbar", "chbBorderColor", {
+            name: "customHotbar.settings.chbBorderColor.name",      // The name of the setting in the settings menu
+            hint: "customHotbar.settings.chbBorderColor.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
             defaultColor: "#0000FFff",     // The default color of the setting
@@ -111,18 +111,18 @@ export class CustomHotbarSettings {
             hint: "customHotbar.settings.corePrimaryColor.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: "#0000FF80",     // The default color of the setting
+            defaultColor: "#00000080",     // The default color of the setting
             scope: "client",               // The scope of the setting
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })
      
         //                                     module        key             options
-        new window.Ardittristan.ColorSetting("custom-hotbar", "coreBorderColor2", {
-            name: "customHotbar.settings.coreBorderColor2.name",      // The name of the setting in the settings menu
-            hint: "customHotbar.settings.coreBorderColor2.nameHint",   // A description of the registered setting and its behavior
+        new window.Ardittristan.ColorSetting("custom-hotbar", "coreBorderColor", {
+            name: "customHotbar.settings.coreBorderColor.name",      // The name of the setting in the settings menu
+            hint: "customHotbar.settings.coreBorderColor.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: "#0000FFff",     // The default color of the setting
+            defaultColor: "#000000ff",     // The default color of the setting
             scope: "client",               // The scope of the setting
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })

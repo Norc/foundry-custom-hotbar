@@ -38,17 +38,17 @@ var css =
 
   + '#custom-hotbar #custom-macro-list' 
   + ` {` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor2")};`
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
   + ' }'
   
   + '#custom-hotbar .bar-controls' 
   + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor2")};`
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
   + ' }'
 
   + '#custom-hotbar .macro' 
   + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor2")};`
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
   + ' }'
 
   + '#custom-hotbar .macro.active:hover' 
@@ -70,17 +70,17 @@ var css =
 
   + '#hotbar #custom-macro-list' 
   + ` {` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor2")};`
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
   + ' }'
   
   + '#hotbar .bar-controls' 
   + ` { background: ${game.settings.get("custom-hotbar", "corePrimaryColor")};` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor2")};`
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
   + ' }'
 
   + '#hotbar .macro' 
   + ` { background: ${game.settings.get("custom-hotbar", "corePrimaryColor")};` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor2")};`
+  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
   + ' }'
 
   + '#hotbar .macro.active:hover' 

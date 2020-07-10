@@ -11,7 +11,7 @@
                 "name": "Custom Hotbar Color:",
                 "nameHint": "Background color for the extra hotbar added by this module. Default: #0000FF80"
             },
-            "chbBorderColor2": {
+            "chbBorderColor": {
                 "name": "Custom Hotbar Border Color:",
                 "nameHint": "Border color for the border box around each macro on the Custom Hotbar. Default: #0000FFff"
             },
@@ -38,7 +38,7 @@
                 "name": "Core Foundry Hotbar Color:",
                 "nameHint": "Background color for the core Foundry hotbar. Default: #00000080"
             },
-            "coreBorderColor2": {
+            "coreBorderColor": {
                 "name": "Core Foundry Border Color:",
                 "nameHint": "Border color for the border box around each macro on the core Foundry hotbar. Default: #000000ff"
             },
