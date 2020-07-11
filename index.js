@@ -123,7 +123,7 @@ Hooks.on("ready", async () => {
   await customHotbarInit();
 
   window.addEventListener('keydown', (e) => {
-    if( (48 <= e.which <=57)  && e.shiftKey) {
+    if( (48 <= e.which <=57)  && e.shiftKey && !e.ctrlKey) {
       const num = parseInt(e.code.slice(e.code.length -1));
       console.debug(`Custom Hotbar | You pressed shift and ${num} on a ${e.target.tagName}`);
       //disable firing macro on keystrokes meant to enter text
@@ -137,6 +137,21 @@ Hooks.on("ready", async () => {
       return false;
     }
   });
+
+  window.addEventListener('keydown', (e) => {
+    //when pages added to Custom Hotbar, extend to captuer 6-10 presses to change that page also?
+    if( (49 <= e.which <=53)  && e.shiftKey && e.ctrlKey) {
+      const num = parseInt(e.code.slice(e.code.length -1));
+      console.debug(`Custom Hotbar | You pressed control shift and ${num} on a ${e.target.tagName}`);
+      //disable firing macro on keystrokes meant to enter text
+      if (e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA") {
+        console.debug("Custom Hotbar | Preventing keybind, invalid target.");
+        return;
+      }
+      //translate valid keypress into core hotbar page change
+    }
+  });
+
 
 });
 

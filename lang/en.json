@@ -4,9 +4,15 @@
         "general": {
             "modname": "Custom Hotbar",
             "mod": "custom-hotbar"
-        },  
+        },
+
+        "config": {
+            "chbTitle": "Custom Hotbar Settings",
+            "chbCoreTitle": "Core Hotbar Modification Settings"
+        },
 
         "settings": {
+            
             "chbPrimaryColor": {
                 "name": "Custom Hotbar Color:",
                 "nameHint": "Background color for the extra hotbar added by this module. Default: #0000FF80"

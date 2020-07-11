@@ -30,8 +30,10 @@ export class CustomHotbarSettings {
             hint: "customHotbar.settings.chbPrimaryColor.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
+            config: false,                 // Disable display on the standard Foundry settings menu
             defaultColor: "#0000FF80",     // The default color of the setting
             scope: "client",               // The scope of the setting
+            config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })
      
@@ -43,6 +45,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             defaultColor: "#0000FFff",     // The default color of the setting
             scope: "client",               // The scope of the setting
+            config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })
 
@@ -54,6 +57,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             defaultColor: "#FFFFFFff",     // The default color of the setting
             scope: "client",               // The scope of the setting
+            config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })
 
@@ -65,6 +69,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             defaultColor: "#939799ff",     // The default color of the setting
             scope: "client",               // The scope of the setting
+            config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })   
 
@@ -72,14 +77,9 @@ export class CustomHotbarSettings {
             name: "customHotbar.settings.chbXPos.name",
             hint: "customHotbar.settings.chbXPos.nameHint",
             scope: "world",
-            config: true,
+            config: false,
             default: "220",
             type: Number,
-            //choices: {
-            //"default": "customHotbar.Settings.chbColor.value.default",
-            //"onlyCurrent": "customHotbar.Settings.chbColor.value.onlyCurrent",
-            //"no": "ForienQuestLog.Settings.showTasks.no"
-            //},
             onChange: value => {
                 ui.customHotbar.render();
             }
@@ -89,14 +89,9 @@ export class CustomHotbarSettings {
             name: "customHotbar.settings.chbYPos.name",
             hint: "customHotbar.settings.chbYPos.nameHint",
             scope: "world",
-            config: true,
+            config: false,
             default: "63",
             type: Number,
-            //choices: {
-            //"default": "customHotbar.Settings.chbColor.value.default",
-            //"onlyCurrent": "customHotbar.Settings.chbColor.value.onlyCurrent",
-            //"no": "ForienQuestLog.Settings.showTasks.no"
-            //}, 
             onChange: value => {
                 ui.customHotbar.render();
             }
@@ -113,6 +108,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             defaultColor: "#00000080",     // The default color of the setting
             scope: "client",               // The scope of the setting
+            config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })
      
@@ -124,6 +120,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             defaultColor: "#000000ff",     // The default color of the setting
             scope: "client",               // The scope of the setting
+            config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })
 
@@ -135,6 +132,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             defaultColor: "#ff6400",     // The default color of the setting
             scope: "client",               // The scope of the setting
+            config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })
 
@@ -146,6 +144,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             defaultColor: "#939799ff",     // The default color of the setting
             scope: "client",               // The scope of the setting
+            config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })   
 
@@ -153,7 +152,7 @@ export class CustomHotbarSettings {
             name: "customHotbar.settings.coreXPos.name",
             hint: "customHotbar.settings.coreXPos.nameHint",
             scope: "world",
-            config: true,
+            config: false,
             default: "220",
             type: Number,
             /*choices: {
@@ -170,7 +169,7 @@ export class CustomHotbarSettings {
             name: "customHotbar.settings.coreYPos.name",
             hint: "customHotbar.settings.coreYPos.nameHint",
             scope: "world",
-            config: true,
+            config: false,
             default: "10",
             type: Number,
             /*choices: {
