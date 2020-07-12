@@ -122,8 +122,12 @@ Hooks.on("init", async () => {
 Hooks.on("ready", async () => {
   await customHotbarInit();
 
+
   window.addEventListener('keydown', (e) => {
-    if( (48 <= e.which <=57)  && e.shiftKey && !e.ctrlKey) {
+    console.debug(`Custom Hotbar | Event keycode is ${e.which}`);
+    
+    //add Shift-digit keybinding to fire macros on Custom Hotbar
+    if( (48 <= e.which && e.which <= 57)  && e.shiftKey && !e.ctrlKey) {
       const num = parseInt(e.code.slice(e.code.length -1));
       console.debug(`Custom Hotbar | You pressed shift and ${num} on a ${e.target.tagName}`);
       //disable firing macro on keystrokes meant to enter text
@@ -136,23 +140,29 @@ Hooks.on("ready", async () => {
       if ( ui.customHotbar.macros[num] ) slot.macro.execute();
       return false;
     }
-  });
-
-  window.addEventListener('keydown', (e) => {
-    //when pages added to Custom Hotbar, extend to captuer 6-10 presses to change that page also?
-    if( (49 <= e.which <=53)  && e.shiftKey && e.ctrlKey) {
+  
+    //add ctrl-digit keybinding to change macro page
+    if( (49 <= e.which && e.which <= 53)  && e.ctrlKey && e.shiftKey) {
+      //when pages added to Custom Hotbar, extend to captuer 6-10 presses to change that page also?
       const num = parseInt(e.code.slice(e.code.length -1));
-      console.debug(`Custom Hotbar | You pressed control shift and ${num} on a ${e.target.tagName}`);
+      console.debug(`Custom Hotbar | You pressed control and shift and ${num} on a ${e.target.tagName}`);
       //disable firing macro on keystrokes meant to enter text
       if (e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA") {
         console.debug("Custom Hotbar | Preventing keybind, invalid target.");
         return;
       }
       //translate valid keypress into core hotbar page change
+      console.debug(`Custom Hotbar | Attempting to set page to ${num}`);
+      ui.hotbar.page=num;
+      ui.hotbar.render();
+      return false;
     }
   });
 
+});
 
+Hooks.on("renderHotbar", async () => {
+  console.debug("Custom Hotbar | The core hotbar just rendered!");
 });
 
 Hooks.on("renderCustomHotbar", async () => {
@@ -176,10 +186,4 @@ at DragDrop._handleDrop (foundry.js:13836)
 3. Drag macro onto itself, it is removed
 
 4. Sometimes when you drag off of core, a ghost set of slots to left and right of core slot is grabbed also. Seems to happen if you click near a border between macro slots.
-
-
-//ROADMAP
-//Color and position settings
-//Freely draggable bar with remembered location
-//multiple hotbars
 */
