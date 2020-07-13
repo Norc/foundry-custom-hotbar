@@ -26,12 +26,14 @@ export class CustomHotbarSettingsForm extends FormApplication {
 
     getData() {
         const data = {
-            chbPrimaryColor: game.settings.get("custom-hotbar", "chbPrimaryColor"), 
-            chbBorderColor: game.settings.get("custom-hotbar", "chbBorderColor"),
-            chbBorderColorActive: game.settings.get("custom-hotbar", "chbBorderColorActive"),
-            chbBorderColorInactive: game.settings.get("custom-hotbar", "chbBorderColorInactive"),
-            chbXPos: game.settings.get("custom-hotbar", "chbXPos"),
-            chbYPos: game.settings.get("custom-hotbar", "chbYPos")
+            
+            chbPrimaryColor: CustomHotbarSettings.getCHBPrimaryColor(), 
+            chbBorderColor: CustomHotbarSettings.getCHBBorderColor(),
+ //           chbBorderColorActive: CustomHotbarSettings.getCHBBorderColorActive(),
+            chbBorderColorInactive: CustomHotbarSettings.getCHBBorderColorInactive(),
+
+            chbXPos: CustomHotbarSettings.getCHBXPos(),
+            chbYPos: CustomHotbarSettings.getCHBYPos()
         };
 
         return data;
@@ -49,11 +51,13 @@ export class CustomHotbarSettingsForm extends FormApplication {
      */
     //this is currently defined for an onload not a submit...
     async _updateObject(e, d) {
-        //console.debug("Custom Hotbar | Attempting to update settings...");
+        console.debug("Custom Hotbar | Attempting to update settings...");
+        console.log(d);
+        console.log(d.chbPrimaryColor);
         game.settings.set("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
         game.settings.set("custom-hotbar", "chbBorderColor", d.chbBorderColor);
-        game.settings.set("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
-        game.settings.set("custom-hotbar", "chbBorderColorActive", d.hbBorderColorInactive);
+        //game.settings.set("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
+        game.settings.set("custom-hotbar", "chbBorderColorInactive", d.chbBorderColorInactive);
         game.settings.set("custom-hotbar","chbXPos", d.chbXPos);
         game.settings.set("custom-hotbar","chbYPos", d.chbYPos);                                                     
     }
