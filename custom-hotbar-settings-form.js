@@ -49,20 +49,6 @@ export class CustomHotbarSettingsForm extends FormApplication {
      */
     //this is currently defined for an onload not a submit...
     async _updateObject(e, d) {
-<<<<<<< HEAD
-        console.debug("Custom Hotbar | Attempting to update Custom Hotbar Form settings...");
-        console.debug(`Custom Hotbar | chbPrimaryColor ${e}`);
-        console.debug(`Custom Hotbar | chbPrimaryColor ${d}`);
-        console.debug(`Custom Hotbar | chbPrimaryColor ${game.settings.get("custom-hotbar", "chbPrimaryColor")}`);
-        console.debug(`Custom Hotbar | Did I get the ID?: ${document.getElementById("chbPrimaryColor")}`);
-
-        d.getElementById("chbPrimaryColor").value = game.settings.get("custom-hotbar", "chbPrimaryColor"); 
-        document.getElementById("chbBorderColor").value = game.settings.get("custom-hotbar", "chbBorderColor");
-        document.getElementById("chbBorderColorActive").value = game.settings.get("custom-hotbar", "chbBorderColorActive");
-        document.getElementById("chbBorderColorInactive").value = game.settings.get("custom-hotbar", "chbBorderColorInactive");
-        document.getElementById("chbXPos").value = game.settings.get("custom-hotbar", "chbXPos");
-        document.getElementById("chbyPos").value = game.settings.get("custom-hotbar", "chbYPos");        
-=======
         console.debug("Custom Hotbar | Attempting to update settings...");
         d.chbPrimaryColor = game.settings.set{"custom-hotbar", "chbPrimaryColor");
         d.chbBorderColor = game.settings.set{"custom-hotbar", "chbBorderColor");
@@ -70,7 +56,6 @@ export class CustomHotbarSettingsForm extends FormApplication {
         d.chbBorderColorInactive = game.settings.set{"custom-hotbar", "chbBorderColorActive");
         d.chbXPos = game.settings.set("custom-hotbar","chbXPos");
         d.chbYPos = game.settings.set("custom-hotbar","chbYPos");                                                     
->>>>>>> 2c4b5e504df0eeb26ec12dab4b58317a5d8ace35
     }
     
     onReset() {
