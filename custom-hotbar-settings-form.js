@@ -20,6 +20,23 @@ export class CustomHotbarSettingsForm extends FormApplication {
         });
     }
 
+    _onLoad(){
+        console.dedbug("Custom Hotbar | Hi");
+    }
+
+    getData() {
+        const data = {
+            chbPrimaryColor: game.settings.get("custom-hotbar", "chbPrimaryColor"), 
+            chbBorderColor: game.settings.get("custom-hotbar", "chbBorderColor"),
+            chbBorderColorActive: game.settings.get("custom-hotbar", "chbBorderColorActive"),
+            chbBorderColorInactive: game.settings.get("custom-hotbar", "chbBorderColorInactive"),
+            chbXPos: game.settings.get("custom-hotbar", "chbXPos"),
+            chbYPos: game.settings.get("custom-hotbar", "chbYPos")
+        };
+
+        return data;
+    }
+
     /** 
      * Executes on form submission.
      * @param {Object} e - the form submission event
@@ -30,9 +47,15 @@ export class CustomHotbarSettingsForm extends FormApplication {
      *  'submenu':submenu.toLowerCase(),
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
+    //this is currently defined for an onload not a submit...
     async _updateObject(e, d) {
         console.debug("Custom Hotbar | Attempting to update Custom Hotbar Form settings...");
-        document.getElementById("chbPrimaryColor").value = game.settings.get("custom-hotbar", "chbPrimaryColor"); 
+        console.debug(`Custom Hotbar | chbPrimaryColor ${e}`);
+        console.debug(`Custom Hotbar | chbPrimaryColor ${d}`);
+        console.debug(`Custom Hotbar | chbPrimaryColor ${game.settings.get("custom-hotbar", "chbPrimaryColor")}`);
+        console.debug(`Custom Hotbar | Did I get the ID?: ${document.getElementById("chbPrimaryColor")}`);
+
+        d.getElementById("chbPrimaryColor").value = game.settings.get("custom-hotbar", "chbPrimaryColor"); 
         document.getElementById("chbBorderColor").value = game.settings.get("custom-hotbar", "chbBorderColor");
         document.getElementById("chbBorderColorActive").value = game.settings.get("custom-hotbar", "chbBorderColorActive");
         document.getElementById("chbBorderColorInactive").value = game.settings.get("custom-hotbar", "chbBorderColorInactive");
