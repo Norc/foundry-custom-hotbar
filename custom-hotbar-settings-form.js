@@ -42,12 +42,29 @@ export class CustomHotbarSettingsForm extends FormApplication {
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
     async _updateObject(e, d) {
-        console.debug("Custom Hotbar | settings updated");
+        console.debug("Custom Hotbar | Attempting to update settings...");
+        d.chbPrimaryColor = game.settings.set{"custom-hotbar", "chbPrimaryColor");
+        d.chbBorderColor = game.settings.set{"custom-hotbar", "chbBorderColor");
+        d.chbBorderColorActive = game.settings.set{"custom-hotbar", "chbBorderColorActive");
+        d.chbBorderColorInactive = game.settings.set{"custom-hotbar", "chbBorderColorActive");
+        d.chbXPos = game.settings.set("custom-hotbar","chbXPos");
+        d.chbYPos = game.settings.set("custom-hotbar","chbYPos");                                                     
     }
     
+    onReset() {
+        console.debug("Custom Hotbar | Attempting to reset chbSettingsForm to defaults");
+        d.chbPrimaryColor = game.settings.get{"custom-hotbar", "chbPrimaryColor.default");
+        d.chbBorderColor = game.settings.get{"custom-hotbar", "chbBorderColor.default");
+        d.chbBorderColorActive = game.settings.get{"custom-hotbar", "chbBorderColorActive.default");
+        d.chbBorderColorInactive = game.settings.get{"custom-hotbar", "chbBorderColorActive.default");
+        d.chbXPos = game.settings.get("custom-hotbar","chbXPos.default");
+        d.chbYPos = game.settings.get("custom-hotbar","chbYPos.default");  
+        this.render();
+    }
 
     activateListeners(html) {
+        console.debug("Custom Hotbar | Attempting to activate CHB Settings Form listeners");
         super.activateListeners(html);
-        console.debug("Custom Hotbar | Attempted to activate Settings Menu listeners");
+        html.find('button[name="reset"]').click(this.onReset.bind(this));
     }
 }
