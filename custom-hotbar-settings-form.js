@@ -20,17 +20,6 @@ export class CustomHotbarSettingsForm extends FormApplication {
         });
     }
 
-    getData() {
-        
-
-        const data = "Custom Hotbar Test";
-
-        console.debug("Custom Hotbar | Getting settings form data");
-        console.debug(data);
-
-        return data;
-    }
-
     /** 
      * Executes on form submission.
      * @param {Object} e - the form submission event
@@ -42,7 +31,13 @@ export class CustomHotbarSettingsForm extends FormApplication {
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
     async _updateObject(e, d) {
-        console.debug("Custom Hotbar | settings updated");
+        console.debug("Custom Hotbar | Attempting to update Custom Hotbar Form settings...");
+        document.getElementById("chbPrimaryColor").value = game.settings.get("custom-hotbar", "chbPrimaryColor"); 
+        document.getElementById("chbBorderColor").value = game.settings.get("custom-hotbar", "chbBorderColor");
+        document.getElementById("chbBorderColorActive").value = game.settings.get("custom-hotbar", "chbBorderColorActive");
+        document.getElementById("chbBorderColorInactive").value = game.settings.get("custom-hotbar", "chbBorderColorInactive");
+        document.getElementById("chbXPos").value = game.settings.get("custom-hotbar", "chbXPos");
+        document.getElementById("chbyPos").value = game.settings.get("custom-hotbar", "chbYPos");        
     }
     
 

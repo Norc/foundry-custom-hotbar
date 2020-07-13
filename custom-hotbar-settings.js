@@ -25,49 +25,53 @@ export class CustomHotbarSettings {
     //CUSTOM HOTBAR SETTINGS    
 
         //                                     module        key             options
-        new window.Ardittristan.ColorSetting("custom-hotbar", "chbPrimaryColor", {
+        game.settings.register("custom-hotbar", "chbPrimaryColor", {
             name: "customHotbar.settings.chbPrimaryColor.name",      // The name of the setting in the settings menu
             hint: "customHotbar.settings.chbPrimaryColor.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
             config: false,                 // Disable display on the standard Foundry settings menu
-            defaultColor: "#0000FF80",     // The default color of the setting
+            default: "#0000FF80",     // The default color of the setting
+            type: String,
             scope: "client",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })
      
         //                                     module        key             options
-        new window.Ardittristan.ColorSetting("custom-hotbar", "chbBorderColor", {
+        game.settings.register("custom-hotbar", "chbBorderColor", {
             name: "customHotbar.settings.chbBorderColor.name",      // The name of the setting in the settings menu
             hint: "customHotbar.settings.chbBorderColor.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: "#0000FFff",     // The default color of the setting
+            default: "#0000FFff",     // The default color of the setting
+            type: String,
             scope: "client",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })
 
         //                                     module        key             options
-        new window.Ardittristan.ColorSetting("custom-hotbar", "chbBorderColorActive", {
+        game.settings.register("custom-hotbar", "chbBorderColorActive", {
             name: "customHotbar.settings.chbBorderColorActive.name",      // The name of the setting in the settings menu
             hint: "customHotbar.settings.chbBorderColorActive.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: "#FFFFFFff",     // The default color of the setting
+            default: "#FFFFFFff",     // The default color of the setting
+            type: String,
             scope: "client",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })
 
         //                                     module        key             options
-        new window.Ardittristan.ColorSetting("custom-hotbar", "chbBorderColorInactive", {
+        game.settings.register("custom-hotbar", "chbBorderColorInactive", {
             name: "customHotbar.settings.chbBorderColorInactive.name",      // The name of the setting in the settings menu
             hint: "customHotbar.settings.chbBorderColorInactive.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: "#939799ff",     // The default color of the setting
+            default: "#939799ff",     // The default color of the setting
+            type: String,
             scope: "client",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
@@ -101,52 +105,59 @@ export class CustomHotbarSettings {
 
     //CORE HOTBAR SETTINGS
         //                                     module        key             options
-        new window.Ardittristan.ColorSetting("custom-hotbar", "corePrimaryColor", {
+        game.settings.register("custom-hotbar", "corePrimaryColor", {
             name: "customHotbar.settings.corePrimaryColor.name",      // The name of the setting in the settings menu
             hint: "customHotbar.settings.corePrimaryColor.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: "#00000080",     // The default color of the setting
+            default: "#00000080",     // The default color of the setting
+            type: String,
             scope: "client",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })
      
         //                                     module        key             options
-        new window.Ardittristan.ColorSetting("custom-hotbar", "coreBorderColor", {
+        game.settings.register("custom-hotbar", "coreBorderColor", {
             name: "customHotbar.settings.coreBorderColor.name",      // The name of the setting in the settings menu
             hint: "customHotbar.settings.coreBorderColor.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: "#000000ff",     // The default color of the setting
+            default: "#000000ff",     // The default color of the setting
+            type: String,
             scope: "client",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })
 
         //                                     module        key             options
-        new window.Ardittristan.ColorSetting("custom-hotbar", "coreBorderColorActive", {
+        game.settings.register("custom-hotbar", "coreBorderColorActive", {
             name: "customHotbar.settings.coreBorderColorActive.name",      // The name of the setting in the settings menu
             hint: "customHotbar.settings.coreBorderColorActive.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: "#ff6400",     // The default color of the setting
+            default: "#ff6400",     // The default color of the setting
+            type: String,
             scope: "client",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })
 
         //                                     module        key             options
-        new window.Ardittristan.ColorSetting("custom-hotbar", "coreBorderColorInactive", {
+        game.settings.register("custom-hotbar", "coreBorderColorInactive", {
             name: "customHotbar.settings.coreBorderColorInactive.name",      // The name of the setting in the settings menu
             hint: "customHotbar.settings.coreBorderColorInactive.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            defaultColor: "#939799ff",     // The default color of the setting
+            default: "#939799ff",     // The default color of the setting
+            type: String,
             scope: "client",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })   
+
+
+
 
         game.settings.register("custom-hotbar", "coreXPos", {
             name: "customHotbar.settings.coreXPos.name",
@@ -155,11 +166,6 @@ export class CustomHotbarSettings {
             config: false,
             default: "220",
             type: Number,
-            /*choices: {
-            "default": "customHotbar.Settings.chbColor.value.default",
-            "onlyCurrent": "customHotbar.Settings.chbColor.value.onlyCurrent",
-            "no": "ForienQuestLog.Settings.showTasks.no"
-            }, */
             onChange: value => {
                 ui.hotbar.render();
             }
