@@ -179,9 +179,6 @@ export class CustomHotbarSettings {
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })   
 
-
-
-
         game.settings.register("custom-hotbar", "coreXPos", {
             name: "customHotbar.settings.coreXPos.name",
             hint: "customHotbar.settings.coreXPos.nameHint",
@@ -201,11 +198,6 @@ export class CustomHotbarSettings {
             config: false,
             default: "10",
             type: Number,
-            /*choices: {
-            "default": "customHotbar.Settings.chbColor.value.default",
-            "onlyCurrent": "customHotbar.Settings.chbColor.value.onlyCurrent",
-            "no": "ForienQuestLog.Settings.showTasks.no"
-            }, */
             onChange: value => {
                 ui.hotbar.render();
             }
