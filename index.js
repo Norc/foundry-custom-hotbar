@@ -29,7 +29,9 @@ async function customHotbarInit() {
   CustomHotbarSettings.register();
 
   //apply settings styles, first for custom hotbar, then for core hotbar
-  var css =
+  //For each setting, use flag if present, otherwise use game setting.
+
+   var css =
       '#custom-hotbar' 
     + ` { bottom: ${game.settings.get("custom-hotbar", "chbYPos")}px; ` 
     + `   left: ${game.settings.get("custom-hotbar", "chbXPos")}px; `
@@ -41,12 +43,12 @@ async function customHotbarInit() {
     + ' }'
     
     + '#custom-hotbar .bar-controls' 
-    + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
+    + ` { background: ${CustomHotbarSettings.getCHBPrimaryColor()};` 
     + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
     + ' }'
 
     + '#custom-hotbar .macro' 
-    + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
+    + ` { background: ${CustomHotbarSettings.getCHBPrimaryColor()};` 
     + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
     + ' }'
 

@@ -1,29 +1,47 @@
 import { CustomHotbarSettingsForm } from './custom-hotbar-settings-form.js';
 import { CoreHotbarSettingsForm } from './core-hotbar-settings-form.js';
+import { CustomHotbarFlagsForm } from './custom-hotbar-flags-form.js';
+import { CoreHotbarFlagsForm } from './core-hotbar-flags-form.js';
 
 export class CustomHotbarSettings {
     /**
-     * Provides functionality for interaction with module settings
+     * Provides functionality for interaction with module settings and Flags
      */
 
     static register(){
-    //Global, GM-only sub-menus
+    //Global, GM-only settings menus
         game.settings.registerMenu("custom-hotbar", 'chbSettingsMenu', {
-            name: 'Custom Hotbar Settings',
-            label: 'Custom Hotbar',
+            name: '(GM Only) Set Standard Custom Hotbar',
+            label: 'Set Custom Hotbar',
             icon: 'fas fa-bars',
             type: CustomHotbarSettingsForm,
             restricted: true
         });
 
         game.settings.registerMenu("custom-hotbar", 'coreSettingsMenu', {
-            name: 'Core Foundry Hotbar Modification Settings',
-            label: 'Core Hotbar',
+            name: '(GM Only) Set Standard Foundry Hotbar',
+            label: 'Set Foundry Hotbar',
             icon: 'fas fa-minus',
             type: CoreHotbarSettingsForm,
             restricted: true
         });
 
+        //User-only "settings" menu that uses flags instead
+        game.settings.registerMenu("custom-hotbar", 'chbFlagsMenu', {
+            name: '(Per User) Your Custom Hotbar Settings',
+            label: 'Your Custom Hotbar',
+            icon: 'fas fa-bars',
+            type: CustomHotbarFlagsForm,
+            restricted: false
+        });
+
+        game.settings.registerMenu("custom-hotbar", 'coreFlagsMenu', {
+            name: '(Per User) Your Core Foundry Hotbar Settings',
+            label: 'Your Core Hotbar',
+            icon: 'fas fa-minus',
+            type: CoreHotbarFlagsForm,
+            restricted: false
+        });
     
 
     
@@ -193,4 +211,13 @@ export class CustomHotbarSettings {
             }
         }); 
     }
+
+    //getters that determine whether to grab the user flag or the setting
+    static getCHBPrimaryColor(){
+        var flag = game.user.getFlag("custom-hotbar", "chbPrimaryColor");
+        var sett = game.settings.get("custom-hotbar","chbPrimaryColor");
+        return (flag) ? flag : sett;
+    }
+
+
 }

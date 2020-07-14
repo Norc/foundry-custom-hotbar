@@ -1,6 +1,6 @@
 import { CustomHotbarSettings } from './custom-hotbar-settings.js';
 
-export class CustomHotbarSettingsForm extends FormApplication {
+export class CustomHotbarFlagsForm extends FormApplication {
 
     constructor(object, options = {}) {
         super(object, options);
@@ -11,9 +11,9 @@ export class CustomHotbarSettingsForm extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            id: "custom-hotbar-settings-form",
-            title: "Custom Hotbar Settings",
-            template: "./modules/custom-hotbar/templates/customHotbarSettings.html",
+            id: "custom-hotbar-flags-form",
+            title: "Single User Custom Hotbar Settings",
+            template: "./modules/custom-hotbar/templates/customHotbarFlags.html",
             classes: ["sheet"],
             width: 500,
             closeOnSubmit: true
