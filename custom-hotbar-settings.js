@@ -7,7 +7,7 @@ export class CustomHotbarSettings {
      */
 
     static register(){
-    //EXPERIMENTAL ATTEMPT AT SUBMENU
+    //Global, GM-only sub-menus
         game.settings.registerMenu("custom-hotbar", 'chbSettingsMenu', {
             name: 'Custom Hotbar Settings',
             label: 'Custom Hotbar',
@@ -25,6 +25,8 @@ export class CustomHotbarSettings {
         });
 
     
+
+    
     //CUSTOM HOTBAR SETTINGS    
 
         //                                     module        key             options
@@ -36,7 +38,7 @@ export class CustomHotbarSettings {
             config: false,                 // Disable display on the standard Foundry settings menu
             default: "#0000FF80",     // The default color of the setting
             type: String,
-            scope: "client",               // The scope of the setting
+            scope: "world",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })
@@ -49,7 +51,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             default: "#0000FFff",     // The default color of the setting
             type: String,
-            scope: "client",               // The scope of the setting
+            scope: "world",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })
@@ -62,7 +64,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             default: "#ffffffff",     // The default color of the setting
             type: String,
-            scope: "client",               // The scope of the setting
+            scope: "world",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })  
@@ -75,7 +77,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             default: "#808080ff",     // The default color of the setting
             type: String,
-            scope: "client",               // The scope of the setting
+            scope: "world",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
         })   
@@ -115,7 +117,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             default: "#00000080",     // The default color of the setting
             type: String,
-            scope: "client",               // The scope of the setting
+            scope: "world",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })
@@ -128,7 +130,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             default: "#000000ff",     // The default color of the setting
             type: String,
-            scope: "client",               // The scope of the setting
+            scope: "world",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })
@@ -141,7 +143,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             default: "#ff6400",     // The default color of the setting
             type: String,
-            scope: "client",               // The scope of the setting
+            scope: "world",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })
@@ -154,7 +156,7 @@ export class CustomHotbarSettings {
             restricted: false,             // Restrict this setting to gamemaster only?
             default: "#939799ff",     // The default color of the setting
             type: String,
-            scope: "client",               // The scope of the setting
+            scope: "world",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.hotbar.render();}        // A callback function which triggers when the setting is changed
         })   
