@@ -27,7 +27,7 @@ async function customHotbarInit() {
 
 
   CustomHotbarSettings.register();
-/*
+
   //apply settings styles, first for custom hotbar, then for core hotbar
   var css =
       '#custom-hotbar' 
@@ -98,7 +98,7 @@ async function customHotbarInit() {
 
   style.type = 'text/css';
   style.appendChild(document.createTextNode(css));
-*/
+
   ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
     element.ondragstart = ui.hotbar._onDragStart;
