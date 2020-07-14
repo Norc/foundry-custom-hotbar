@@ -26,13 +26,13 @@ export class CustomHotbarSettingsForm extends FormApplication {
 
     getData() {
         let data = {        
-            chbPrimaryColor: CustomHotbarSettings.getCHBPrimaryColor(), 
-            chbBorderColor: CustomHotbarSettings.getCHBBorderColor(),
-            chbBorderColorActive: CustomHotbarSettings.getCHBBorderColorActive(),
-            chbBorderColorInactive: CustomHotbarSettings.getCHBBorderColorInactive(),
+            chbPrimaryColor: game.settings.get("custom-hotbar", "chbPrimaryColor"), 
+            chbBorderColor: game.settings.get("custom-hotbar", "chbBorderColor"),
+            chbBorderColorActive: game.settings.get("custom-hotbar", "chbBorderColorActive"),
+            chbBorderColorInactive: game.settings.get("custom-hotbar", "chbBorderColorInactive"),
 
-            chbXPos: CustomHotbarSettings.getCHBXPos(),
-            chbYPos: CustomHotbarSettings.getCHBYPos()
+            chbXPos: game.settings.get("custom-hotbar", "chbXPos"),
+            chbYPos: game.settings.get("custom-hotbar", "chbYPos")
         };
         if (this.reset == true) {
             data = {    

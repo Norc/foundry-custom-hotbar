@@ -6,55 +6,6 @@ export class CustomHotbarSettings {
      * Provides functionality for interaction with module settings
      */
 
-     //getters and setters
-    static getCHBPrimaryColor() {
-        return game.settings.get("custom-hotbar", "chbPrimaryColor");
-    }
-
-    static setCHBPrimaryColor(val) {
-        return game.settings.set("custom-hotbar", "chbPrimaryColor", val);
-    }
-
-    static getCHBBorderColor() {
-        return game.settings.get("custom-hotbar", "chbBorderColor");
-    }
-
-    static setCHBBorderColor(val) {
-        return game.settings.set("custom-hotbar", "chbBorderColor", val);
-    }
-
-    static getCHBBorderColorActive() {
-        return game.settings.get("custom-hotbar", "chbBorderColorActive");
-    }
-
-    static setCHBBorderColorActive(val) {
-        return game.settings.set("custom-hotbar", "chbBorderColorActive", val);
-    }
-
-    static getCHBBorderColorInactive() {
-        return game.settings.get("custom-hotbar", "chbBorderColorInactive");
-    }
-
-    static setCHBBorderColorInactive(val) {
-        return game.settings.set("custom-hotbar", "chbBorderColorInactive", val);
-    }
-
-    static getCHBXPos() {
-        return game.settings.get("custom-hotbar", "chbXPos");
-    }
-
-    static setCHBXPos(val) {
-        return game.settings.set("custom-hotbar", "chbXPos", val);
-    }
-
-    static getCHBYPos() {
-        return game.settings.get("custom-hotbar", "chbYPos");
-    }
-
-    static setCHBYPos(val) {
-        return game.settings.set("custom-hotbar", "chbYPos", val);
-    }
-
     static register(){
     //EXPERIMENTAL ATTEMPT AT SUBMENU
         game.settings.registerMenu("custom-hotbar", 'chbSettingsMenu', {
