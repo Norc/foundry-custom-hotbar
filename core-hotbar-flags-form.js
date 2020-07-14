@@ -57,16 +57,16 @@ export class CoreHotbarFlagsForm extends FormApplication {
      */
     //this is currently defined for an onload not a submit...
     async _updateObject(e, d) {
-        game.user.unsetFlag("custom-hotbar", "corePrimaryColor"), 
-        game.user.unsetFlag("custom-hotbar", "coreBorderColor"),
-        game.user.unsetFlag("custom-hotbar", "coreBorderColorActive"),
-        game.user.unsetFlag("custom-hotbar", "coreBorderColorInactive"),
+        game.user.unsetFlag("custom-hotbar", "corePrimaryColor"); 
+        game.user.unsetFlag("custom-hotbar", "coreBorderColor");
+        game.user.unsetFlag("custom-hotbar", "coreBorderColorActive");
+        game.user.unsetFlag("custom-hotbar", "coreBorderColorInactive");
 
-        game.user.unsetFlag("custom-hotbar", "coreXPos"),
-        game.user.unsetFlag("custom-hotbar", "coreYPos")
+        game.user.unsetFlag("custom-hotbar", "coreXPos");
+        game.user.unsetFlag("custom-hotbar", "coreYPos");
 
 
-        console.debug("Custom Hotbar | Attempting to update settings with form values...");
+        console.debug("Custom Hotbar | Attempting to update core user flags with form values...");
         game.user.setFlag("custom-hotbar", "corePrimaryColor", d.corePrimaryColor);
         game.user.setFlag("custom-hotbar", "coreBorderColor", d.coreBorderColor);
         game.user.setFlag("custom-hotbar", "coreBorderColorActive", d.coreBorderColorActive);
