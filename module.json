@@ -3,7 +3,7 @@
     "title": "Custom Hotbar",   
     "description": "An extra fully functional hotbar (currently 1 row only) above the first.",   
     "author": "Norc",
-    "version": "1.5.4Alpha",
+    "version": "1.5.5Alpha",
     "minimumCoreVersion": "0.5.0",
     "compatibleCoreVersion":"0.6.5",
     "esmodules": ["index.js"],
@@ -15,6 +15,6 @@
       }],
     "styles": ["./css/custom-hotbar.css"],
     "manifest": "https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/dev/module.json",
-    "download": "https://github.com/Norc/foundry-custom-hotbar/archive/v1.5.4Alpha.zip",
+    "download": "https://github.com/Norc/foundry-custom-hotbar/archive/v1.5.5Alpha.zip",
     "url": "https://github.com/Norc/foundry-custom-hotbar"
   }
