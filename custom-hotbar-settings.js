@@ -22,7 +22,7 @@ export class CustomHotbarSettings {
     static setCHBBorderColor(val) {
         return game.settings.set("custom-hotbar", "chbBorderColor", val);
     }
-/*
+
     static getCHBBorderColorActive() {
         return game.settings.get("custom-hotbar", "chbBorderColorActive");
     }
@@ -30,7 +30,7 @@ export class CustomHotbarSettings {
     static setCHBBorderColorActive(val) {
         return game.settings.set("custom-hotbar", "chbBorderColorActive", val);
     }
-*/
+
     static getCHBBorderColorInactive() {
         return game.settings.get("custom-hotbar", "chbBorderColorInactive");
     }
@@ -109,12 +109,12 @@ export class CustomHotbarSettings {
             hint: "customHotbar.settings.chbBorderColorActive.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            default: "#FFFFFFff",     // The default color of the setting
+            default: "#ffffffff",     // The default color of the setting
             type: String,
             scope: "client",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu
             onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
-        })
+        })  
 
         //                                     module        key             options
         game.settings.register("custom-hotbar", "chbBorderColorInactive", {
@@ -122,7 +122,7 @@ export class CustomHotbarSettings {
             hint: "customHotbar.settings.chbBorderColorInactive.nameHint",   // A description of the registered setting and its behavior
             label: "Color Picker",         // The text label used in the button
             restricted: false,             // Restrict this setting to gamemaster only?
-            default: "#939799ff",     // The default color of the setting
+            default: "#808080ff",     // The default color of the setting
             type: String,
             scope: "client",               // The scope of the setting
             config: false,                 // Disable display on the standard Foundry settings menu

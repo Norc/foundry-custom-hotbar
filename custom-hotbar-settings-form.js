@@ -21,21 +21,31 @@ export class CustomHotbarSettingsForm extends FormApplication {
     }
 
     _onLoad(){
-        console.dedbug("Custom Hotbar | Hi");
+        console.debug("Custom Hotbar | Hi");
     }
 
     getData() {
-        const data = {
-            
+        let data = {        
             chbPrimaryColor: CustomHotbarSettings.getCHBPrimaryColor(), 
             chbBorderColor: CustomHotbarSettings.getCHBBorderColor(),
- //           chbBorderColorActive: CustomHotbarSettings.getCHBBorderColorActive(),
+            chbBorderColorActive: CustomHotbarSettings.getCHBBorderColorActive(),
             chbBorderColorInactive: CustomHotbarSettings.getCHBBorderColorInactive(),
 
             chbXPos: CustomHotbarSettings.getCHBXPos(),
             chbYPos: CustomHotbarSettings.getCHBYPos()
         };
+        if (this.reset == true) {
+            data = {    
+                chbPrimaryColor: game.settings.settings.get("custom-hotbar.chbPrimaryColor").default,
+                chbBorderColor: game.settings.settings.get("custom-hotbar.chbBorderColor").default,
+                chbBorderColorActive: game.settings.settings.get("custom-hotbar.chbBorderColorActive").default,
+                chbBorderColorInactive: game.settings.settings.get("custom-hotbar.chbBorderColorInactive").default,
 
+                chbXPos: game.settings.settings.get("custom-hotbar.chbXPos").default,
+                chbYPos: game.settings.settings.get("custom-hotbar.chbYPos").default
+            };
+        }
+        this.render;
         return data;
     }
 
@@ -51,25 +61,19 @@ export class CustomHotbarSettingsForm extends FormApplication {
      */
     //this is currently defined for an onload not a submit...
     async _updateObject(e, d) {
-        console.debug("Custom Hotbar | Attempting to update settings...");
-        console.log(d);
-        console.log(d.chbPrimaryColor);
+        console.debug("Custom Hotbar | Attempting to update settings with form values...");
         game.settings.set("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
         game.settings.set("custom-hotbar", "chbBorderColor", d.chbBorderColor);
-        //game.settings.set("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
+        game.settings.set("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
         game.settings.set("custom-hotbar", "chbBorderColorInactive", d.chbBorderColorInactive);
         game.settings.set("custom-hotbar","chbXPos", d.chbXPos);
-        game.settings.set("custom-hotbar","chbYPos", d.chbYPos);                                                     
+        game.settings.set("custom-hotbar","chbYPos", d.chbYPos);
+        this.render();                                                     
     }
     
     onReset() {
         console.debug("Custom Hotbar | Attempting to reset chbSettingsForm to defaults");
-        d.chbPrimaryColor = game.settings.get("custom-hotbar", "chbPrimaryColor.default");
-        d.chbBorderColor = game.settings.get("custom-hotbar", "chbBorderColor.default");
-        d.chbBorderColorActive = game.settings.get("custom-hotbar", "chbBorderColorActive.default");
-        d.chbBorderColorInactive = game.settings.get("custom-hotbar", "chbBorderColorActive.default");
-        d.chbXPos = game.settings.get("custom-hotbar","chbXPos.default");
-        d.chbYPos = game.settings.get("custom-hotbar","chbYPos.default");  
+        this.reset = true;
         this.render();
     }
 
@@ -77,5 +81,6 @@ export class CustomHotbarSettingsForm extends FormApplication {
         console.debug("Custom Hotbar | Attempting to activate CHB Settings Form listeners");
         super.activateListeners(html);
         html.find('button[name="reset"]').click(this.onReset.bind(this));
+        this.reset = false;
     }
 }
