@@ -213,11 +213,77 @@ export class CustomHotbarSettings {
     }
 
     //getters that determine whether to grab the user flag or the setting
+    //Custom Hotbar getters
     static getCHBPrimaryColor(){
         var flag = game.user.getFlag("custom-hotbar", "chbPrimaryColor");
         var sett = game.settings.get("custom-hotbar","chbPrimaryColor");
         return (flag) ? flag : sett;
     }
 
+    static getCHBBorderColor(){
+        var flag = game.user.getFlag("custom-hotbar", "chbBorderColor");
+        var sett = game.settings.get("custom-hotbar","chbBorderColor");
+        return (flag) ? flag : sett;
+    }
 
+    static getCHBBorderColorActive(){
+        var flag = game.user.getFlag("custom-hotbar", "chbBorderColorActive");
+        var sett = game.settings.get("custom-hotbar","chbBorderColorActive");
+        return (flag) ? flag : sett;
+    }
+    
+    static getCHBBorderColorInactive(){
+        var flag = game.user.getFlag("custom-hotbar", "chbBorderColorInactive");
+        var sett = game.settings.get("custom-hotbar","chbBorderColorInactive");
+        return (flag) ? flag : sett;
+    }
+
+    static getCHBXPos(){
+        var flag = game.user.getFlag("custom-hotbar", "chbXPos");
+        var sett = game.settings.get("custom-hotbar","chbXPos");
+        return (flag) ? flag : sett;
+    }
+
+    static getCHBYPos(){
+        var flag = game.user.getFlag("custom-hotbar", "chbYPos");
+        var sett = game.settings.get("custom-hotbar","chbYPos");
+        return (flag) ? flag : sett;
+    }
+
+    //Core Hotbar getters
+    static getCorePrimaryColor(){
+        var flag = game.user.getFlag("custom-hotbar", "corePrimaryColor");
+        var sett = game.settings.get("custom-hotbar","corePrimaryColor");
+        return (flag) ? flag : sett;
+    }
+
+    static getCoreBorderColor(){
+        var flag = game.user.getFlag("custom-hotbar", "coreBorderColor");
+        var sett = game.settings.get("custom-hotbar","coreBorderColor");
+        return (flag) ? flag : sett;
+    }
+
+    static getCoreBorderColorActive(){
+        var flag = game.user.getFlag("custom-hotbar", "coreBorderColorActive");
+        var sett = game.settings.get("custom-hotbar","coreBorderColorActive");
+        return (flag) ? flag : sett;
+    }
+    
+    static getCoreBorderColorInactive(){
+        var flag = game.user.getFlag("custom-hotbar", "coreBorderColorInactive");
+        var sett = game.settings.get("custom-hotbar","coreBorderColorInactive");
+        return (flag) ? flag : sett;
+    }
+
+    static getCoreXPos(){
+        var flag = game.user.getFlag("custom-hotbar", "coreXPos");
+        var sett = game.settings.get("custom-hotbar","coreXPos");
+        return (flag) ? flag : sett;
+    }
+
+    static getCoreYPos(){
+        var flag = game.user.getFlag("custom-hotbar", "coreYPos");
+        var sett = game.settings.get("custom-hotbar","coreYPos");
+        return (flag) ? flag : sett;
+    }
 }
