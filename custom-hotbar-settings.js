@@ -28,7 +28,7 @@ export class CustomHotbarSettings {
 
         //User-only "settings" menu that uses flags instead
         game.settings.registerMenu("custom-hotbar", 'chbFlagsMenu', {
-            name: '(Per User) Your Custom Hotbar Settings',
+            name: 'Your Custom Hotbar Settings',
             label: 'Your Custom Hotbar',
             icon: 'fas fa-bars',
             type: CustomHotbarFlagsForm,
@@ -36,7 +36,7 @@ export class CustomHotbarSettings {
         });
 
         game.settings.registerMenu("custom-hotbar", 'coreFlagsMenu', {
-            name: '(Per User) Your Core Foundry Hotbar Settings',
+            name: 'Your Core Foundry Hotbar Settings',
             label: 'Your Core Hotbar',
             icon: 'fas fa-minus',
             type: CoreHotbarFlagsForm,

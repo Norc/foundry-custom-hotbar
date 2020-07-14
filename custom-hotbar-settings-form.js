@@ -12,14 +12,14 @@ export class CustomHotbarSettingsForm extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "custom-hotbar-settings-form",
-            title: "Custom Hotbar Settings",
+            title: "(GM Only) Set Standard Custom Hotbar",
             template: "./modules/custom-hotbar/templates/customHotbarSettings.html",
             classes: ["sheet"],
             width: 500,
             closeOnSubmit: true
         });
     }
-    
+
     getData() {
         let data = {        
             chbPrimaryColor: game.settings.get("custom-hotbar", "chbPrimaryColor"), 

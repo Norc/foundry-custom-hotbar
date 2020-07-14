@@ -12,7 +12,7 @@ export class CoreHotbarSettingsForm extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "core-hotbar-settings-form",
-            title: "Core Hotbar Modification Settings",
+            title: "(GM Only) Set Standard Foundry Hotbar",
             template: "./modules/custom-hotbar/templates/coreHotbarSettings.html",
             classes: ["sheet"],
             width: 500,

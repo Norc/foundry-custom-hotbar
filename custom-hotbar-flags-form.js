@@ -12,7 +12,7 @@ export class CustomHotbarFlagsForm extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "custom-hotbar-flags-form",
-            title: "Single User Custom Hotbar Settings",
+            title: "(Per User) Your Custom Hotbar Settings",
             template: "./modules/custom-hotbar/templates/customHotbarFlags.html",
             classes: ["sheet"],
             width: 500,
