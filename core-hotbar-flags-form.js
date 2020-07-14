@@ -22,23 +22,23 @@ export class CoreHotbarFlagsForm extends FormApplication {
 
     getData() {
         let data = {        
-            chbPrimaryColor: game.settings.get("custom-hotbar", "chbPrimaryColor"), 
-            chbBorderColor: game.settings.get("custom-hotbar", "chbBorderColor"),
-            chbBorderColorActive: game.settings.get("custom-hotbar", "chbBorderColorActive"),
-            chbBorderColorInactive: game.settings.get("custom-hotbar", "chbBorderColorInactive"),
+            corePrimaryColor: game.user.getFlag("custom-hotbar", "corePrimaryColor"), 
+            coreBorderColor: game.user.getFlag("custom-hotbar", "coreBorderColor"),
+            coreBorderColorActive: game.user.getFlag("custom-hotbar", "coreBorderColorActive"),
+            coreBorderColorInactive: game.user.getFlag("custom-hotbar", "coreBorderColorInactive"),
 
-            chbXPos: game.settings.get("custom-hotbar", "chbXPos"),
-            chbYPos: game.settings.get("custom-hotbar", "chbYPos")
+            coreXPos: game.user.getFlag("custom-hotbar", "coreXPos"),
+            coreYPos: game.user.getFlag("custom-hotbar", "coreYPos")
         };
         if (this.reset == true) {
             data = {    
-                chbPrimaryColor: game.settings.settings.get("custom-hotbar.chbPrimaryColor").default,
-                chbBorderColor: game.settings.settings.get("custom-hotbar.chbBorderColor").default,
-                chbBorderColorActive: game.settings.settings.get("custom-hotbar.chbBorderColorActive").default,
-                chbBorderColorInactive: game.settings.settings.get("custom-hotbar.chbBorderColorInactive").default,
+                corePrimaryColor: game.settings.settings.get("custom-hotbar.corePrimaryColor").default,
+                coreBorderColor: game.settings.settings.get("custom-hotbar.coreBorderColor").default,
+                coreBorderColorActive: game.settings.settings.get("custom-hotbar.coreBorderColorActive").default,
+                coreBorderColorInactive: game.settings.settings.get("custom-hotbar.coreBorderColorInactive").default,
 
-                chbXPos: game.settings.settings.get("custom-hotbar.chbXPos").default,
-                chbYPos: game.settings.settings.get("custom-hotbar.chbYPos").default
+                coreXPos: game.settings.settings.get("custom-hotbar.coreXPos").default,
+                coreYPos: game.settings.settings.get("custom-hotbar.coreYPos").default
             };
         }
         this.render;
@@ -57,24 +57,33 @@ export class CoreHotbarFlagsForm extends FormApplication {
      */
     //this is currently defined for an onload not a submit...
     async _updateObject(e, d) {
+        game.user.unsetFlag("custom-hotbar", "corePrimaryColor"), 
+        game.user.unsetFlag("custom-hotbar", "coreBorderColor"),
+        game.user.unsetFlag("custom-hotbar", "coreBorderColorActive"),
+        game.user.unsetFlag("custom-hotbar", "coreBorderColorInactive"),
+
+        game.user.unsetFlag("custom-hotbar", "coreXPos"),
+        game.user.unsetFlag("custom-hotbar", "coreYPos")
+
+
         console.debug("Custom Hotbar | Attempting to update settings with form values...");
-        game.settings.set("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
-        game.settings.set("custom-hotbar", "chbBorderColor", d.chbBorderColor);
-        game.settings.set("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
-        game.settings.set("custom-hotbar", "chbBorderColorInactive", d.chbBorderColorInactive);
-        game.settings.set("custom-hotbar","chbXPos", d.chbXPos);
-        game.settings.set("custom-hotbar","chbYPos", d.chbYPos);
+        game.user.setFlag("custom-hotbar", "corePrimaryColor", d.corePrimaryColor);
+        game.user.setFlag("custom-hotbar", "coreBorderColor", d.coreBorderColor);
+        game.user.setFlag("custom-hotbar", "coreBorderColorActive", d.coreBorderColorActive);
+        game.user.setFlag("custom-hotbar", "coreBorderColorInactive", d.coreBorderColorInactive);
+        game.user.setFlag("custom-hotbar","coreXPos", d.coreXPos);
+        game.user.setFlag("custom-hotbar","coreYPos", d.coreYPos);
         this.render();                                                     
     }
     
     onReset() {
-        console.debug("Custom Hotbar | Attempting to reset chbSettingsForm to defaults");
+        console.debug("Custom Hotbar | Attempting to reset coreSettingsForm to defaults");
         this.reset = true;
         this.render();
     }
 
     activateListeners(html) {
-        console.debug("Custom Hotbar | Attempting to activate CHB Settings Form listeners");
+        console.debug("Custom Hotbar | Attempting to activate core Settings Form listeners");
         super.activateListeners(html);
         html.find('button[name="reset"]').click(this.onReset.bind(this));
         this.reset = false;
