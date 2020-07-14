@@ -65,33 +65,33 @@ async function customHotbarInit() {
 
 
     + '#hotbar' 
-    + ` { bottom: ${game.settings.get("custom-hotbar", "coreYPos")}px; ` 
-    + `   left: ${game.settings.get("custom-hotbar", "coreXPos")}px; `
+    + ` { bottom: ${CustomHotbarSettings.getCoreYPos()}px; ` 
+    + `   left: ${CustomHotbarSettings.getCoreXPos()}px; `
     + ' }'
 
     + '#hotbar #custom-macro-list' 
     + ` {` 
-    + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
+    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
     + ' }'
     
     + '#hotbar .bar-controls' 
-    + ` { background: ${game.settings.get("custom-hotbar", "corePrimaryColor")};` 
-    + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
+    + ` { background: ${CustomHotbarSettings.getCorePrimaryColor()};` 
+    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
     + ' }'
 
     + '#hotbar .macro' 
-    + ` { background: ${game.settings.get("custom-hotbar", "corePrimaryColor")};` 
-    + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
+    + ` { background: ${CustomHotbarSettings.getCorePrimaryColor()};` 
+    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
     + ' }'
 
     + '#hotbar .macro.active:hover' 
     + ' {' 
-    + `     border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColorActive")};`
+    + `     border: 1px solid ${CustomHotbarSettings.getCoreBorderColorActive()};`
     + ' }'
 
     + '#hotbar .macro.inactive:hover' 
     + ' {' 
-    + `     border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColorInactive")};`
+    + `     border: 1px solid ${CustomHotbarSettings.getCoreBorderColorInactive()};`
     + ' }'
   , head = document.head || document.getElementsByTagName('head')[0]
   , style = document.createElement('style');
