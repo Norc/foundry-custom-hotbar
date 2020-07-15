@@ -64,7 +64,8 @@ export class CustomHotbarSettingsForm extends FormApplication {
         game.settings.set("custom-hotbar", "chbBorderColorInactive", d.chbBorderColorInactive);
         game.settings.set("custom-hotbar","chbXPos", d.chbXPos);
         game.settings.set("custom-hotbar","chbYPos", d.chbYPos);
-        this.render();                                                     
+        this.render();
+        ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                     
     }
     
     onReset() {

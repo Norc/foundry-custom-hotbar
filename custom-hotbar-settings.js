@@ -11,7 +11,7 @@ export class CustomHotbarSettings {
     static register(){
     //Global, GM-only settings menus
         game.settings.registerMenu("custom-hotbar", 'chbSettingsMenu', {
-            name: '(𝗚𝗠 𝗢𝗻𝗹𝘆) Set Custom Hotbar Defaults for All Users',
+            name: '(𝗚𝗠 𝗢𝗻𝗹𝘆) Default Custom Hotbar Settings for All Users',
             label: 'Global Custom Hotbar',
             icon: 'fas fa-bars',
             type: CustomHotbarSettingsForm,
@@ -19,7 +19,7 @@ export class CustomHotbarSettings {
         });
 
         game.settings.registerMenu("custom-hotbar", 'coreSettingsMenu', {
-            name: '(𝗚𝗠 𝗢𝗻𝗹𝘆) Set Foundry Hotbar Defaults for All Users',
+            name: '(𝗚𝗠 𝗢𝗻𝗹𝘆) Default Core Foundry Hotbar Settings for All Users',
             label: 'Global Core Hotbar',
             icon: 'fas fa-minus',
             type: CoreHotbarSettingsForm,

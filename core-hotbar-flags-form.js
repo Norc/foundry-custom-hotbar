@@ -68,7 +68,6 @@ export class CoreHotbarFlagsForm extends FormApplication {
      *  'submenu':submenu.toLowerCase(),
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
-    //this is currently defined for an onload not a submit...
     async _updateObject(e, d) {
         console.debug("Custom Hotbar | Attempting to update core user flags with form values...");
         await game.user.unsetFlag("custom-hotbar", "corePrimaryColor"); 
@@ -79,6 +78,7 @@ export class CoreHotbarFlagsForm extends FormApplication {
         await game.user.unsetFlag("custom-hotbar", "coreXPos");
         await game.user.unsetFlag("custom-hotbar", "coreYPos");
 
+        setTimeout(100);
 
         await game.user.setFlag("custom-hotbar", "corePrimaryColor", d.corePrimaryColor);
         await game.user.setFlag("custom-hotbar", "coreBorderColor", d.coreBorderColor);
@@ -87,7 +87,8 @@ export class CoreHotbarFlagsForm extends FormApplication {
 
         await game.user.setFlag("custom-hotbar","coreXPos", d.coreXPos);
         await game.user.setFlag("custom-hotbar","coreYPos", d.coreYPos);
-        this.render();                                                     
+        this.render();
+        ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");
     }
     
     onReset() {

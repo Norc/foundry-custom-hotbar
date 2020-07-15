@@ -55,7 +55,6 @@ export class CoreHotbarSettingsForm extends FormApplication {
      *  'submenu':submenu.toLowerCase(),
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
-    //this is currently defined for an onload not a submit...
     async _updateObject(e, d) {
         console.debug("Custom Hotbar | Attempting to update settings with form values...");
         game.settings.set("custom-hotbar", "corePrimaryColor", d.corePrimaryColor);
@@ -64,7 +63,8 @@ export class CoreHotbarSettingsForm extends FormApplication {
         game.settings.set("custom-hotbar", "coreBorderColorInactive", d.coreBorderColorInactive);
         game.settings.set("custom-hotbar", "coreXPos", d.coreXPos);
         game.settings.set("custom-hotbar", "coreYPos", d.coreYPos);
-        this.render();                                                     
+        this.render();
+        ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                     
     }
     
     onReset() {

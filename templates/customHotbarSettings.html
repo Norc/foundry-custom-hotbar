@@ -1,27 +1,36 @@
-<div id="custom-hotbar-settings-form"">
+<div class="chbSettings" id="custom-hotbar-settings-form"">
     <form autocomplete="off" onsubmit="event.preventDefault()">
     <h1 class="module-header">Global Custom Hotbar Settings</h1>
     <p>These settings apply to the additional Custom Hotbar for all players. However, this will not override customizations a player chooses for themself.</p>
-    <h2>Color Settings</h2>
+    <h2>Primary Settings</h2>
     <div class = "formgroup">
         <label>{{localize "customHotbar.settings.chbPrimaryColor.name"}}</label>
-        <input type="text" value= "{{chbPrimaryColor}}" name="chbPrimaryColor" is="colorpicker-input">
+        <div class = "colorsplash" id="chbPrimaryColorSplash">
+            <input type="text" value= "{{chbPrimaryColor}}" name="chbPrimaryColor" is="colorpicker-input">
+        </div>
         <p class="hint">{{localize "customHotbar.settings.chbPrimaryColor.nameHint"}}</p>
     </div>
     <div class = "formgroup">
         <label>{{localize "customHotbar.settings.chbBorderColor.name"}}</label>
-        <input type="text" value="{{chbBorderColor}}" name="chbBorderColor" is="colorpicker-input">
+        <div class = "colorsplash" id="chBorderColorSplash">
+            <input type="text" value="{{chbBorderColor}}" name="chbBorderColor" is="colorpicker-input">
+        </div>
         <p class="hint">{{localize "customHotbar.settings.chbBorderColor.nameHint"}}</p>
     </div>
+    <h2>Mouseover Settings</h2>
     <div class = "formgroup">
         <label>{{localize "customHotbar.settings.chbBorderColorActive.name"}}</label>
-        <input type="text" value="{{chbBorderColorActive}}" name="chbBorderColorActive" is="colorpicker-input">
+        <div class = "colorsplash" id="chbBorderColorActiveSplash">
+            <input type="text" value="{{chbBorderColorActive}}" name="chbBorderColorActive" is="colorpicker-input">
+        </div>
         <p class="hint">{{localize "customHotbar.settings.chbBorderColorActive.nameHint"}}</p>
     </div>
     <div class = "formgroup">
         <label>{{localize "customHotbar.settings.chbBorderColorInactive.name"}}</label>
-        <input type="text" value="{{chbBorderColorInactive}}" name="chbBorderColorInactive" is="colorpicker-input">
-        <p class="hint">{{localize "customHotbar.settings.chbBorderColorInactive.nameHint"}}</p>
+        <div class = "colorsplash" id="chbBorderColorInactiveSplash">
+            <input type="text" value="{{chbBorderColorInactive}}" name="chbBorderColorInactive" is="colorpicker-input">
+        </div>
+            <p class="hint">{{localize "customHotbar.settings.chbBorderColorInactive.nameHint"}}</p>
     </div>
         <h2>Position Settings</h2>
     <div class = "formgroup">

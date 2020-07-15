@@ -1,3 +1,5 @@
+import { CustomHotbarSettings } from './custom-hotbar-settings.js';
+
 export class CustomHotbarFlagsForm extends FormApplication {
 
     constructor(object, options = {}) {
@@ -20,34 +22,38 @@ export class CustomHotbarFlagsForm extends FormApplication {
     
     getData() {
         let data = {        
-            chbPrimaryColor: game.user.getFlag("custom-hotbar", "chbPrimaryColor"), 
-            chbBorderColor: game.user.getFlag("custom-hotbar", "chbBorderColor"),
-            chbBorderColorActive: game.user.getFlag("custom-hotbar", "chbBorderColorActive"),
-            chbBorderColorInactive: game.user.getFlag("custom-hotbar", "chbBorderColorInactive"),
+            chbPrimaryColor: CustomHotbarSettings.getCHBPrimaryColor(), 
+            chbBorderColor: CustomHotbarSettings.getCHBBorderColor(),
+            chbBorderColorActive: CustomHotbarSettings.getCHBBorderColorActive(),
+            chbBorderColorInactive: CustomHotbarSettings.getCHBBorderColorInactive(),
 
-            chbXPos: game.user.getFlag("custom-hotbar", "chbXPos"),
-            chbYPos: game.user.getFlag("custom-hotbar", "chbYPos")
+            chbXPos: CustomHotbarSettings.getCHBXPos(),
+            chbYPos: CustomHotbarSettings.getCHBYPos(),
         };
 
         if (this.reset == true) {
-            data = {    
-                chbPrimaryColor: game.settings.settings.get("custom-hotbar.chbPrimaryColor").default,
-                chbBorderColor: game.settings.settings.get("custom-hotbar.chbBorderColor").default,
-                chbBorderColorActive: game.settings.settings.get("custom-hotbar.chbBorderColorActive").default,
-                chbBorderColorInactive: game.settings.settings.get("custom-hotbar.chbBorderColorInactive").default,
-
-                chbXPos: game.settings.settings.get("custom-hotbar.chbXPos").default,
-                chbYPos: game.settings.settings.get("custom-hotbar.chbYPos").default
+            async () => {
+                await game.user.unsetFlag("custom-hotbar", "chbPrimaryColor"); 
+                await game.user.unsetFlag("custom-hotbar", "chbBorderColor");
+                await game.user.unsetFlag("custom-hotbar", "chbBorderColorActive");
+                await game.user.unsetFlag("custom-hotbar", "chbBorderColorInactive");
+        
+                await game.user.unsetFlag("custom-hotbar", "chbXPos");
+                await game.user.unsetFlag("custom-hotbar", "chbYPos");
             };
 
-            game.user.unsetFlag("custom-hotbar", "chbPrimaryColor"); 
-            game.user.unsetFlag("custom-hotbar", "chbBorderColor");
-            game.user.unsetFlag("custom-hotbar", "chbBorderColorActive");
-            game.user.unsetFlag("custom-hotbar", "chbBorderColorInactive");
-    
-            game.user.unsetFlag("custom-hotbar", "chbXPos");
-            game.user.unsetFlag("custom-hotbar", "chbYPos");
+            data = {    
+                chbPrimaryColor: game.settings.settings.get("custom-hotbar","chbPrimaryColor"),
+                chbBorderColor: game.settings.settings.get("custom-hotbar","chbBorderColor"),
+                chbBorderColorActive: game.settings.settings.get("custom-hotbar","chbBorderColorActive"),
+                chbBorderColorInactive: game.settings.settings.get("custom-hotbar","chbBorderColorInactive"),
+
+                chbXPos: game.settings.settings.get("custom-hotbar","chbXPos"),
+                chbYPos: game.settings.settings.get("custom-hotbar","chbYPos")
+            };
+            this.reset = false;
         }
+
         this.render;
         return data;
     }
@@ -62,7 +68,6 @@ export class CustomHotbarFlagsForm extends FormApplication {
      *  'submenu':submenu.toLowerCase(),
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
-    //this is currently defined for an onload not a submit...
     async _updateObject(e, d) {
         console.debug("Custom Hotbar | Attempting to update custom user flags with form values...");
         await game.user.unsetFlag("custom-hotbar", "chbPrimaryColor"); 
@@ -73,7 +78,8 @@ export class CustomHotbarFlagsForm extends FormApplication {
         await game.user.unsetFlag("custom-hotbar", "chbXPos");
         await game.user.unsetFlag("custom-hotbar", "chbYPos");
 
-
+        setTimeout(100);
+        
         await game.user.setFlag("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
         await game.user.setFlag("custom-hotbar", "chbBorderColor", d.chbBorderColor);
         await game.user.setFlag("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
@@ -81,7 +87,8 @@ export class CustomHotbarFlagsForm extends FormApplication {
 
         await game.user.setFlag("custom-hotbar","chbXPos", d.chbXPos);
         await game.user.setFlag("custom-hotbar","chbYPos", d.chbYPos);
-        this.render();                                                     
+        this.render(); 
+        ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                    
     }
     
     onReset() {
