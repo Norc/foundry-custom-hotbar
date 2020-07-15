@@ -11,16 +11,16 @@ export class CustomHotbarSettings {
     static register(){
     //Global, GM-only settings menus
         game.settings.registerMenu("custom-hotbar", 'chbSettingsMenu', {
-            name: '(GM Only) Set Standard Custom Hotbar',
-            label: 'Set Custom Hotbar',
+            name: '(𝗚𝗠 𝗢𝗻𝗹𝘆) Set Custom Hotbar Defaults for All Users',
+            label: 'Global Custom Hotbar',
             icon: 'fas fa-bars',
             type: CustomHotbarSettingsForm,
             restricted: true
         });
 
         game.settings.registerMenu("custom-hotbar", 'coreSettingsMenu', {
-            name: '(GM Only) Set Standard Foundry Hotbar',
-            label: 'Set Foundry Hotbar',
+            name: '(𝗚𝗠 𝗢𝗻𝗹𝘆) Set Foundry Hotbar Defaults for All Users',
+            label: 'Global Core Hotbar',
             icon: 'fas fa-minus',
             type: CoreHotbarSettingsForm,
             restricted: true
@@ -206,6 +206,7 @@ export class CustomHotbarSettings {
 
     //getters that determine whether to grab the user flag or the setting
     //Custom Hotbar getters
+    //refactor into one function with variable for what you are getting when get chance?
     static getCHBPrimaryColor(){
         var flag = game.user.getFlag("custom-hotbar", "chbPrimaryColor");
         var sett = game.settings.get("custom-hotbar","chbPrimaryColor");

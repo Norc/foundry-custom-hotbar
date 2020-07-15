@@ -12,7 +12,7 @@ export class CustomHotbarSettingsForm extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "custom-hotbar-settings-form",
-            title: "(GM Only) Set Standard Custom Hotbar",
+            title: "(𝗚𝗠 𝗢𝗻𝗹𝘆) Set Default Global Custom Hotbar",
             template: "./modules/custom-hotbar/templates/customHotbarSettings.html",
             classes: ["sheet"],
             width: 500,

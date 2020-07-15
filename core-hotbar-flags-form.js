@@ -1,3 +1,5 @@
+import { CustomHotbarSettings } from './custom-hotbar-settings.js';
+
 export class CoreHotbarFlagsForm extends FormApplication {
 
     constructor(object, options = {}) {
@@ -20,34 +22,38 @@ export class CoreHotbarFlagsForm extends FormApplication {
     
     getData() {
         let data = {        
-            corePrimaryColor: game.user.getFlag("custom-hotbar", "corePrimaryColor"), 
-            coreBorderColor: game.user.getFlag("custom-hotbar", "coreBorderColor"),
-            coreBorderColorActive: game.user.getFlag("custom-hotbar", "coreBorderColorActive"),
-            coreBorderColorInactive: game.user.getFlag("custom-hotbar", "coreBorderColorInactive"),
+            corePrimaryColor: CustomHotbarSettings.getCorePrimaryColor(), 
+            coreBorderColor: CustomHotbarSettings.getCoreBorderColor(),
+            coreBorderColorActive: CustomHotbarSettings.getCoreBorderColorActive(),
+            coreBorderColorInactive: CustomHotbarSettings.getCoreBorderColorInactive(),
 
-            coreXPos: game.user.getFlag("custom-hotbar", "coreXPos"),
-            coreYPos: game.user.getFlag("custom-hotbar", "coreYPos")
+            coreXPos: CustomHotbarSettings.getCoreXPos(),
+            coreYPos: CustomHotbarSettings.getCoreYPos(),
         };
 
         if (this.reset == true) {
-            data = {    
-                corePrimaryColor: game.settings.settings.get("custom-hotbar.corePrimaryColor").default,
-                coreBorderColor: game.settings.settings.get("custom-hotbar.coreBorderColor").default,
-                coreBorderColorActive: game.settings.settings.get("custom-hotbar.coreBorderColorActive").default,
-                coreBorderColorInactive: game.settings.settings.get("custom-hotbar.coreBorderColorInactive").default,
-
-                coreXPos: game.settings.settings.get("custom-hotbar.coreXPos").default,
-                coreYPos: game.settings.settings.get("custom-hotbar.coreYPos").default
+            async () => {
+                await game.user.unsetFlag("custom-hotbar", "corePrimaryColor"); 
+                await game.user.unsetFlag("custom-hotbar", "coreBorderColor");
+                await game.user.unsetFlag("custom-hotbar", "coreBorderColorActive");
+                await game.user.unsetFlag("custom-hotbar", "coreBorderColorInactive");
+        
+                await game.user.unsetFlag("custom-hotbar", "coreXPos");
+                await game.user.unsetFlag("custom-hotbar", "coreYPos");
             };
 
-            game.user.unsetFlag("custom-hotbar", "corePrimaryColor"); 
-            game.user.unsetFlag("custom-hotbar", "coreBorderColor");
-            game.user.unsetFlag("custom-hotbar", "coreBorderColorActive");
-            game.user.unsetFlag("custom-hotbar", "coreBorderColorInactive");
-    
-            game.user.unsetFlag("custom-hotbar", "coreXPos");
-            game.user.unsetFlag("custom-hotbar", "coreYPos");
+            data = {    
+                corePrimaryColor: game.settings.settings.get("custom-hotbar","corePrimaryColor"),
+                coreBorderColor: game.settings.settings.get("custom-hotbar","coreBorderColor"),
+                coreBorderColorActive: game.settings.settings.get("custom-hotbar","coreBorderColorActive"),
+                coreBorderColorInactive: game.settings.settings.get("custom-hotbar","coreBorderColorInactive"),
+
+                coreXPos: game.settings.settings.get("custom-hotbar","coreXPos"),
+                coreYPos: game.settings.settings.get("custom-hotbar","coreYPos")
+            };
+            this.reset = false;
         }
+
         this.render;
         return data;
     }
