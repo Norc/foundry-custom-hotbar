@@ -79,5 +79,6 @@ export class CustomHotbarSettingsForm extends FormApplication {
         super.activateListeners(html);
         html.find('button[name="reset"]').click(this.onReset.bind(this));
         this.reset = false;
+        //add on(input) thingie here
     }
 }

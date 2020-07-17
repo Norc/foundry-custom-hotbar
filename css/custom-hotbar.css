@@ -179,7 +179,7 @@ div.chbSettings input[type="Number"] {
     text-align: center;
     border: black 1px;
     float: left;
-    margin-right:0.5em;
+    margin-right: 0.75em;
 }
 
 div.chbSettings div.colorsplash {
@@ -190,4 +190,10 @@ div.chbSettings div.colorsplash {
     padding-bottom: 0.4em;
     border: black 1px;
     border-radius: 0.5em;
-  }
+}
+
+span.custom-macro-key {
+    z-index: 2;
+}
+
+/* Make H1 and H2 less ridon1kulous */
