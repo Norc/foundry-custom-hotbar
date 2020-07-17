@@ -108,8 +108,6 @@ async function customHotbarInit() {
   });
 
   await ui.customHotbar.render(true, obj);
-  console.debug("Custom Hotbar | Calling customHotbarReady hook...");
-  Hooks.callAll("customHotbarReady");
 }
 
 Hooks.on("init", async () => {
