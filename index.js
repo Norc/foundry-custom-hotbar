@@ -119,7 +119,7 @@ Hooks.on("init", async () => {
   };
 });
 
-Hooks.on("ready", async () => {
+Hooks.once("renderHotbar", async () => {
   await customHotbarInit();
 
 
