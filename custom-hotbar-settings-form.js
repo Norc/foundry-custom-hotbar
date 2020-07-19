@@ -77,11 +77,32 @@ export class CustomHotbarSettingsForm extends FormApplication {
         this.render();
     }
 
+    onChbPrimaryColorClick() {
+        console.debug("Custom Hotbar | chbPrimaryColor button click detected");
+        $( event.target ).addClass("expanded");
+        //add ID here?
+        /*
+        console.debug( $( event.target ).next() ); 
+
+        let chbPirmaryColorOk = $( event.target).next().find("div.picker_done").find("button");
+        //onChbPrimaryColorOkClick() = chbPirmaryColorOk.click;
+        */
+       //Hooks.once("")
+    }
+
+
     activateListeners(html) {
         console.debug("Custom Hotbar | Attempting to activate CHB Settings Form listeners");
         super.activateListeners(html);
-        html.find('button[name="reset"]').click(this.onReset.bind(this));
+        //bind buttons and inputs 
+        html.find('button[name="reset"]').on('click', this.onReset.bind(this));
+        html.find('input[name="chbPrimaryColor"]').on('click',this.onChbPrimaryColorClick.bind(this));
         this.reset = false;
-        //add on(input) thingie here
     }
 }
+
+Hooks.on("pickerDone", (parentDiv, hexColor) => {
+    console.debug("Custom Hotbar | pickerDone hook detected");
+    $( parentDiv ).find("input").removeClass("expanded");
+    $( parentDiv ).css("background-color", hexColor);
+});

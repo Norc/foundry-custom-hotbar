@@ -244,5 +244,21 @@ div#client-settings .chb-setting label {
     padding-top: 8px;
 }
 
+/* Settings Menu */
+/* ADD CLASS TO SETTINGS WINDOWS ON LOAD USING JQUERY */
+div#custom-hotbar-settings-form div.colorsplash input.expanded {
+    display: none;
+}
+
+
+/* hide extra button on color picker selection */
+
 
 /* In Settings Menu, Make H1 and H2 less ridonkulous */
+div#custom-hotbar-settings-form h1 {
+    font-size:x-large;
+}
+
+div#custom-hotbar-settings-form h2 {
+    font-size:large;
+}
