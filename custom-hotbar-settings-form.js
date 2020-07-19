@@ -68,6 +68,9 @@ export class CustomHotbarSettingsForm extends FormApplication {
         ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                     
     }
     
+    
+
+
     onReset() {
         console.debug("Custom Hotbar | Attempting to reset chbSettingsForm to defaults");
         this.reset = true;

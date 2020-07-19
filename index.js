@@ -3,6 +3,8 @@ import { CustomHotbar }  from './custom-hotbar.js';
 import { CustomHotbarSettings } from './custom-hotbar-settings.js';
 //import { chbFormConfig } from './chbFormConfig.js';
 
+//check to make sure something didn't go horribly wrong with Lib Color Picker 
+//The built-in backup library should handle most cases though
 Hooks.once('ready', () => {
     try{window.Ardittristan.ColorSetting.tester} catch {
         ui.notifications.notify('Please make sure you have the "lib - ColorSettings" module installed', "error", {permanent: true});
@@ -120,6 +122,7 @@ Hooks.on("init", async () => {
 });
 
 Hooks.once("renderHotbar", async () => {
+
   await customHotbarInit();
 
 
@@ -166,10 +169,34 @@ Hooks.on("renderHotbar", async () => {
 });
 
 Hooks.on("renderCustomHotbar", async () => {
-  ui.customHotbar.expand();
+//  ui.customHotbar.expand();
   console.debug("Custom Hotbar | The custom hotbar just rendered!");
 });
 
+Hooks.on("renderSettingsConfig", async () => {
+  //add CSS ids and classes to CustomHotbar settings section for styling
+  let settingsDiv = document.getElementById("client-settings");
+  
+  let chbSetDiv = $( `#${settingsDiv.id} div h2.module-header:contains("Custom Hotbar")` ).next();
+  $(chbSetDiv).addClass('chb-setting');
+  $(chbSetDiv).addClass('chb-global');
+  $(chbSetDiv).attr('id', 'chbSetDiv');
+  
+  let coreSetDiv = $(chbSetDiv).next();
+  $(coreSetDiv).addClass('chb-setting');
+  $(coreSetDiv).addClass('chb-global');
+  $(coreSetDiv).attr('id', 'coreSetDiv');
+
+  let chbFlagDiv = $(coreSetDiv).next();
+  $(chbFlagDiv).addClass('chb-setting');
+  $(chbFlagDiv).addClass('chb-user');
+  $(chbFlagDiv).attr('id', 'chbFlagDiv');
+  
+  let coreFlagDiv = $(chbFlagDiv).next();
+  $(coreFlagDiv).addClass('chb-setting');
+  $(coreFlagDiv).addClass('chb-user');
+  $(coreFlagDiv).attr('id', 'coreFlagDiv');
+});
 
 /* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (LOL, SHRUG)
 0.6.4, DND 5E 0.93 (ALL MODS DISABLED)
