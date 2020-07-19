@@ -2,7 +2,7 @@
     <form autocomplete="off" onsubmit="event.preventDefault()">
     <h1 class="module-header">Global Custom Hotbar Settings</h1>
     <p>These settings apply to the additional Custom Hotbar for all players. However, this will not override customizations a player chooses for themself.</p>
-    <h2>Primary Settings</h2>
+    <h2>Main Color Settings</h2>
     <div class = "formgroup">
         <label>{{localize "customHotbar.settings.chbPrimaryColor.name"}}</label>
         <div class = "colorsplash" id="chbPrimaryColorSplash">
@@ -17,7 +17,18 @@
         </div>
         <p class="hint">{{localize "customHotbar.settings.chbBorderColor.nameHint"}}</p>
     </div>
-    <h2>Mouseover Settings</h2>
+    <h2>Position Settings</h2>
+    <div class = "formgroup">
+        <label>{{localize "customHotbar.settings.chbXPos.name"}}</label>
+        <input type="number" value="{{chbXPos}}" name="chbXPos">
+        <p class="hint">{{localize "customHotbar.settings.chbXPos.nameHint"}}</p>
+    </div>
+    <div class = "formgroup">
+        <label>{{localize "customHotbar.settings.chbYPos.name"}}</label>
+        <input type="number" value="{{chbYPos}}" name="chbYPos">
+        <p class="hint">{{localize "customHotbar.settings.chbYPos.nameHint"}}</p>
+    </div>
+    <h2>Mouseover Color Settings</h2>
     <div class = "formgroup">
         <label>{{localize "customHotbar.settings.chbBorderColorActive.name"}}</label>
         <div class = "colorsplash" id="chbBorderColorActiveSplash">
@@ -32,24 +43,13 @@
         </div>
             <p class="hint">{{localize "customHotbar.settings.chbBorderColorInactive.nameHint"}}</p>
     </div>
-        <h2>Position Settings</h2>
-    <div class = "formgroup">
-        <label>{{localize "customHotbar.settings.chbXPos.name"}}</label>
-        <input type="number" value="{{chbXPos}}" name="chbXPos">
-        <p class="hint">{{localize "customHotbar.settings.chbXPos.nameHint"}}</p>
-    </div>
-    <div class = "formgroup">
-        <label>{{localize "customHotbar.settings.chbYPos.name"}}</label>
-        <input type="number" value="{{chbYPos}}" name="chbYPos">
-        <p class="hint">{{localize "customHotbar.settings.chbYPos.nameHint"}}</p>
-    </div>
     <div class="form-group" style="margin-top: 20px;">
-            <button type="button" name="reset">
-                <i class="fas fa-refresh"></i> Reset to Default
-            </button>
-            <button type="submit" name="submit">
-                <i class="fas fa-save"></i> Save
-            </button>
-        </div> 
+        <button type="button" name="reset">
+            <i class="fas fa-refresh"></i> Reset to Default
+        </button>
+        <button type="submit" name="submit">
+            <i class="fas fa-save"></i> Save
+        </button>
+    </div> 
     </form>
 </div>

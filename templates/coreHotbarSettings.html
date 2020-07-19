@@ -2,7 +2,7 @@
 <form autocomplete="off" onsubmit="event.preventDefault()">
 <h1 class="module-header">Global Foundry Hotbar Settings</h1>
 <p>These settings apply to the built-in Foundry hotbar for all players. However, this will not override customizations a player chooses for themself.</p>
-<h2>Color Settings</h2>
+<h2>Main Color Settings</h2>
 <div class = "formgroup">
     <label>{{localize "customHotbar.settings.corePrimaryColor.name"}}</label>
     <input type="text" value="{{corePrimaryColor}}" name="corePrimaryColor" is="colorpicker-input">
@@ -13,17 +13,7 @@
     <input type="text" value="{{coreBorderColor}}" name="coreBorderColor" is="colorpicker-input">
     <p class="hint">{{localize "customHotbar.settings.coreBorderColor.nameHint"}}</p>
 </div>
-<div class = "formgroup">
-    <label>{{localize "customHotbar.settings.coreBorderColorActive.name"}}</label>
-    <input type="text" value="{{coreBorderColorActive}}" name="coreBorderColorActive" is="colorpicker-input">
-    <p class="hint">{{localize "customHotbar.settings.coreBorderColorActive.nameHint"}}</p>
-</div>
-<div class = "formgroup">
-    <label>{{localize "customHotbar.settings.coreBorderColorInactive.name"}}</label>
-    <input type="text" value="{{coreBorderColorInactive}}" name="coreBorderColorInactive" is="colorpicker-input">
-    <p class="hint">{{localize "customHotbar.settings.coreBorderColorInactive.nameHint"}}</p>
-</div>
-    <h2>Position Settings</h2>
+<h2>Position Settings</h2>
 <div class = "formgroup">
     <label>{{localize "customHotbar.settings.coreXPos.name"}}</label>
     <input type="number" value="{{coreXPos}}" name="coreXPos" value="Horizontal Position:">
@@ -33,6 +23,17 @@
     <label>{{localize "customHotbar.settings.coreYPos.name"}}</label>
     <input type="number" value="{{coreYPos}}" name="coreYPos" value="Vertical Position:">
     <p class="hint">{{localize "customHotbar.settings.coreYPos.nameHint"}}</p>
+</div>
+<h2>Mousover Color Settings</h2>
+<div class = "formgroup">
+    <label>{{localize "customHotbar.settings.coreBorderColorActive.name"}}</label>
+    <input type="text" value="{{coreBorderColorActive}}" name="coreBorderColorActive" is="colorpicker-input">
+    <p class="hint">{{localize "customHotbar.settings.coreBorderColorActive.nameHint"}}</p>
+</div>
+<div class = "formgroup">
+    <label>{{localize "customHotbar.settings.coreBorderColorInactive.name"}}</label>
+    <input type="text" value="{{coreBorderColorInactive}}" name="coreBorderColorInactive" is="colorpicker-input">
+    <p class="hint">{{localize "customHotbar.settings.coreBorderColorInactive.nameHint"}}</p>
 </div>
 <div class="form-group" style="margin-top: 20px;">
         <button type="button" name="reset">

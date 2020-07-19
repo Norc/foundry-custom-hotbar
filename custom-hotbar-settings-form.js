@@ -41,11 +41,6 @@ export class CustomHotbarSettingsForm extends FormApplication {
                 chbYPos: game.settings.settings.get("custom-hotbar.chbYPos").default
             };
         }
-//        this.render;
-        //set starting colors correctly
-//        console.debug("Custom Hotbar | Attempting to set colorsplash colors");
-//        console.debug( $( this).find("chbPrimaryColorSplash") );
-//        console.debug( $( "#chbPrimaryColorSplash" ) );
         this.render;
         return data;
     }
@@ -60,7 +55,6 @@ export class CustomHotbarSettingsForm extends FormApplication {
      *  'submenu':submenu.toLowerCase(),
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
-    //this is currently defined for an onload not a submit...
     async _updateObject(e, d) {
         console.debug("Custom Hotbar | Attempting to update settings with form values...");
         game.settings.set("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
@@ -72,9 +66,6 @@ export class CustomHotbarSettingsForm extends FormApplication {
         this.render();
         ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                     
     }
-    
-    
-
 
     onReset() {
         console.debug("Custom Hotbar | Attempting to reset chbSettingsForm to defaults");
@@ -85,14 +76,6 @@ export class CustomHotbarSettingsForm extends FormApplication {
     onChbPrimaryColorClick() {
         console.debug("Custom Hotbar | chbPrimaryColor button click detected");
         $( event.target ).addClass("expanded");
-        //add ID here?
-        /*
-        console.debug( $( event.target ).next() ); 
-
-        let chbPirmaryColorOk = $( event.target).next().find("div.picker_done").find("button");
-        //onChbPrimaryColorOkClick() = chbPirmaryColorOk.click;
-        */
-       //Hooks.once("")
     }
 
 
@@ -109,11 +92,13 @@ export class CustomHotbarSettingsForm extends FormApplication {
 Hooks.on("renderCustomHotbarSettingsForm", (a, b, c) => {
     console.debug( "Custom Hotbar | Initializing current color values..." );
     $( "#chbPrimaryColorSplash" ).css("background-color", c.chbPrimaryColor);
+    $( "#chbBorderColorSplash" ).css("background-color", c.chbBorderColor);
+    $( "#chbBorderColorActiveSplash" ).css("background-color", c.chbBorderColorActive);
+    $( "#chbBorderColorInactiveSplash" ).css("background-color", c.chbBorderColorInactive);
 });
 
 Hooks.on("pickerDone", (parentDiv, hexColor) => {
     console.debug("Custom Hotbar | pickerDone hook detected");
     $( parentDiv ).find("input").removeClass("expanded");
     $( parentDiv ).css("background-color", hexColor);
-
 });
