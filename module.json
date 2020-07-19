@@ -21,6 +21,6 @@
       , "./lib/colorsettings/css/colorpicker.css"
       ],
     "manifest": "https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/dev/module.json",
-    "download": "https://github.com/Norc/foundry-custom-hotbar/archive/v1.5.5Alpha.zip",
+    "download": "https://github.com/Norc/foundry-custom-hotbar/archive/v1.5.6Alpha.zip",
     "url": "https://github.com/Norc/foundry-custom-hotbar"
   }
