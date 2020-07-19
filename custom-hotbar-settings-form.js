@@ -41,6 +41,11 @@ export class CustomHotbarSettingsForm extends FormApplication {
                 chbYPos: game.settings.settings.get("custom-hotbar.chbYPos").default
             };
         }
+//        this.render;
+        //set starting colors correctly
+//        console.debug("Custom Hotbar | Attempting to set colorsplash colors");
+//        console.debug( $( this).find("chbPrimaryColorSplash") );
+//        console.debug( $( "#chbPrimaryColorSplash" ) );
         this.render;
         return data;
     }
@@ -101,8 +106,14 @@ export class CustomHotbarSettingsForm extends FormApplication {
     }
 }
 
+Hooks.on("renderCustomHotbarSettingsForm", (a, b, c) => {
+    console.debug( "Custom Hotbar | Initializing current color values..." );
+    $( "#chbPrimaryColorSplash" ).css("background-color", c.chbPrimaryColor);
+});
+
 Hooks.on("pickerDone", (parentDiv, hexColor) => {
     console.debug("Custom Hotbar | pickerDone hook detected");
     $( parentDiv ).find("input").removeClass("expanded");
     $( parentDiv ).css("background-color", hexColor);
+
 });
