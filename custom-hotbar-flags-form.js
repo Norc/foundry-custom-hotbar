@@ -1,4 +1,6 @@
-export class CustomHotbarSettingsForm extends FormApplication {
+import { CustomHotbarSettings } from './custom-hotbar-settings.js';
+
+export class CustomHotbarFlagsForm extends FormApplication {
 
     constructor(object, options = {}) {
         super(object, options);
@@ -9,9 +11,9 @@ export class CustomHotbarSettingsForm extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            id: "custom-hotbar-settings-form",
-            title: "(𝗚𝗠 𝗢𝗻𝗹𝘆) Set Default Global Custom Hotbar",
-            template: "./modules/custom-hotbar/templates/customHotbarSettings.html",
+            id: "custom-hotbar-flags-form",
+            title: "(Per User) Your Custom Hotbar Settings",
+            template: "./modules/custom-hotbar/templates/customHotbarFlags.html",
             classes: ["sheet"],
             width: 500,
             closeOnSubmit: true
@@ -20,14 +22,13 @@ export class CustomHotbarSettingsForm extends FormApplication {
 
     getData() {
         let data = {        
-            chbPrimaryColor: game.settings.get("custom-hotbar", "chbPrimaryColor"), 
-            chbBorderColor: game.settings.get("custom-hotbar", "chbBorderColor"),
-            chbBorderColorActive: game.settings.get("custom-hotbar", "chbBorderColorActive"),
-            chbBorderColorInactive: game.settings.get("custom-hotbar", "chbBorderColorInactive"),
+            chbPrimaryColor: CustomHotbarSettings.getCHBPrimaryColor(), 
+            chbBorderColor: CustomHotbarSettings.getCHBBorderColor(),
+            chbBorderColorActive: CustomHotbarSettings.getCHBBorderColorActive(),
+            chbBorderColorInactive: CustomHotbarSettings.getCHBBorderColorInactive(),
 
-            chbXPos: game.settings.get("custom-hotbar", "chbXPos"),
-            chbYPos: game.settings.get("custom-hotbar", "chbYPos")
-        };
+            chbXPos: CustomHotbarSettings.getCHBXPos(),
+            chbYPos: CustomHotbarSettings.getCHBYPos(),        };
         if (this.reset == true) {
             data = {    
                 chbPrimaryColor: game.settings.settings.get("custom-hotbar.chbPrimaryColor").default,
@@ -53,20 +54,20 @@ export class CustomHotbarSettingsForm extends FormApplication {
      *  'submenu':submenu.toLowerCase(),
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
-    async _updateObject(e, d) {
-        console.debug("Custom Hotbar | Attempting to update settings with form values...");
-        game.settings.set("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
-        game.settings.set("custom-hotbar", "chbBorderColor", d.chbBorderColor);
-        game.settings.set("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
-        game.settings.set("custom-hotbar", "chbBorderColorInactive", d.chbBorderColorInactive);
-        game.settings.set("custom-hotbar","chbXPos", d.chbXPos);
-        game.settings.set("custom-hotbar","chbYPos", d.chbYPos);
+    _updateObject(e, d) {
+        game.user.setFlag("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
+        game.user.setFlag("custom-hotbar", "chbBorderColor", d.chbBorderColor);
+        game.user.setFlag("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
+        game.user.setFlag("custom-hotbar", "chbBorderColorInactive", d.chbBorderColorInactive);
+
+        game.user.setFlag("custom-hotbar","chbXPos", d.chbXPos);
+        game.user.setFlag("custom-hotbar","chbYPos", d.chbYPos);
         this.render();
         ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                     
     }
 
     onReset() {
-        console.debug("Custom Hotbar | Attempting to reset chbSettingsForm to defaults");
+        console.debug("Custom Hotbar | Attempting to reset custom-hotbar-flags-form to defaults");
         this.reset = true;
         this.render();
     }
@@ -92,7 +93,7 @@ export class CustomHotbarSettingsForm extends FormApplication {
     }
 
     activateListeners(html) {
-        console.debug("Custom Hotbar | Attempting to activate CHB Settings Form listeners");
+        console.debug("Custom Hotbar | Attempting to activate  CHB Flags Form listeners");
         super.activateListeners(html);
         //bind buttons and inputs 
         html.find('button[name="reset"]').on('click', this.onReset.bind(this));
@@ -104,7 +105,7 @@ export class CustomHotbarSettingsForm extends FormApplication {
     }
 }
 
-Hooks.on("renderCustomHotbarSettingsForm", (a, b, c) => {
+Hooks.on("renderCustomHotbarFlagsForm", (a, b, c) => {
     console.debug( "Custom Hotbar | Initializing current color values..." );
     $( "#chbPrimaryColorSplash" ).css("background-color", c.chbPrimaryColor);
     $( "#chbBorderColorSplash" ).css("background-color", c.chbBorderColor);

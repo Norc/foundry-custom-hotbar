@@ -1,8 +1,10 @@
 import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
 import { CustomHotbarSettings } from './custom-hotbar-settings.js';
-//import { CoreHotbarSettings } from './core-hotbar-settings.js';
+//import { chbFormConfig } from './chbFormConfig.js';
 
+//check to make sure something didn't go horribly wrong with Lib Color Picker 
+//The built-in backup library should handle most cases though
 Hooks.once('ready', () => {
     try{window.Ardittristan.ColorSetting.tester} catch {
         ui.notifications.notify('Please make sure you have the "lib - ColorSettings" module installed', "error", {permanent: true});
@@ -26,80 +28,80 @@ async function customHotbarInit() {
   };
 
 
-CustomHotbarSettings.register();
-//CoreHotbarSettings.register();
+  CustomHotbarSettings.register();
 
-//apply settings styles, first for custom hotbar, then for core hotbar
-var css =
-    '#custom-hotbar' 
-  + ` { bottom: ${game.settings.get("custom-hotbar", "chbYPos")}px; ` 
-  + `   left: ${game.settings.get("custom-hotbar", "chbXPos")}px; `
-  + ' }'
+  //apply settings styles, first for custom hotbar, then for core hotbar
+  //For each setting, use flag if present, otherwise use game setting.
 
-  + '#custom-hotbar #custom-macro-list' 
-  + ` {` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
-  + ' }'
-  
-  + '#custom-hotbar .bar-controls' 
-  + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
-  + ' }'
+   var css =
+      '#custom-hotbar' 
+    + ` { bottom: ${CustomHotbarSettings.getCHBYPos()}px; ` 
+    + `   left: ${CustomHotbarSettings.getCHBXPos()}px; `
+    + ' }'
 
-  + '#custom-hotbar .macro' 
-  + ` { background: ${game.settings.get("custom-hotbar", "chbPrimaryColor")};` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColor")};`
-  + ' }'
+    + '#custom-hotbar #custom-macro-list' 
+    + ` {` 
+    + `   border: 1px solid ${CustomHotbarSettings.getCHBBorderColor()};`
+    + ' }'
+    
+    + '#custom-hotbar .bar-controls' 
+    + ` { background: ${CustomHotbarSettings.getCHBPrimaryColor()};` 
+    + `   border: 1px solid ${CustomHotbarSettings.getCHBBorderColor()};`
+    + ' }'
 
-  + '#custom-hotbar .macro.active:hover' 
-  + ' {' 
-  + `     border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColorActive")};`
-  + ' }'
+    + '#custom-hotbar .macro' 
+    + ` { background: ${CustomHotbarSettings.getCHBPrimaryColor()};` 
+    + `   border: 1px solid ${CustomHotbarSettings.getCHBBorderColor()};`
+    + ' }'
 
-  + '#custom-hotbar .macro.inactive:hover' 
-  + ' {' 
-  + `     border: 1px solid ${game.settings.get("custom-hotbar", "chbBorderColorInactive")};`
-  + ' }'
+    + '#custom-hotbar .macro.active:hover' 
+    + ' {' 
+    + `     border: 1px solid ${CustomHotbarSettings.getCHBBorderColorActive()};`
+    + ' }'
+
+    + '#custom-hotbar .macro.inactive:hover' 
+    + ' {' 
+    + `     border: 1px solid ${CustomHotbarSettings.getCHBBorderColorInactive()};`
+    + ' }'
 
 
 
-  + '#hotbar' 
-  + ` { bottom: ${game.settings.get("custom-hotbar", "coreYPos")}px; ` 
-  + `   left: ${game.settings.get("custom-hotbar", "coreXPos")}px; `
-  + ' }'
+    + '#hotbar' 
+    + ` { bottom: ${CustomHotbarSettings.getCoreYPos()}px; ` 
+    + `   left: ${CustomHotbarSettings.getCoreXPos()}px; `
+    + ' }'
 
-  + '#hotbar #custom-macro-list' 
-  + ` {` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
-  + ' }'
-  
-  + '#hotbar .bar-controls' 
-  + ` { background: ${game.settings.get("custom-hotbar", "corePrimaryColor")};` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
-  + ' }'
+    + '#hotbar #custom-macro-list' 
+    + ` {` 
+    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
+    + ' }'
+    
+    + '#hotbar .bar-controls' 
+    + ` { background: ${CustomHotbarSettings.getCorePrimaryColor()};` 
+    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
+    + ' }'
 
-  + '#hotbar .macro' 
-  + ` { background: ${game.settings.get("custom-hotbar", "corePrimaryColor")};` 
-  + `   border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColor")};`
-  + ' }'
+    + '#hotbar .macro' 
+    + ` { background: ${CustomHotbarSettings.getCorePrimaryColor()};` 
+    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
+    + ' }'
 
-  + '#hotbar .macro.active:hover' 
-  + ' {' 
-  + `     border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColorActive")};`
-  + ' }'
+    + '#hotbar .macro.active:hover' 
+    + ' {' 
+    + `     border: 1px solid ${CustomHotbarSettings.getCoreBorderColorActive()};`
+    + ' }'
 
-  + '#hotbar .macro.inactive:hover' 
-  + ' {' 
-  + `     border: 1px solid ${game.settings.get("custom-hotbar", "coreBorderColorInactive")};`
-  + ' }'
-  ,
-    head = document.head || document.getElementsByTagName('head')[0],
-    style = document.createElement('style');
+    + '#hotbar .macro.inactive:hover' 
+    + ' {' 
+    + `     border: 1px solid ${CustomHotbarSettings.getCoreBorderColorInactive()};`
+    + ' }'
+  , head = document.head || document.getElementsByTagName('head')[0]
+  , style = document.createElement('style');
 
-head.appendChild(style);
+  head.appendChild(style);
 
-style.type = 'text/css';
-style.appendChild(document.createTextNode(css));
+  style.type = 'text/css';
+  style.appendChild(document.createTextNode(css));
 
   ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
@@ -107,7 +109,7 @@ style.appendChild(document.createTextNode(css));
     element.ondragend = ui.hotbar._onDrop;
   });
 
-  ui.customHotbar.render(true, obj);
+  await ui.customHotbar.render(true, obj);
 }
 
 Hooks.on("init", async () => {
@@ -119,11 +121,16 @@ Hooks.on("init", async () => {
   };
 });
 
-Hooks.on("ready", async () => {
+Hooks.once("renderHotbar", async () => {
+
   await customHotbarInit();
 
+
   window.addEventListener('keydown', (e) => {
-    if( (48 <= e.which <=57)  && e.shiftKey) {
+    console.debug(`Custom Hotbar | Event keycode is ${e.which}`);
+    
+    //add Shift-digit keybinding to fire macros on Custom Hotbar
+    if( (48 <= e.which && e.which <= 57)  && e.shiftKey && !e.ctrlKey) {
       const num = parseInt(e.code.slice(e.code.length -1));
       console.debug(`Custom Hotbar | You pressed shift and ${num} on a ${e.target.tagName}`);
       //disable firing macro on keystrokes meant to enter text
@@ -136,15 +143,60 @@ Hooks.on("ready", async () => {
       if ( ui.customHotbar.macros[num] ) slot.macro.execute();
       return false;
     }
+  
+    //add ctrl-digit keybinding to change macro page
+    if( (49 <= e.which && e.which <= 53)  && e.ctrlKey && e.shiftKey) {
+      //when pages added to Custom Hotbar, extend to captuer 6-10 presses to change that page also?
+      const num = parseInt(e.code.slice(e.code.length -1));
+      console.debug(`Custom Hotbar | You pressed control and shift and ${num} on a ${e.target.tagName}`);
+      //disable firing macro on keystrokes meant to enter text
+      if (e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA") {
+        console.debug("Custom Hotbar | Preventing keybind, invalid target.");
+        return;
+      }
+      //translate valid keypress into core hotbar page change
+      console.debug(`Custom Hotbar | Attempting to set page to ${num}`);
+      ui.hotbar.page=num;
+      ui.hotbar.render();
+      return false;
+    }
   });
 
 });
 
+Hooks.on("renderHotbar", async () => {
+  console.debug("Custom Hotbar | The core hotbar just rendered!");
+});
+
 Hooks.on("renderCustomHotbar", async () => {
-  ui.customHotbar.expand();
+//  ui.customHotbar.expand();
   console.debug("Custom Hotbar | The custom hotbar just rendered!");
 });
 
+Hooks.on("renderSettingsConfig", async () => {
+  //add CSS ids and classes to CustomHotbar settings section for styling
+  let settingsDiv = document.getElementById("client-settings");
+  
+  let chbSetDiv = $( `#${settingsDiv.id} div h2.module-header:contains("Custom Hotbar")` ).next();
+  $(chbSetDiv).addClass('chb-setting');
+  $(chbSetDiv).addClass('chb-global');
+  $(chbSetDiv).attr('id', 'chbSetDiv');
+  
+  let coreSetDiv = $(chbSetDiv).next();
+  $(coreSetDiv).addClass('chb-setting');
+  $(coreSetDiv).addClass('chb-global');
+  $(coreSetDiv).attr('id', 'coreSetDiv');
+
+  let chbFlagDiv = $(coreSetDiv).next();
+  $(chbFlagDiv).addClass('chb-setting');
+  $(chbFlagDiv).addClass('chb-user');
+  $(chbFlagDiv).attr('id', 'chbFlagDiv');
+  
+  let coreFlagDiv = $(chbFlagDiv).next();
+  $(coreFlagDiv).addClass('chb-setting');
+  $(coreFlagDiv).addClass('chb-user');
+  $(coreFlagDiv).attr('id', 'coreFlagDiv');
+});
 
 /* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (LOL, SHRUG)
 0.6.4, DND 5E 0.93 (ALL MODS DISABLED)
@@ -161,10 +213,4 @@ at DragDrop._handleDrop (foundry.js:13836)
 3. Drag macro onto itself, it is removed
 
 4. Sometimes when you drag off of core, a ghost set of slots to left and right of core slot is grabbed also. Seems to happen if you click near a border between macro slots.
-
-
-//ROADMAP
-//Color and position settings
-//Freely draggable bar with remembered location
-//multiple hotbars
 */

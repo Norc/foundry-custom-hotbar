@@ -1,4 +1,6 @@
-export class CoreHotbarSettingsForm extends FormApplication {
+import { CustomHotbarSettings } from './custom-hotbar-settings.js';
+
+export class CoreHotbarFlagsForm extends FormApplication {
 
     constructor(object, options = {}) {
         super(object, options);
@@ -9,9 +11,9 @@ export class CoreHotbarSettingsForm extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            id: "core-hotbar-settings-form",
-            title: "(𝗚𝗠 𝗢𝗻𝗹𝘆) Set Default Global Core Hotbar",
-            template: "./modules/custom-hotbar/templates/coreHotbarSettings.html",
+            id: "core-hotbar-flags-form",
+            title: "(Per User) Your Core Hotbar Settings",
+            template: "./modules/custom-hotbar/templates/coreHotbarFlags.html",
             classes: ["sheet"],
             width: 500,
             closeOnSubmit: true
@@ -20,14 +22,13 @@ export class CoreHotbarSettingsForm extends FormApplication {
 
     getData() {
         let data = {        
-            corePrimaryColor: game.settings.get("custom-hotbar", "corePrimaryColor"), 
-            coreBorderColor: game.settings.get("custom-hotbar", "coreBorderColor"),
-            coreBorderColorActive: game.settings.get("custom-hotbar", "coreBorderColorActive"),
-            coreBorderColorInactive: game.settings.get("custom-hotbar", "coreBorderColorInactive"),
+            corePrimaryColor: CustomHotbarSettings.getCorePrimaryColor(), 
+            coreBorderColor: CustomHotbarSettings.getCoreBorderColor(),
+            coreBorderColorActive: CustomHotbarSettings.getCoreBorderColorActive(),
+            coreBorderColorInactive: CustomHotbarSettings.getCoreBorderColorInactive(),
 
-            coreXPos: game.settings.get("custom-hotbar", "coreXPos"),
-            coreYPos: game.settings.get("custom-hotbar", "coreYPos")
-        };
+            coreXPos: CustomHotbarSettings.getCoreXPos(),
+            coreYPos: CustomHotbarSettings.getCoreYPos(),        };
         if (this.reset == true) {
             data = {    
                 corePrimaryColor: game.settings.settings.get("custom-hotbar.corePrimaryColor").default,
@@ -53,21 +54,20 @@ export class CoreHotbarSettingsForm extends FormApplication {
      *  'submenu':submenu.toLowerCase(),
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
+    _updateObject(e, d) {
+        game.user.setFlag("custom-hotbar", "corePrimaryColor", d.corePrimaryColor);
+        game.user.setFlag("custom-hotbar", "coreBorderColor", d.coreBorderColor);
+        game.user.setFlag("custom-hotbar", "coreBorderColorActive", d.coreBorderColorActive);
+        game.user.setFlag("custom-hotbar", "coreBorderColorInactive", d.coreBorderColorInactive);
 
-    async _updateObject(e, d) {
-        console.debug("Custom Hotbar | Attempting to update settings with form values...");
-        game.settings.set("custom-hotbar", "corePrimaryColor", d.corePrimaryColor);
-        game.settings.set("custom-hotbar", "coreBorderColor", d.coreBorderColor);
-        game.settings.set("custom-hotbar", "coreBorderColorActive", d.coreBorderColorActive);
-        game.settings.set("custom-hotbar", "coreBorderColorInactive", d.coreBorderColorInactive);
-        game.settings.set("custom-hotbar", "coreXPos", d.coreXPos);
-        game.settings.set("custom-hotbar", "coreYPos", d.coreYPos);
+        game.user.setFlag("custom-hotbar","coreXPos", d.coreXPos);
+        game.user.setFlag("custom-hotbar","coreYPos", d.coreYPos);
         this.render();
         ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                     
     }
 
     onReset() {
-        console.debug("Custom Hotbar | Attempting to reset coreSettingsForm to defaults");
+        console.debug("Custom Hotbar | Attempting to reset custom-hotbar-flags-form to defaults");
         this.reset = true;
         this.render();
     }
@@ -93,7 +93,7 @@ export class CoreHotbarSettingsForm extends FormApplication {
     }
 
     activateListeners(html) {
-        console.debug("Custom Hotbar | Attempting to activate Core Settings Form listeners");
+        console.debug("Custom Hotbar | Attempting to activate  Core Flags Form listeners");
         super.activateListeners(html);
         //bind buttons and inputs 
         html.find('button[name="reset"]').on('click', this.onReset.bind(this));
@@ -105,7 +105,7 @@ export class CoreHotbarSettingsForm extends FormApplication {
     }
 }
 
-Hooks.on("renderCoreHotbarSettingsForm", (a, b, c) => {
+Hooks.on("renderCoreHotbarFlagsForm", (a, b, c) => {
     console.debug( "Custom Hotbar | Initializing current color values..." );
     $( "#corePrimaryColorSplash" ).css("background-color", c.corePrimaryColor);
     $( "#coreBorderColorSplash" ).css("background-color", c.coreBorderColor);

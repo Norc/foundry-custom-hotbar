@@ -1,7 +1,7 @@
-<div class="chbSettings" id="core-hotbar-settings-form"">
+<div class="chbSettings" id="core-hotbar-flags-form"">
     <form autocomplete="off" onsubmit="event.preventDefault()">
-    <h1 class="module-header">Global Core Hotbar Settings</h1>
-    <p>These settings apply to the built-in Foundry hotbar for all players. However, this will not override customizations a player chooses for themself.</p>
+    <h1 class="module-header">Your Core Hotbar Settings</h1>
+    <p>To discard your customizations and use the standard settings recommended by the GM instead, use the Reset button in the bottom left.</p>
     <h2>Main Color Settings</h2>
     <div class = "formgroup">
         <label>{{localize "customHotbar.settings.corePrimaryColor.name"}}</label>
@@ -15,7 +15,7 @@
         <div class = "colorsplash" id="coreBorderColorSplash">
             <input type="text" value="{{coreBorderColor}}" name="coreBorderColor" is="colorpicker-input">
         </div>
-        <p class="hint">{{localize "customHotbar.settings.coreBorderColor.nameHint"}}</p>
+        <p class="hint">{{localize "customHotbar.flag.coreBorderColor.nameHint"}}</p>
     </div>
     <h2>Position Settings</h2>
     <div class = "formgroup">
