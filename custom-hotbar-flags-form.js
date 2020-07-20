@@ -54,14 +54,14 @@ export class CustomHotbarFlagsForm extends FormApplication {
      *  'submenu':submenu.toLowerCase(),
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
-    _updateObject(e, d) {
-        game.user.setFlag("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
-        game.user.setFlag("custom-hotbar", "chbBorderColor", d.chbBorderColor);
-        game.user.setFlag("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
-        game.user.setFlag("custom-hotbar", "chbBorderColorInactive", d.chbBorderColorInactive);
+    async _updateObject(e, d) {
+        await game.user.setFlag("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
+        await game.user.setFlag("custom-hotbar", "chbBorderColor", d.chbBorderColor);
+        await game.user.setFlag("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
+        await game.user.setFlag("custom-hotbar", "chbBorderColorInactive", d.chbBorderColorInactive);
 
-        game.user.setFlag("custom-hotbar","chbXPos", d.chbXPos);
-        game.user.setFlag("custom-hotbar","chbYPos", d.chbYPos);
+        await game.user.setFlag("custom-hotbar","chbXPos", d.chbXPos);
+        await game.user.setFlag("custom-hotbar","chbYPos", d.chbYPos);
         this.render();
         ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                     
     }
