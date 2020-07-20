@@ -19,7 +19,7 @@ export class CustomHotbarFlagsForm extends FormApplication {
             closeOnSubmit: true
         });
     }
-    
+
     getData() {
         let data = {        
             chbPrimaryColor: CustomHotbarSettings.getCHBPrimaryColor(), 
@@ -28,32 +28,18 @@ export class CustomHotbarFlagsForm extends FormApplication {
             chbBorderColorInactive: CustomHotbarSettings.getCHBBorderColorInactive(),
 
             chbXPos: CustomHotbarSettings.getCHBXPos(),
-            chbYPos: CustomHotbarSettings.getCHBYPos(),
-        };
-
+            chbYPos: CustomHotbarSettings.getCHBYPos(),        };
         if (this.reset == true) {
-            async () => {
-                await game.user.unsetFlag("custom-hotbar", "chbPrimaryColor"); 
-                await game.user.unsetFlag("custom-hotbar", "chbBorderColor");
-                await game.user.unsetFlag("custom-hotbar", "chbBorderColorActive");
-                await game.user.unsetFlag("custom-hotbar", "chbBorderColorInactive");
-        
-                await game.user.unsetFlag("custom-hotbar", "chbXPos");
-                await game.user.unsetFlag("custom-hotbar", "chbYPos");
-            };
-
             data = {    
-                chbPrimaryColor: game.settings.settings.get("custom-hotbar","chbPrimaryColor"),
-                chbBorderColor: game.settings.settings.get("custom-hotbar","chbBorderColor"),
-                chbBorderColorActive: game.settings.settings.get("custom-hotbar","chbBorderColorActive"),
-                chbBorderColorInactive: game.settings.settings.get("custom-hotbar","chbBorderColorInactive"),
+                chbPrimaryColor: game.settings.settings.get("custom-hotbar.chbPrimaryColor").default,
+                chbBorderColor: game.settings.settings.get("custom-hotbar.chbBorderColor").default,
+                chbBorderColorActive: game.settings.settings.get("custom-hotbar.chbBorderColorActive").default,
+                chbBorderColorInactive: game.settings.settings.get("custom-hotbar.chbBorderColorInactive").default,
 
-                chbXPos: game.settings.settings.get("custom-hotbar","chbXPos"),
-                chbYPos: game.settings.settings.get("custom-hotbar","chbYPos")
+                chbXPos: game.settings.settings.get("custom-hotbar.chbXPos").default,
+                chbYPos: game.settings.settings.get("custom-hotbar.chbYPos").default
             };
-            this.reset = false;
         }
-
         this.render;
         return data;
     }
@@ -68,39 +54,67 @@ export class CustomHotbarFlagsForm extends FormApplication {
      *  'submenu':submenu.toLowerCase(),
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
-    async _updateObject(e, d) {
-        console.debug("Custom Hotbar | Attempting to update custom user flags with form values...");
-        await game.user.unsetFlag("custom-hotbar", "chbPrimaryColor"); 
-        await game.user.unsetFlag("custom-hotbar", "chbBorderColor");
-        await game.user.unsetFlag("custom-hotbar", "chbBorderColorActive");
-        await game.user.unsetFlag("custom-hotbar", "chbBorderColorInactive");
+    _updateObject(e, d) {
+        game.user.setFlag("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
+        game.user.setFlag("custom-hotbar", "chbBorderColor", d.chbBorderColor);
+        game.user.setFlag("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
+        game.user.setFlag("custom-hotbar", "chbBorderColorInactive", d.chbBorderColorInactive);
 
-        await game.user.unsetFlag("custom-hotbar", "chbXPos");
-        await game.user.unsetFlag("custom-hotbar", "chbYPos");
-
-        setTimeout(100);
-        
-        await game.user.setFlag("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
-        await game.user.setFlag("custom-hotbar", "chbBorderColor", d.chbBorderColor);
-        await game.user.setFlag("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
-        await game.user.setFlag("custom-hotbar", "chbBorderColorInactive", d.chbBorderColorInactive);
-
-        await game.user.setFlag("custom-hotbar","chbXPos", d.chbXPos);
-        await game.user.setFlag("custom-hotbar","chbYPos", d.chbYPos);
-        this.render(); 
-        ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                    
+        game.user.setFlag("custom-hotbar","chbXPos", d.chbXPos);
+        game.user.setFlag("custom-hotbar","chbYPos", d.chbYPos);
+        this.render();
+        ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                     
     }
-    
+
     onReset() {
         console.debug("Custom Hotbar | Attempting to reset custom-hotbar-flags-form to defaults");
         this.reset = true;
         this.render();
     }
 
+    onChbPrimaryColorClick() {
+        console.debug("Custom Hotbar | chbPrimaryColor button click detected");
+        $( event.target ).addClass("expanded");
+    }
+
+    onChbBorderColorClick() {
+        console.debug("Custom Hotbar | chbBorderColor button click detected");
+        $( event.target ).addClass("expanded");
+    }
+
+    onChbBorderColorActiveClick() {
+        console.debug("Custom Hotbar | chbBorderColorActive button click detected");
+        $( event.target ).addClass("expanded");
+    }
+
+    onChbBorderColorInactiveClick() {
+        console.debug("Custom Hotbar | chbBorderColorInactive button click detected");
+        $( event.target ).addClass("expanded");
+    }
+
     activateListeners(html) {
-        console.debug("Custom Hotbar | Attempting to activate CHB Flags Form listeners");
+        console.debug("Custom Hotbar | Attempting to activate  CHB Flags Form listeners");
         super.activateListeners(html);
-        html.find('button[name="reset"]').click(this.onReset.bind(this));
+        //bind buttons and inputs 
+        html.find('button[name="reset"]').on('click', this.onReset.bind(this));
+        html.find('input[name="chbPrimaryColor"]').on('click',this.onChbPrimaryColorClick.bind(this));
+        html.find('input[name="chbBorderColor"]').on('click',this.onChbBorderColorClick.bind(this));
+        html.find('input[name="chbBorderColorActive"]').on('click',this.onChbBorderColorActiveClick.bind(this));
+        html.find('input[name="chbBorderColorInactive"]').on('click',this.onChbBorderColorInactiveClick.bind(this));
         this.reset = false;
     }
 }
+
+Hooks.on("renderCustomHotbarFlagsForm", (a, b, c) => {
+    console.debug( "Custom Hotbar | Initializing current color values..." );
+    $( "#chbPrimaryColorSplash" ).css("background-color", c.chbPrimaryColor);
+    $( "#chbBorderColorSplash" ).css("background-color", c.chbBorderColor);
+    $( "#chbBorderColorActiveSplash" ).css("background-color", c.chbBorderColorActive);
+    $( "#chbBorderColorInactiveSplash" ).css("background-color", c.chbBorderColorInactive);
+});
+
+Hooks.on("pickerDone", (parentDiv, hexColor) => {
+    console.debug("Custom Hotbar | pickerDone hook detected");
+    $( parentDiv ).find("input").removeClass("expanded");
+    $( parentDiv ).css("background-color", hexColor);
+});

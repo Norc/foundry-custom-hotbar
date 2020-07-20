@@ -1,5 +1,3 @@
-import { CustomHotbarSettings } from './custom-hotbar-settings.js';
-
 export class CustomHotbarSettingsForm extends FormApplication {
 
     constructor(object, options = {}) {
@@ -78,6 +76,20 @@ export class CustomHotbarSettingsForm extends FormApplication {
         $( event.target ).addClass("expanded");
     }
 
+    onChbBorderColorClick() {
+        console.debug("Custom Hotbar | chbBorderColor button click detected");
+        $( event.target ).addClass("expanded");
+    }
+
+    onChbBorderColorActiveClick() {
+        console.debug("Custom Hotbar | chbBorderColorActive button click detected");
+        $( event.target ).addClass("expanded");
+    }
+
+    onChbBorderColorInactiveClick() {
+        console.debug("Custom Hotbar | chbBorderColorInactive button click detected");
+        $( event.target ).addClass("expanded");
+    }
 
     activateListeners(html) {
         console.debug("Custom Hotbar | Attempting to activate CHB Settings Form listeners");
@@ -85,6 +97,9 @@ export class CustomHotbarSettingsForm extends FormApplication {
         //bind buttons and inputs 
         html.find('button[name="reset"]').on('click', this.onReset.bind(this));
         html.find('input[name="chbPrimaryColor"]').on('click',this.onChbPrimaryColorClick.bind(this));
+        html.find('input[name="chbBorderColor"]').on('click',this.onChbBorderColorClick.bind(this));
+        html.find('input[name="chbBorderColorActive"]').on('click',this.onChbBorderColorActiveClick.bind(this));
+        html.find('input[name="chbBorderColorInactive"]').on('click',this.onChbBorderColorInactiveClick.bind(this));
         this.reset = false;
     }
 }

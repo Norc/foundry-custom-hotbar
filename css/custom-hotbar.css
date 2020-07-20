@@ -245,8 +245,19 @@ div#client-settings .chb-setting label {
 }
 
 /* Settings Menu */
-/* ADD CLASS TO SETTINGS WINDOWS ON LOAD USING JQUERY */
 div#custom-hotbar-settings-form div.colorsplash input.expanded {
+    display: none;
+}
+
+div#custom-hotbar-flags-form div.colorsplash input.expanded {
+    display: none;
+}
+
+div#core-hotbar-settings-form div.colorsplash input.expanded {
+    display: none;
+}
+
+div#core-hotbar-flags-form div.colorsplash input.expanded {
     display: none;
 }
 
