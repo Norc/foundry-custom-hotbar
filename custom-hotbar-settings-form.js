@@ -74,6 +74,10 @@ export class CustomHotbarSettingsForm extends FormApplication {
     onChbPrimaryColorClick() {
         console.debug("Custom Hotbar | chbPrimaryColor button click detected");
         $( event.target ).addClass("expanded");
+        //$( event.target ).prop( "disabled", true );
+ 
+// Enable #x
+$( "#x" ).prop( "disabled", false );
     }
 
     onChbBorderColorClick() {
@@ -115,5 +119,6 @@ Hooks.on("renderCustomHotbarSettingsForm", (a, b, c) => {
 Hooks.on("pickerDone", (parentDiv, hexColor) => {
     console.debug("Custom Hotbar | pickerDone hook detected");
     $( parentDiv ).find("input").removeClass("expanded");
+    //$( parentDiv ).find("input").prop( "disabled", true );
     $( parentDiv ).css("background-color", hexColor);
 });
