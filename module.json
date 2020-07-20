@@ -3,7 +3,7 @@
     "title": "Custom Hotbar",   
     "description": "An extra fully functional hotbar (currently 1 row only) above the first.",   
     "author": "Norc",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "minimumCoreVersion": "0.5.7",
     "compatibleCoreVersion":"0.7.0",
     "esmodules": [
