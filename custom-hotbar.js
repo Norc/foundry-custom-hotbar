@@ -252,7 +252,7 @@ export class CustomHotbar extends Hotbar {
   /** @override */
   
   activateListeners(html) {
-    event.preventDefault();
+    //event.preventDefault();
     super.activateListeners(html);
     html.find('#custom-bar-toggle').click(this._onToggleBar.bind(this));
     //    Disable pages for now, will just work with first page.
@@ -314,6 +314,7 @@ export class CustomHotbar extends Hotbar {
    */
   async _onClickMacro(event) {
     console.debug("custom macro click detected!");
+
     event.preventDefault();
     const li = event.currentTarget;
 

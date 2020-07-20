@@ -1,0 +1,55 @@
+<div class="chbSettings" id="core-hotbar-flags-form"">
+    <form autocomplete="off" onsubmit="event.preventDefault()">
+    <h1 class="module-header">Your Core Hotbar Settings</h1>
+    <p>To discard your customizations and use the standard settings recommended by the GM instead, use the Reset button in the bottom left.</p>
+    <h2>Main Color Settings</h2>
+    <div class = "formgroup">
+        <label>{{localize "customHotbar.settings.corePrimaryColor.name"}}</label>
+        <div class = "colorsplash" id="corePrimaryColorSplash">
+            <input type="text" value= "{{corePrimaryColor}}" name="corePrimaryColor" is="colorpicker-input">
+        </div>
+        <p class="hint">{{localize "customHotbar.settings.corePrimaryColor.nameHint"}}</p>
+    </div>
+    <div class = "formgroup">
+        <label>{{localize "customHotbar.settings.coreBorderColor.name"}}</label>
+        <div class = "colorsplash" id="coreBorderColorSplash">
+            <input type="text" value="{{coreBorderColor}}" name="coreBorderColor" is="colorpicker-input">
+        </div>
+        <p class="hint">{{localize "customHotbar.flag.coreBorderColor.nameHint"}}</p>
+    </div>
+    <h2>Position Settings</h2>
+    <div class = "formgroup">
+        <label>{{localize "customHotbar.settings.coreXPos.name"}}</label>
+        <input type="number" value="{{coreXPos}}" name="coreXPos">
+        <p class="hint">{{localize "customHotbar.settings.coreXPos.nameHint"}}</p>
+    </div>
+    <div class = "formgroup">
+        <label>{{localize "customHotbar.settings.coreYPos.name"}}</label>
+        <input type="number" value="{{coreYPos}}" name="coreYPos">
+        <p class="hint">{{localize "customHotbar.settings.coreYPos.nameHint"}}</p>
+    </div>
+    <h2>Mouseover Color Settings</h2>
+    <div class = "formgroup">
+        <label>{{localize "customHotbar.settings.coreBorderColorActive.name"}}</label>
+        <div class = "colorsplash" id="coreBorderColorActiveSplash">
+            <input type="text" value="{{coreBorderColorActive}}" name="coreBorderColorActive" is="colorpicker-input">
+        </div>
+        <p class="hint">{{localize "customHotbar.settings.coreBorderColorActive.nameHint"}}</p>
+    </div>
+    <div class = "formgroup">
+        <label>{{localize "customHotbar.settings.coreBorderColorInactive.name"}}</label>
+        <div class = "colorsplash" id="coreBorderColorInactiveSplash">
+            <input type="text" value="{{coreBorderColorInactive}}" name="coreBorderColorInactive" is="colorpicker-input">
+        </div>
+            <p class="hint">{{localize "customHotbar.settings.coreBorderColorInactive.nameHint"}}</p>
+    </div>
+    <div class="form-group" style="margin-top: 20px;">
+        <button type="button" name="reset">
+            <i class="fas fa-refresh"></i> Reset to Default
+        </button>
+        <button type="submit" name="submit">
+            <i class="fas fa-save"></i> Save
+        </button>
+    </div> 
+    </form>
+</div>
