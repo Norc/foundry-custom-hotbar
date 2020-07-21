@@ -26,6 +26,22 @@ export class CustomHotbarSettings {
             restricted: true
         });
 
+        //TO DO: add hotbarPageKeyEnabled and chbKeyEnabled and fix settings window formatting and add to localizations
+        /*                                     module        key             options
+        game.settings.register("custom-hotbar", "chbKeyEnabled", {
+            name: "customHotbar.settings.chbKeyEnabled.name",      // The name of the setting in the settings menu
+            hint: "customHotbar.settings.chKeyEnabled.nameHint",   // A description of the registered setting and its behavior
+            label: "Color Picker",         // The text label used in the button
+            restricted: false,             // Restrict this setting to gamemaster only?
+            config: false,                 // Disable display on the standard Foundry settings menu
+            default: "#0000FF80",     // The default color of the setting
+            type: String,
+            scope: "world",               // The scope of the setting
+            config: false,                 // Disable display on the standard Foundry settings menu
+            onChange: (value) => {ui.customHotbar.render();}        // A callback function which triggers when the setting is changed
+        })
+        */
+
         //User-only "settings" menu that uses flags instead
         game.settings.registerMenu("custom-hotbar", 'chbFlagsMenu', {
             name: 'Your Custom Hotbar Settings',
@@ -43,7 +59,7 @@ export class CustomHotbarSettings {
             restricted: false
         });
     
-
+        //TO DO: add hotbarPageKeyEnabled and chbKeyEnabled
     
     //CUSTOM HOTBAR SETTINGS    
 
