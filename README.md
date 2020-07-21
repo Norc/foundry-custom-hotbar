@@ -35,6 +35,10 @@ Special thanks to Ardistristan for his excellent Lib - Color Settings Module and
    1. Does not interfere with the operation of the original Macro Hotbar
 
 ## Changelog
+*Version 2.0.0.2* (2020/07/21)
+1. Fixed firefox compatibility (again)
+1. Updated built-in color settings library
+
 *Version 2.0* (2020/07/19)
 1. Added settings to control Custom Hotbar position and color
 1. Added settings to provide the same control to the Core Hotbar
