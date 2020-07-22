@@ -106,15 +106,27 @@ async function customHotbarInit() {
 Hooks.on("init", async () => {
   CONFIG.ui.hotbar = class extends Hotbar {
     _onDragStart(...arg) {
-      document.getElementsByClassName("tooltip")[0].style.display = "none";
+      let macroTooltip = document.getElementsByClassName("tooltip")[0] //.style.display = "none";
+      macroTooltip.style.display = "none";
+//      macroTooltip.style.zIndex = "3";
+      super._onDragStart(...arg);
+    } 
+     /*
+    document.getElementsByClassName("tooltip")[0].style.display = "none"; 
+     
+      let macroTooltip = document.getElementsByClassName("tooltip")[0]
+      macroTooltip.style.display = "none";
+      macroTooltip.style.zIndex = "3";
       super._onDragStart(...arg);
     }
+    */
   };
 });
 
 Hooks.once("renderHotbar", async () => {
 
   await customHotbarInit();
+
 
   window.addEventListener('keydown', (e) => {
     console.debug(`Custom Hotbar | Event keycode is ${e.which}`);
@@ -150,7 +162,16 @@ Hooks.once("renderHotbar", async () => {
       ui.hotbar.render();
       return false;
     }
-  });  
+  });
+}
+
+Hooks.on("init", async () => {
+  CONFIG.ui.hotbar = class extends Hotbar {
+    _onDragStart(...arg) {
+      document.getElementsByClassName("tooltip")[0].style.display = "none";
+      super._onDragStart(...arg);
+    }
+  };
 });
 
 Hooks.once("renderHotbar", async () => {
@@ -188,8 +209,6 @@ Hooks.once('ready', () => {
     customHotbarInit();
   }
 
-  //manually call a final render to restert drag handler for some reason?
-  ui.hotbar.render();
 
 });
 
