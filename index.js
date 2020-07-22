@@ -115,9 +115,20 @@ async function customHotbarInit() {
 Hooks.on("init", async () => {
   CONFIG.ui.hotbar = class extends Hotbar {
     _onDragStart(...arg) {
-      document.getElementsByClassName("tooltip")[0].style.display = "none";
+      let macroTooltip = document.getElementsByClassName("tooltip")[0] //.style.display = "none";
+      macroTooltip.style.display = "none";
+//      macroTooltip.style.zIndex = "3";
+      super._onDragStart(...arg);
+    } 
+     /*
+    document.getElementsByClassName("tooltip")[0].style.display = "none"; 
+     
+      let macroTooltip = document.getElementsByClassName("tooltip")[0]
+      macroTooltip.style.display = "none";
+      macroTooltip.style.zIndex = "3";
       super._onDragStart(...arg);
     }
+    */
   };
 });
 
@@ -169,7 +180,6 @@ Hooks.on("renderHotbar", async () => {
 });
 
 Hooks.on("renderCustomHotbar", async () => {
-//  ui.customHotbar.expand();
   console.debug("Custom Hotbar | The custom hotbar just rendered!");
 });
 
