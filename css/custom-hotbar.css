@@ -1,7 +1,7 @@
 /*Global styles*/
 
 #custom-hotbar {
-    z-index: 70;
+    z-index: 69;
     position: fixed;
     bottom: 63px;
     left: 220px;
@@ -139,12 +139,6 @@ pointer-events: all;
 #custom-hotbar-directory-controls {
     max-height: 100%
 }
-
-.macro .tooltip {
-    z-index:4;
-}
-
-
 
 /* disable page controls for now */
 #custom-hotbar-page-controls {
