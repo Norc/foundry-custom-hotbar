@@ -188,11 +188,9 @@ Hooks.once('ready', () => {
     customHotbarInit();
   }
 
-  /*manually call a final render to restert drag handler for some reason?
+  //manually call a final render to restert drag handler for some reason?
   ui.hotbar.render();
-  ui.customHotbar.render();
-  */
- 
+
 });
 
 
