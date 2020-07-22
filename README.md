@@ -15,7 +15,7 @@ If you encounter an issue or have a suggestion for a feature not currently on th
 Special thanks to Ardistristan for his excellent Lib - Color Settings Module and extraordinary support as I implemented it! Further thanks to Stan for his continued support and to the awesome Foundry modding community as a whole.
 
 ## Installation
-* **Manifest**: Use this manifest link to install the DEV ALPHA version of the module (https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/master/module.json)
+* **Manifest**: Use this manifest link to install the DEV ALPHA version of the module (https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/dev/module.json)
 
 * **Zip file**: or manually deploy the zip file from the Dist folder.
   
