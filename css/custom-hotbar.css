@@ -1,7 +1,7 @@
 /*Global styles*/
 
 #custom-hotbar {
-    z-index: 69;
+    z-index: 70;
     position: fixed;
     bottom: 63px;
     left: 220px;
@@ -238,6 +238,10 @@ div#client-settings div#coreSetDiv {
   line-height: 1.2;
   margin: 0 0 .25rem calc(13px + 1rem);
   order: -1;
+}
+
+.macro .tooltip span {
+    z-index: 4;
 }
 
 div#client-settings .chb-setting label {
