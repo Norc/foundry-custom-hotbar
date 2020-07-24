@@ -280,7 +280,7 @@ export class CustomHotbar extends Hotbar {
     //only needs to be done when dropping an item onto the Custom Hotbar.
     //revert once assign custom macro complete
     console.debug("Custom Hotbar | Dropped type:", data.type);
-    if (data.type == "Item") {
+    if (data.type == "Item" || data.type =="RollTable") {
       console.debug("Custom Hotbar | Attempting monkey hotpatch!");
       let coreAssignHotbarMacro = game.user.assignHotbarMacro;
       game.user.assignHotbarMacro = this.assignCustomHotbarMacro.bind(this); 
