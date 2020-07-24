@@ -1,3 +1,7 @@
+### Version 2.0.4 (2020/07/24)
+
+Bugfix: fixed z-index of macro context menus.
+
 ## Version 2.0.3 (2020/07/24)
 
 Updated built-in color settings library
