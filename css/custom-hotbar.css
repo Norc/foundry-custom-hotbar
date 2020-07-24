@@ -165,7 +165,7 @@ div.chbSettings div.formgroup {
 }
 
 div.chbSettings input[is="colorpicker-input"] {
-    background-color: white;
+    background-color: unset;
     max-width:20%;
     text-align: center;
     margin-left: auto;
@@ -230,8 +230,8 @@ div#client-settings div#coreSetDiv {
 }
 
 /* with apologies to sdenec, lifted from Tidy UI Settings module, which you should install... */
-#client-settings form .form-group label,
-#client-settings section.content .submenu > label {
+#client-settings .chb-setting label,
+#client-settings .chb-setting > label {
   flex-grow: unset;
   flex-basis: unset;
   flex: 1 1 100%;
@@ -243,6 +243,11 @@ div#client-settings div#coreSetDiv {
 .macro .tooltip span {
     z-index: 4;
 }
+  
+div.chbSettings div.colorsplash .layout_default.picker_wrapper{
+    margin-bottom: 26px;
+}
+
 
 div#client-settings .chb-setting label {
     padding-top: 8px;
@@ -250,19 +255,19 @@ div#client-settings .chb-setting label {
 
 /* Settings Menu */
 div#custom-hotbar-settings-form div.colorsplash input.expanded {
-    display: none;
+    opacity:0;
 }
 
 div#custom-hotbar-flags-form div.colorsplash input.expanded {
-    display: none;
+    opacity:0;
 }
 
 div#core-hotbar-settings-form div.colorsplash input.expanded {
-    display: none;
+    opacity:0;
 }
 
 div#core-hotbar-flags-form div.colorsplash input.expanded {
-    display: none;
+    opacity:0;
 }
 
 

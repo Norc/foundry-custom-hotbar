@@ -1,6 +1,6 @@
-import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
+import { CustomHotbarPopulator }  from './scripts/custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
-import { CustomHotbarSettings } from './custom-hotbar-settings.js';
+import { CustomHotbarSettings } from './scripts/custom-hotbar-settings.js';
 
 async function customHotbarInit() {
   console.debug("Custom Hotbar | Initializing...");
