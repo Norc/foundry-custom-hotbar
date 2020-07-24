@@ -3,6 +3,10 @@ Foundry VTT module to add an extra, fully functional macro hotbar above the core
 
 ![Image of custom hotbar](https://i.imgur.com/L9QwR9u.png)
 
+Module compatibility is a primary goal of Custom Hotbar, and is compatible with all known modules, including Minor Quality of Life, Better Rolls, The Furnace, Macro Marker, and especially [Stan's Token Hotbar module](https://github.com/janssen-io/foundry-token-hotbar). We encourage you to try the two modules together:
+   
+   <img src="https://github.com/janssen-io/foundry-token-hotbar/blob/master/img/thb-custom-hotbar.gif" width="40%" height = "40%">)
+
 The Custom Hotbar can now be repositioned and recolored as needed, and the same control is also granted over the core Foundry hotbar:
 
 ![Image of customized hotbar](https://imgur.com/EKSjoYf.png)
