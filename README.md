@@ -35,37 +35,16 @@ Special thanks to Ardistristan for his excellent Lib - Color Settings Module and
    1. Does not interfere with the operation of the original Macro Hotbar
 
 ## Changelog
-*Version 2.0.0.2* (2020/07/21)
-1. Fixed firefox compatibility (again)
-1. Updated built-in color settings library
-
-*Version 2.0* (2020/07/19)
-1. Added settings to control Custom Hotbar position and color
-1. Added settings to provide the same control to the Core Hotbar
-1. Added settings for both global defaults and individual user settings
-1. Added new keybinding (Ctrl-Shift-1 through 5) to change core Foundry Hotbar page number
-1. Fixed compatibility with Firefox
-1. Added localization strings for the new settings
-
-*INITIAL RELEASE v1.5* (2020/07/05)
-1. Added ability to automatically handle dragging from character sheet onto custom hotbar, including full MQoL and BetterRolls support.
-1. Added support for all reamining dragging and dropping scenarios, including between Core and Custom Hotbars. 
-1. Added keybinding for CHB: Shift + slot number (just like a regular macro keybinding, but with Shift added).
-1. General improvements/bugfixes
-
-*v0.0.5* (2020/06/14)
-Basic macro hotbar functionality established (writing to and reading from User.Data.Flags). Also handles the most important events to allow basic custom hotbar funtionality to be performed.
-
-*v.0.0.1*
-Initial version to attempt to display the hotbar in any fashion.
+See the [changelog.](https://github.com/Norc/foundry-custom-hotbar/blob/dev/CHANGELOG.md)
 
 ## Roadmap:
 _Next release (minor cleanup):_
-Minor features and bugfixes that didn't make it into 2.0.
+1. Basic settings for keyboard shortcuts
+2. More minor features and bugfixes that didn't make it into 2.0.
 
 _Next major version:_
-1. Add option to popout hotbars for positioning by dragging and dropping
 1. Add ability to create multiple Custom Hotbars, not just one
 
 _Potential Future Features (Undecided)_
+1. Add option to popout hotbars for positioning by dragging and dropping
 1. Add pages 2-4 or more for each Custom Hotbar.
