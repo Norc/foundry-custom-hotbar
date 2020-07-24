@@ -1,6 +1,6 @@
-import { CustomHotbarPopulator }  from './custom-hotbar-populator.js';
+import { CustomHotbarPopulator }  from './scripts/custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
-import { CustomHotbarSettings } from './custom-hotbar-settings.js';
+import { CustomHotbarSettings } from './scripts/custom-hotbar-settings.js';
 
 async function customHotbarInit() {
   console.debug("Custom Hotbar | Initializing...");
@@ -101,32 +101,6 @@ async function customHotbarInit() {
   });
 
   await ui.customHotbar.render(true, obj);
-}
-
-Hooks.on("init", async () => {
-  CONFIG.ui.hotbar = class extends Hotbar {
-    _onDragStart(...arg) {
-      let macroTooltip = document.getElementsByClassName("tooltip")[0] //.style.display = "none";
-      macroTooltip.style.display = "none";
-//      macroTooltip.style.zIndex = "3";
-      super._onDragStart(...arg);
-    } 
-     /*
-    document.getElementsByClassName("tooltip")[0].style.display = "none"; 
-     
-      let macroTooltip = document.getElementsByClassName("tooltip")[0]
-      macroTooltip.style.display = "none";
-      macroTooltip.style.zIndex = "3";
-      super._onDragStart(...arg);
-    }
-    */
-  };
-});
-
-Hooks.once("renderHotbar", async () => {
-
-  await customHotbarInit();
-
 
   window.addEventListener('keydown', (e) => {
     console.debug(`Custom Hotbar | Event keycode is ${e.which}`);
