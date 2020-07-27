@@ -1,3 +1,6 @@
+## Version 2.0.5 (2020/07/27)
+Fixed Z index issue introduced in v2.0.3 that was preventing the right-click context menu of the core Foundry hotbar from being on top of the Custom Hotbar. My attempted fix for the same issue in 2.0.4 was not actually present in the release due to versioning issues. Oops.
+
 ## Version 2.0.3 (2020/07/24)
 
 Updated built-in color settings library
