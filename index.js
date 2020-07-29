@@ -212,6 +212,26 @@ Hooks.on("renderSettingsConfig", async () => {
   $(coreFlagDiv).attr('id', 'coreFlagDiv');
 });
 
+//Can't get this to fire for some reason, check Furnace more?
+Hooks.on("hotbarDrop", (hotbar, data, slot) => {
+  console.debug("Card Hotbar | Creating Macro")
+  if (data.type !== "JournalEntry") return true;
+  const journal = game.journal.get(data.id);
+  if (!journal) return true;
+  // Make a new macro for the Journal
+  Macro.create({
+      name: `Card: ${journal.name}`,
+      type: "script",
+      scope: "global",
+      command: `game.journal.get("${journal.id}").show();`,
+      img: `${game.journal.get(journal.id).img}`
+  }).then(macro => {
+      game.user.assignHotbarMacro(macro, slot);
+  });
+  return false;
+});
+
+
 /* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (LOL, SHRUG)
 0.6.4, DND 5E 0.93 (ALL MODS DISABLED)
 
