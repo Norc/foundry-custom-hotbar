@@ -1,4 +1,4 @@
-## Version 2.0.5 (2020/10/21)
+## Version 2.0.6 (2020/10/21)
 Marked as compatibile with 0.7.5 after successful testing.
 The weird duplicate custom hotbar issue mysteriously fixed itself in 0.7.5
 Fixed Shift-number keybind (thanks Nihilistkitten and everyone else for the investigation)
