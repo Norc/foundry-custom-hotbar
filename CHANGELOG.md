@@ -1,3 +1,9 @@
+## Version 2.0.5 (2020/10/21)
+Marked as compatibile with 0.7.5 after successful testing.
+The weird duplicate custom hotbar issue mysteriously fixed itself in 0.7.5
+Fixed Shift-number keybind (thanks Nihilistkitten and everyone else for the investigation)
+Updated ColorSettings Library by moving to the stub solution.
+
 ## Version 2.0.5 (2020/07/27)
 Fixed Z index issue introduced in v2.0.3 that was preventing the right-click context menu of the core Foundry hotbar from being on top of the Custom Hotbar. My attempted fix for the same issue in 2.0.4 was not actually present in the release due to versioning issues. Oops.
 
