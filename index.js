@@ -106,7 +106,7 @@ async function customHotbarInit() {
     console.debug(`Custom Hotbar | Event keycode is ${e.which}`);
     
     //add Shift-digit keybinding to fire macros on Custom Hotbar
-    if( (48 <= e.which && e.which <= 57)  && e.shiftKey && !e.ctrlKey && chbKeyEnabled) {
+    if( (48 <= e.which && e.which <= 57)  && e.shiftKey && !e.ctrlKey /* &&  chbKeyEnabled */) {
       const num = parseInt(e.code.slice(e.code.length -1));
       console.debug(`Custom Hotbar | You pressed shift and ${num} on a ${e.target.tagName}`);
       //disable firing macro on keystrokes meant to enter text
@@ -139,7 +139,7 @@ async function customHotbarInit() {
   });
 }
 
-Hooks.on("init", async () => {
+Hooks.on("init", () => {
   CONFIG.ui.hotbar = class extends Hotbar {
     _onDragStart(...arg) {
       document.getElementsByClassName("tooltip")[0].style.display = "none";
@@ -167,7 +167,7 @@ Hooks.once('ready', () => {
   //triple-check to make sure something didn't go horribly wrong with Lib Color Picker 
   //The built-in backup library should handle most cases though
   try{window.Ardittristan.ColorSetting.tester} catch {
-      ui.notifications.notify('Something went wrong with the "lib - ColorSettings" module. Please verify you have the latest version installed.', "error", {permanent: true});
+      console.log('Something went wrong with the "lib - ColorSettings" module. Please verify you have the latest version installed.', "error", {permanent: true});
   }
 
   //make sure that the init was called if renderHotbar hook failed to trigger properly
