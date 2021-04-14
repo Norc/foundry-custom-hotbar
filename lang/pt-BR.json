@@ -1,0 +1,69 @@
+{
+    "customHotbar": {
+        
+        "general": {
+            "modname": "Barra de Atalho Personalizavel",
+            "mod": "custom-hotbar"
+        },
+
+        "config": {
+            "chbTitle": "Definições da Barra de Atalho Personalizavel",
+            "chbCoreTitle": "Configurações de Modificação da Barra de Atalho Padrão"
+        },
+
+        "settings": {
+            
+            "chbPrimaryColor": {
+                "name": "Cor da Barra de Atalho Personalizavel:",
+                "nameHint": "Cor de fundo para a barra de atalho extra adicionado por este módulo."
+            },
+            "chbBorderColor": {
+                "name": "Cor da Borda da Barra de Atalho Personalizavel:",
+                "nameHint": "Cor da borda de cada macro na barra de atalho personalizada."
+            },
+            "chbBorderColorActive": {
+                "name": "Cor de Realce da Barra de Atalho Personalizavel:",
+                "nameHint": "Cor da borda de cada macro quando sobreposta pelo mouse."
+            },
+            "chbBorderColorInactive": {
+                "name": "Cor de Realce da Barra de Atalho Personalizavel (Vazio):",
+                "nameHint": "Cor da borda de cada macro vazio ndo sobreposta pelo mouse."
+            },
+            "chbXPos":{
+                "name": "Posição Horizontal da Barra de Atalho Personalizavel",
+                "nameHint": "Os valores mais altos estão mais à direita da tela horizontalmente."
+            },
+            "chbYPos":{
+                "name": "Posição Vertical da Barra de Atalho Personalizavel",
+                "nameHint": "Os valores mais altos estão mais acima na tela verticalmente."
+            },
+
+
+
+            "corePrimaryColor": {
+                "name": "Cor da Barra de Atalho Padrão do Foundry:",
+                "nameHint": "Cor de fundo para a barra de atalho padrão do Foundry."
+            },
+            "coreBorderColor": {
+                "name": "Cor da Borda da Barra de Atalho Padrão do Foundry:",
+                "nameHint": "Cor da borda de cada macro na barra de atalho padrão do Foundry."
+            },
+            "coreBorderColorActive": {
+                "name": "Cor de Realce da Barra de Atalho Padrão do Foundry:",
+                "nameHint": "Cor da borda de cada macro quando sobreposta pelo mouse."
+            },
+            "coreBorderColorInactive": {
+                "name": "Cor de Realce da Barra de Atalho Padrão do Foundry (Vazio):",
+                "nameHint": "Cor da borda de cada macro vazio ndo sobreposta pelo mouse."
+            },
+            "coreXPos":{
+                "name": "Posição Horizontal da Barra de Atalho Padrão do Foundy",
+                "nameHint": "Os valores mais altos estão mais à direita da tela horizontalmente."
+            },
+            "coreYPos":{
+                "name": "Posição Vertical da Barra de Atalho Padrão do Foundy",
+                "nameHint": "Os valores mais altos estão mais acima na tela verticalmente."
+            }
+        }
+    }
+}
