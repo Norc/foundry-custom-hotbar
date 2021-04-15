@@ -2,6 +2,7 @@ import { CustomHotbarPopulator }  from './scripts/custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
 import { CustomHotbarSettings } from './scripts/custom-hotbar-settings.js';
 import { CHBDebug } from './scripts/custom-hotbar-debug.js';
+import { hotkeys } from '../lib-df-hotkeys/lib-df-hotkeys.shim.js';
 
 async function customHotbarInit() {
 
@@ -104,41 +105,48 @@ async function customHotbarInit() {
 
   await ui.customHotbar.render(true, obj);
 
-  window.addEventListener('keydown', (e) => {
-    CHBDebug(`Custom Hotbar | Event keycode is ${e.which}`);
-    
-    //add Shift-digit keybinding to fire macros on Custom Hotbar
-    if( (48 <= e.which && e.which <= 57)  && e.shiftKey && !e.ctrlKey /* &&  chbKeyEnabled */) {
-      const num = parseInt(e.code.slice(e.code.length -1));
-      CHBDebug(`Custom Hotbar | You pressed shift and ${num} on a ${e.target.tagName}`);
-      //disable firing macro on keystrokes meant to enter text
-      if (e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA") {
-        CHBDebug("Custom Hotbar | Preventing keybind, invalid target.");
-        return;
-      }
-      //translate valid keypress into slot number
-      const slot = ui.customHotbar.macros.find(m => m.key === num);
-      if ( ui.customHotbar.macros[num] ) slot.macro.execute();
-      return false;
-    }
+  //DF Hotkey Code Snippet to check for active module before registering keys
+  //This should be the last init code due to the potential return statement.
+  if (!game.modules.get('lib-df-hotkeys')?.active) {
+    console.error('Missing lib-df-hotkeys module dependency');
+    if (game.user.isGM)
+      ui.notifications.error("'Custom Hotbar' requires the 'Library: DF Hotkeys' module to power its keyboard shortcuts. Please install and activate this dependency if you wish use this functionality.");
+      // Perform alternative code to handle missing library
+    return;
+  }
+  // Perform df-hotkey powered keybinding registrations
   
-    //add ctrl-digit keybinding to change macro page
-    if( (49 <= e.which && e.which <= 53)  && e.ctrlKey && e.shiftKey && hotbarPageKeyEnabled) {
-      //when pages added to Custom Hotbar, extend to captuer 6-10 presses to change that page also?
-      const num = parseInt(e.code.slice(e.code.length -1));
-      CHBDebug(`Custom Hotbar | You pressed control and shift and ${num} on a ${e.target.tagName}`);
-      //disable firing macro on keystrokes meant to enter text
-      if (e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA") {
-        CHBDebug("Custom Hotbar | Preventing keybind, invalid target.");
-        return;
-      }
-      //translate valid keypress into core hotbar page change
-      CHBDebug(`Custom Hotbar | Attempting to set page to ${num}`);
-      ui.hotbar.page=num;
-      ui.hotbar.render();
-      return false;
-    }
-  });
+  // Register two groups and their bindings, one for the core Foundry Hotbar and one for the Custom Hotbar.
+
+  /* Hotkeys.registerGroup(group: HotkeyGroup, throwOnError?: boolean): boolean */
+	 hotkeys.registerGroup({
+		name: 'custom-hotbar.core-hotbar',
+		label: 'Core Foundry Macro Hotbar',
+		description: 'Allows you to configure and override the keybindings for the Core Foundry hotbar' // <-- Optional
+	}, false);
+
+	/* Hotkeys.registerShortcut(config: HotkeySetting, throwOnError?: boolean) */
+	 hotkeys.registerShortcut({
+		name: 'custom-hotbar.core1',
+		label: 'Core Macro Slot 1',
+		group: 'custom-hotbar.core-hotbar', 
+		get: () => game.settings.get('custom-hotbar', 'core1'),
+		set: async value => await game.settings.set('custom-hotbar', 'core1', value),
+		default: () => { return { key: hotkeys.keys.Digit1, alt: false, ctrl: false, shift: false }; },
+		onKeyDown: self => {
+        CHBDebug('Custom Hotbar | Fire core macro slot 1!');
+        const slot = ui.customHotbar.macros.find(m => m.key === num);
+        if ( ui.customHotbar.macros[num] ) slot.macro.execute();
+      },
+	});
+
+  /* Hotkeys.registerGroup(group: HotkeyGroup, throwOnError?: boolean): boolean */
+  hotkeys.registerGroup({
+    name: 'custom-hotbar.custom-hotbar',
+    label: 'Custom Hotbar',
+    description: 'Allows you to configure and override the keybindings for the Custom Hotbar' // <-- Optional
+  }, false);
+
 }
 
 Hooks.on("init", () => {
@@ -150,11 +158,13 @@ Hooks.on("init", () => {
   };
 });
 
+/* Think this might be unnecessary and causing problems.
+
 Hooks.once("renderHotbar", async () => {
 
   await customHotbarInit();
 
-});
+}); */
 
 Hooks.on("renderHotbar", async () => {
   CHBDebug("Custom Hotbar | The core hotbar just rendered!");
@@ -172,19 +182,16 @@ Hooks.once('ready', () => {
       console.log('Something went wrong with the "lib - ColorSettings" module. Please verify you have the latest version installed.', "error", {permanent: true});
   }
 
-  //make sure that the init was called if renderHotbar hook failed to trigger properly
-  //A workaround for Firefox compatibility currently while keeping PopOut module compatibility.
-  let hotbarTest = ui.hotbar;
-  let chbTest = ui.CustomHotbar;  
-  CHBDebug("Custom Hotbar | hotbarTest and chbTest?");
-  CHBDebug(hotbarTest);
-  CHBDebug(chbTest);
+  CHBDebug("Custom Hotbar | Foundry setup...");
 
- 
-  if ( hotbarTest && !chbTest ) {
+  //Check to make sure that a hotbar rendered before initilizing so that PopOut module windows do not have unwanted card hotbars.
+  let hotbarTest = ui.hotbar;
+  CHBDebug("Custom Hotbar | Core Foundry Hotbar Present?");
+  CHBDebug(hotbarTest);
+  
+  if ( hotbarTest ) {
     customHotbarInit();
   }
-
 
 });
 
@@ -215,7 +222,7 @@ Hooks.on("renderSettingsConfig", async () => {
 });
 
 
-/* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (LOL, SHRUG)
+/* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (to verify with 0.8.x and log)
 0.6.4, DND 5E 0.93 (ALL MODS DISABLED)
 
 1. file directory to canvas: 

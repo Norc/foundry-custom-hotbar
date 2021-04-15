@@ -2,6 +2,7 @@ import { CustomHotbarSettingsForm } from './custom-hotbar-settings-form.js';
 import { CoreHotbarSettingsForm } from './core-hotbar-settings-form.js';
 import { CustomHotbarFlagsForm } from './custom-hotbar-flags-form.js';
 import { CoreHotbarFlagsForm } from './core-hotbar-flags-form.js';
+import { hotkeys } from '../../lib-df-hotkeys/lib-df-hotkeys.shim.js';
 
 export class CustomHotbarSettings {
     /**
@@ -141,6 +142,19 @@ export class CustomHotbarSettings {
         }); 
 
         //Add ZPos set to uneditable?
+
+    //CUSTOM HOTBAR KEYBIND SETTINGS
+
+        game.settings.register("custom-hotbar", "core1", {
+            scope: 'world',
+            config: false,
+            default: {
+                key: hotkeys.keys.Digit1,
+                alt: false,
+                ctrl: false,
+                shift: false
+            }
+        });
 
     //CORE HOTBAR SETTINGS
         //                                     module        key             options
