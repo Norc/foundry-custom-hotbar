@@ -1,4 +1,4 @@
-## Version 2.1.0 (2021/04/14)
+## COMING VERY SOON!: Version 2.1.0 (2021/04/xx)
 Long overdue bugfix and minor feature improvement in preparation for 0.8.x upgrade.
 
 ## Version 2.0.6 (2020/10/21)
