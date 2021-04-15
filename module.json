@@ -3,9 +3,9 @@
     "title": "Custom Hotbar",   
     "description": "An extra fully functional hotbar (currently 1 row only) above the first.",   
     "author": "Norc",
-    "version": "2.0.6",
-    "minimumCoreVersion": "0.5.7",
-    "compatibleCoreVersion":"0.7.5",
+    "version": "2.1.0",
+    "minimumCoreVersion": "0.6.5",
+    "compatibleCoreVersion":"0.7.9",
     "esmodules": [
       "index.js"
       , "./lib/colorsettings/colorSettingStub.js"

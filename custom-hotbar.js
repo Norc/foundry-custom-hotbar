@@ -1,3 +1,5 @@
+import { CHBDebug } from './scripts/custom-hotbar-debug.js';
+
 export class CustomHotbar extends Hotbar {
     /**
      * @param {CustomHotbarPopulator} populator
@@ -115,7 +117,7 @@ export class CustomHotbar extends Hotbar {
    * @return {Promise}          A Promise which resolves once the User update is complete
    */
   async assignCustomHotbarMacro(macro, slot, {fromSlot=null}={}) {
-    console.debug("Custom Hotbar | assignCustomHotbarMarcro", macro, slot, fromSlot);
+    CHBDebug("Custom Hotbar | assignCustomHotbarMarcro", macro, slot, fromSlot);
     if ( !(macro instanceof Macro) && (macro !== null) ) throw new Error("Invalid Macro provided");
     // const chbMacros = this.populator.chbGetMacros();
 
@@ -126,30 +128,30 @@ export class CustomHotbar extends Hotbar {
 
     // Update the hotbar data
     const update = duplicate(ui.customHotbar);
-    console.debug("Custom Hotbar |", slot);
+    CHBDebug("Custom Hotbar |", slot);
     if ( macro ) await this.populator.chbSetMacro(macro.id,slot);
     else {
-      console.debug('Custom Hotbar | Unsetting!');
+      CHBDebug('Custom Hotbar | Unsetting!');
       await this.populator.chbUnsetMacro(slot);
     }
 
     //functional but needs cleanup
-    console.debug("Custom Hotbar | Finding move origin");
+    CHBDebug("Custom Hotbar | Finding move origin");
     if ( fromSlot ) {
-      console.debug("Custom Hotbar |", ui.customHotbar.macros);
-      console.debug("Custom Hotbar |", ui.customHotbar.macros[fromSlot-1]?.macro, ui.customHotbar.macros[fromSlot-1]?.macro === macro);
+      CHBDebug("Custom Hotbar |", ui.customHotbar.macros);
+      CHBDebug("Custom Hotbar |", ui.customHotbar.macros[fromSlot-1]?.macro, ui.customHotbar.macros[fromSlot-1]?.macro === macro);
      
       if (ui.customHotbar.macros[fromSlot-1]?.macro === macro) {
-        console.debug("Custom Hotbar | internal move detected!");
+        CHBDebug("Custom Hotbar | internal move detected!");
         if ( fromSlot != slot ) {
-          console.debug(`Custom Hotbar | trying to delete slot ${fromSlot} in CustomHotbar`);
+          CHBDebug(`Custom Hotbar | trying to delete slot ${fromSlot} in CustomHotbar`);
           await this.populator.chbUnsetMacro(fromSlot);
         }
       } else {
-        console.debug("Custom Hotbar | drop from core macro hotbar detected!");
+        CHBDebug("Custom Hotbar | drop from core macro hotbar detected!");
       }
     } else {
-      console.debug("Custom Hotbar | non-hotbar drop detected!");
+      CHBDebug("Custom Hotbar | non-hotbar drop detected!");
     }
  
     ui.customHotbar.render();
@@ -262,7 +264,7 @@ export class CustomHotbar extends Hotbar {
   /** @override */
   async _onDrop(event) {
     event.preventDefault();
-    console.debug("Custom Hotbar | custom-hotbar drop detected!");
+    CHBDebug("Custom Hotbar | custom-hotbar drop detected!");
     // Try to extract the data
     let data;
     try {
@@ -279,9 +281,9 @@ export class CustomHotbar extends Hotbar {
     //If needed, temporarily hijack assignHotbarMacro to trick core/modules to auto-create macros for CustomHotbar instead
     //only needs to be done when dropping an item onto the Custom Hotbar.
     //revert once assign custom macro complete
-    console.debug("Custom Hotbar | Dropped type:", data.type);
+    CHBDebug("Custom Hotbar | Dropped type:", data.type);
     if (data.type == "Item" || data.type =="RollTable") {
-      console.debug("Custom Hotbar | Attempting monkey hotpatch!");
+      CHBDebug("Custom Hotbar | Attempting monkey hotpatch!");
       let coreAssignHotbarMacro = game.user.assignHotbarMacro;
       game.user.assignHotbarMacro = this.assignCustomHotbarMacro.bind(this); 
       Hooks.once("customHotbarAssignComplete", () => game.user.assignHotbarMacro = coreAssignHotbarMacro);
@@ -289,18 +291,18 @@ export class CustomHotbar extends Hotbar {
   
     //does this need to be set to false when done?
     if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
-      console.debug("Custom Hotbar | hotbarDrop not found, reverting monkey hotpatch!")
+      CHBDebug("Custom Hotbar | hotbarDrop not found, reverting monkey hotpatch!")
       game.user.assignHotbarMacro = coreAssignHotbarMacro; 
       return; 
     } else {
-      console.debug("Custom Hotbar | hotbarDrop true");
+      CHBDebug("Custom Hotbar | hotbarDrop true");
     }
  
     // Only handles Macro drops
     const macro = await this._getDropMacro(data);
     if ( macro ) {
-      console.debug("Custom Hotbar | macro provided:", macro, "fromSlot", data.customSlot);
-      console.debug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
+      CHBDebug("Custom Hotbar | macro provided:", macro, "fromSlot", data.customSlot);
+      CHBDebug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
         await this.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.customSlot});
     }
   }
@@ -313,7 +315,7 @@ export class CustomHotbar extends Hotbar {
    * @private
    */
   async _onClickMacro(event) {
-    console.debug("custom macro click detected!");
+    CHBDebug("custom macro click detected!");
 
     event.preventDefault();
     const li = event.currentTarget;
@@ -337,7 +339,7 @@ export class CustomHotbar extends Hotbar {
   /** @override */
   _onDragStart(event) {
     //hide tooltip so it doesn't get in the way
-    console.debug("Custom Hotbar | Attempting to hide tooltip.");
+    CHBDebug("Custom Hotbar | Attempting to hide tooltip.");
     document.getElementsByClassName("tooltip")[0].style.display = "none";
 
     const li = event.currentTarget.closest(".macro");
@@ -357,7 +359,7 @@ export class CustomHotbar extends Hotbar {
    * @private
    */
   async _getDropMacro(data) {
-    console.debug("Custom Hotbar | in _getDropMacro", data);
+    CHBDebug("Custom Hotbar | in _getDropMacro", data);
     if ( data.type !== "Macro" ) return null;
 
     // Case 1 - Data explicitly provided (but no ID)
@@ -396,7 +398,7 @@ export class CustomHotbar extends Hotbar {
 
     // Handle hover-in
     if ( event.type === "mouseenter" ) {
-      console.debug("Custom Hotbar | Macro tooltip override fired!");
+      CHBDebug("Custom Hotbar | Macro tooltip override fired!");
       this._hover = li.dataset.slot;
       if ( hasAction ) {
         const macro = game.macros.get(li.dataset.macroId);
@@ -409,7 +411,7 @@ export class CustomHotbar extends Hotbar {
 
     // Handle hover-out
     else {
-      console.debug("Custom Hotbar | Mouse out!");
+      CHBDebug("Custom Hotbar | Mouse out!");
       this._hover = null;
     }
   }

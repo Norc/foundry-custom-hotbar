@@ -1,3 +1,5 @@
+import { CHBDebug } from './custom-hotbar-debug.js';
+
 export class CustomHotbarPopulator {
     constructor() { 
         this.macroMap = this.chbGetMacros();
@@ -21,7 +23,7 @@ export class CustomHotbarPopulator {
      * @return {Promise<unknown>} Promise indicating whether the macro was set and the hotbar was rendered.
      */
     async chbSetMacro(macroId, slot) {
-        console.debug("Custom Hotbar |", "Setting macro", slot, macroId);
+        CHBDebug("Custom Hotbar |", "Setting macro", slot, macroId);
         this.macroMap[slot] = macroId;
         await this._updateFlags();
         return ui.customHotbar.render();

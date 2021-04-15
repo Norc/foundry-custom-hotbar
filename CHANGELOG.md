@@ -1,3 +1,6 @@
+## Version 2.1.0 (2021/04/14)
+Long overdue bugfix and minor feature improvement in preparation for 0.8.x upgrade.
+
 ## Version 2.0.6 (2020/10/21)
 Marked as compatibile with 0.7.5 after successful testing.
 The weird duplicate custom hotbar issue mysteriously fixed itself in 0.7.5

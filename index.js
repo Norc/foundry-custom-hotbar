@@ -1,9 +1,12 @@
 import { CustomHotbarPopulator }  from './scripts/custom-hotbar-populator.js';
 import { CustomHotbar }  from './custom-hotbar.js';
 import { CustomHotbarSettings } from './scripts/custom-hotbar-settings.js';
+import { CHBDebug } from './scripts/custom-hotbar-debug.js';
 
 async function customHotbarInit() {
-  console.debug("Custom Hotbar | Initializing...");
+  const customHotbarDebug = false;
+
+  console.log("Custom Hotbar | Initializing...");
   window.customHotbar = new CustomHotbarPopulator();
   ui.customHotbar = new CustomHotbar(window.customHotbar);
   ui.customHotbar.macros = ui.customHotbar.getData();
@@ -103,15 +106,15 @@ async function customHotbarInit() {
   await ui.customHotbar.render(true, obj);
 
   window.addEventListener('keydown', (e) => {
-    console.debug(`Custom Hotbar | Event keycode is ${e.which}`);
+    CHBDebug(`Custom Hotbar | Event keycode is ${e.which}`);
     
     //add Shift-digit keybinding to fire macros on Custom Hotbar
     if( (48 <= e.which && e.which <= 57)  && e.shiftKey && !e.ctrlKey /* &&  chbKeyEnabled */) {
       const num = parseInt(e.code.slice(e.code.length -1));
-      console.debug(`Custom Hotbar | You pressed shift and ${num} on a ${e.target.tagName}`);
+      CHBDebug(`Custom Hotbar | You pressed shift and ${num} on a ${e.target.tagName}`);
       //disable firing macro on keystrokes meant to enter text
       if (e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA") {
-        console.debug("Custom Hotbar | Preventing keybind, invalid target.");
+        CHBDebug("Custom Hotbar | Preventing keybind, invalid target.");
         return;
       }
       //translate valid keypress into slot number
@@ -124,14 +127,14 @@ async function customHotbarInit() {
     if( (49 <= e.which && e.which <= 53)  && e.ctrlKey && e.shiftKey && hotbarPageKeyEnabled) {
       //when pages added to Custom Hotbar, extend to captuer 6-10 presses to change that page also?
       const num = parseInt(e.code.slice(e.code.length -1));
-      console.debug(`Custom Hotbar | You pressed control and shift and ${num} on a ${e.target.tagName}`);
+      CHBDebug(`Custom Hotbar | You pressed control and shift and ${num} on a ${e.target.tagName}`);
       //disable firing macro on keystrokes meant to enter text
       if (e.target.tagName == "INPUT" || e.target.tagName == "TEXTAREA") {
-        console.debug("Custom Hotbar | Preventing keybind, invalid target.");
+        CHBDebug("Custom Hotbar | Preventing keybind, invalid target.");
         return;
       }
       //translate valid keypress into core hotbar page change
-      console.debug(`Custom Hotbar | Attempting to set page to ${num}`);
+      CHBDebug(`Custom Hotbar | Attempting to set page to ${num}`);
       ui.hotbar.page=num;
       ui.hotbar.render();
       return false;
@@ -155,11 +158,11 @@ Hooks.once("renderHotbar", async () => {
 });
 
 Hooks.on("renderHotbar", async () => {
-  console.debug("Custom Hotbar | The core hotbar just rendered!");
+  CHBDebug("Custom Hotbar | The core hotbar just rendered!");
 });
 
 Hooks.on("renderCustomHotbar", async () => {
-  console.debug("Custom Hotbar | The custom hotbar just rendered!");
+  CHBDebug("Custom Hotbar | The custom hotbar just rendered!");
 });
 
 
@@ -174,9 +177,9 @@ Hooks.once('ready', () => {
   //A workaround for Firefox compatibility currently while keeping PopOut module compatibility.
   let hotbarTest = ui.hotbar;
   let chbTest = ui.CustomHotbar;  
-  console.debug("Custom Hotbar | hotbarTest and chbTest?");
-  console.debug(hotbarTest);
-  console.debug(chbTest);
+  CHBDebug("Custom Hotbar | hotbarTest and chbTest?");
+  CHBDebug(hotbarTest);
+  CHBDebug(chbTest);
 
  
   if ( hotbarTest && !chbTest ) {
