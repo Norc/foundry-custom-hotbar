@@ -4,7 +4,6 @@ import { CustomHotbarSettings } from './scripts/custom-hotbar-settings.js';
 import { CHBDebug } from './scripts/custom-hotbar-debug.js';
 
 async function customHotbarInit() {
-  const customHotbarDebug = false;
 
   console.log("Custom Hotbar | Initializing...");
   window.customHotbar = new CustomHotbarPopulator();
