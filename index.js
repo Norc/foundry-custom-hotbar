@@ -467,11 +467,12 @@ Hooks.on("renderCustomHotbar", async () => {
   CHBDebug("Custom Hotbar | The custom hotbar just rendered!");
 });
 
+/* Firefox debugging hook
 //This should never fire, even on Firefox
 Hooks.on("render", async () => {
   CHBDebug("Custom Hotbar | If you are seeing this, the core Hotbar class is not calling its render hook properly. Perhaps you are using Firefox?");
 });
-
+*/
 
 Hooks.once('ready', () => {
   //triple-check to make sure something didn't go horribly wrong with Lib Color Picker 
