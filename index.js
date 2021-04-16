@@ -451,29 +451,16 @@ async function customHotbarInit() {
   
 }
 
-/* Trying to find a better way. Don't need to overwrite the whole class just to add a dang onClick event.
-   goal is simply to disble the tooltip of the regular Hotbar when a drag starts.
-
-Hooks.on("init", () => {
-  CONFIG.ui.hotbar = class extends Hotbar {
-    _onDragStart(...arg) {
-      document.getElementsByClassName("tooltip")[0].style.display = "none";
-      super._onDragStart(...arg);
-    }
-  };
-});
-*/
-
-/* Think this might be unnecessary and causing problems.
-
-Hooks.once("renderHotbar", async () => {
-
-  await customHotbarInit();
-
-}); */
-
 Hooks.on("renderHotbar", async () => {
   CHBDebug("Custom Hotbar | The core hotbar just rendered!");
+  //Add a new event listener to core hotbar macro icons to disable tooltip display on drag start so it doesn't get in way of Custom Hotbar
+  for ( let m of document.getElementsByClassName("macro-icon") ) {
+    m.addEventListener("dragstart", (event) => {
+      CHBDebug('Custom Hotbar | Core Hotbar Dragged');
+      CHBDebug(event);
+      document.getElementsByClassName("tooltip")[0].style.display = "none";
+    });
+  }
 });
 
 Hooks.on("renderCustomHotbar", async () => {
@@ -502,14 +489,6 @@ Hooks.once('ready', () => {
   
   if ( hotbarTest ) {
     customHotbarInit();
-  }
-
-  //Add a new event listener to Hotbar to disable tooltip display on drag start so it doesn't get in way of Custom Hotbar
-  for ( let m of document.getElementsByClassName("macro-icon") ) {
-    m.addEventListener("dragstart", (event) => {
-      CHBDebug('Custom Hotbar | Core Hotbar Dragged');
-      CHBDebug(event);
-    });
   }
 
 /*
@@ -550,24 +529,6 @@ Hooks.on("renderSettingsConfig", async () => {
   $(coreFlagDiv).addClass('chb-user');
   $(coreFlagDiv).attr('id', 'coreFlagDiv');
 });
-
-
-/**
- * Handle drag events on a macro button to disable the tooltip so it doesn't get in way
- * @param {Event} event   The originating ondragstart event
- * @private
- */
-function dragCoreMacro(event) {
-  CHBDebug('Custom Hotbar | Core Hotbar Dragged');
-  CHBDebug(event);
-}
-/*
-  )
-  //html.find(".macro").click(this._onClickMacro.bind(this)).hover(this._onHoverMacro.bind(this));
-  document.getElementById("macro-list").addEventListener("dragstart", (event) => {
-    CHBDebug('Custom Hotbar | Core Hotbar Dragged');
-    CHBDebug(event);
-}
 
 /* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (to verify with 0.8.x and log)
 0.6.4, DND 5E 0.93 (ALL MODS DISABLED)
