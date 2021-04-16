@@ -97,7 +97,7 @@ async function customHotbarInit() {
   style.type = 'text/css';
   style.appendChild(document.createTextNode(css));
 
-  ui.hotbar.render();
+  //ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
     element.ondragstart = ui.hotbar._onDragStart;
     element.ondragend = ui.hotbar._onDrop;
@@ -298,7 +298,7 @@ async function customHotbarInit() {
         CHBDebug('Custom Hotbar | Set core hotbar to page 1!');
         const num = 1;
         ui.hotbar.page=num;
-        ui.hotbar.render();
+//        ui.hotbar.render();
       },
 	});
     
@@ -314,7 +314,7 @@ async function customHotbarInit() {
         CHBDebug('Custom Hotbar | Set core hotbar to page 2!');
         const num = 2;
         ui.hotbar.page=num;
-        ui.hotbar.render();
+  //      ui.hotbar.render();
       },
 	});
 
@@ -330,7 +330,7 @@ async function customHotbarInit() {
         CHBDebug('Custom Hotbar | Set core hotbar to page 3!');
         const num = 3;
         ui.hotbar.page=num;
-        ui.hotbar.render();
+//        ui.hotbar.render();
       },
 	});
 
@@ -346,7 +346,7 @@ async function customHotbarInit() {
         CHBDebug('Custom Hotbar | Set core hotbar to page 4!');
         const num = 4;
         ui.hotbar.page=num;
-        ui.hotbar.render();
+//        ui.hotbar.render();
       },
 	});
 
@@ -362,7 +362,7 @@ async function customHotbarInit() {
         CHBDebug('Custom Hotbar | Set core hotbar to page 5!');
         const num = 5;
         ui.hotbar.page=num;
-        ui.hotbar.render();
+//        ui.hotbar.render();
       },
 	});
 
@@ -451,6 +451,9 @@ async function customHotbarInit() {
   
 }
 
+/* Trying to find a better way. Don't need to overwrite the whole class just to add a dang onClick event.
+   goal is simply to disble the tooltip of the regular Hotbar when a drag starts.
+
 Hooks.on("init", () => {
   CONFIG.ui.hotbar = class extends Hotbar {
     _onDragStart(...arg) {
@@ -459,6 +462,7 @@ Hooks.on("init", () => {
     }
   };
 });
+*/
 
 /* Think this might be unnecessary and causing problems.
 
@@ -474,6 +478,11 @@ Hooks.on("renderHotbar", async () => {
 
 Hooks.on("renderCustomHotbar", async () => {
   CHBDebug("Custom Hotbar | The custom hotbar just rendered!");
+});
+
+//This should never fire, even on Firefox
+Hooks.on("render", async () => {
+  CHBDebug("Custom Hotbar | If you are seeing this, the core Hotbar class is not calling its render hook properly. Perhaps you are using Firefox?");
 });
 
 
@@ -495,6 +504,25 @@ Hooks.once('ready', () => {
     customHotbarInit();
   }
 
+  //Add a new event listener to Hotbar to disable tooltip display on drag start so it doesn't get in way of Custom Hotbar
+  for ( let m of document.getElementsByClassName("macro-icon") ) {
+    m.addEventListener("dragstart", (event) => {
+      CHBDebug('Custom Hotbar | Core Hotbar Dragged');
+      CHBDebug(event);
+    });
+  }
+
+/*
+  )
+  //html.find(".macro").click(this._onClickMacro.bind(this)).hover(this._onHoverMacro.bind(this));
+  document.getElementById("macro-list").addEventListener("dragstart", (event) => {
+    CHBDebug('Custom Hotbar | Core Hotbar Dragged');
+    CHBDebug(event);
+    const li = event.currentTarget.closest(".macro");
+    if ( !li.dataset.macroId ) return false;
+    document.getElementsByClassName("tooltip")[0].style.display = "none";
+  });
+*/
 });
 
 
@@ -523,6 +551,23 @@ Hooks.on("renderSettingsConfig", async () => {
   $(coreFlagDiv).attr('id', 'coreFlagDiv');
 });
 
+
+/**
+ * Handle drag events on a macro button to disable the tooltip so it doesn't get in way
+ * @param {Event} event   The originating ondragstart event
+ * @private
+ */
+function dragCoreMacro(event) {
+  CHBDebug('Custom Hotbar | Core Hotbar Dragged');
+  CHBDebug(event);
+}
+/*
+  )
+  //html.find(".macro").click(this._onClickMacro.bind(this)).hover(this._onHoverMacro.bind(this));
+  document.getElementById("macro-list").addEventListener("dragstart", (event) => {
+    CHBDebug('Custom Hotbar | Core Hotbar Dragged');
+    CHBDebug(event);
+}
 
 /* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (to verify with 0.8.x and log)
 0.6.4, DND 5E 0.93 (ALL MODS DISABLED)

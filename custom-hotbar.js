@@ -154,7 +154,7 @@ export class CustomHotbar extends Hotbar {
       CHBDebug("Custom Hotbar | non-hotbar drop detected!");
     }
  
-    ui.customHotbar.render();
+    //ui.customHotbar.render();
     //code suggested by tposney. creates hook to allow reassignment of monky hotpatch
     Hooks.callAll("customHotbarAssignComplete");
     return update;
@@ -408,6 +408,8 @@ export class CustomHotbar extends Hotbar {
         li.appendChild(tooltip);
       }
     }
+
+    
 
     // Handle hover-out
     else {
