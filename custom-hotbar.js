@@ -287,17 +287,17 @@ export class CustomHotbar extends Hotbar {
       let coreAssignHotbarMacro = game.user.assignHotbarMacro;
       game.user.assignHotbarMacro = this.assignCustomHotbarMacro.bind(this); 
       Hooks.once("customHotbarAssignComplete", () => game.user.assignHotbarMacro = coreAssignHotbarMacro);
-    }
   
-    //does this need to be set to false when done?
-    if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
-      CHBDebug("Custom Hotbar | hotbarDrop not found, reverting monkey hotpatch!")
-      game.user.assignHotbarMacro = coreAssignHotbarMacro; 
-      return; 
-    } else {
-      CHBDebug("Custom Hotbar | hotbarDrop true");
+      //does this need to be set to false when done?
+      if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
+        CHBDebug("Custom Hotbar | hotbarDrop not found, reverting monkey hotpatch!")
+        game.user.assignHotbarMacro = coreAssignHotbarMacro; 
+        return; 
+      } else {
+        CHBDebug("Custom Hotbar | hotbarDrop true");
+      }
     }
- 
+
     // Only handles Macro drops
     const macro = await this._getDropMacro(data);
     if ( macro ) {
@@ -306,6 +306,7 @@ export class CustomHotbar extends Hotbar {
         await this.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.customSlot});
     }
   }
+
 
   /* -------------------------------------------- */
 
