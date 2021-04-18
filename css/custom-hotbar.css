@@ -211,6 +211,7 @@ div#client-settings div.chb-user {
     padding-left: 6px;
 }
 
+
 /* fix boundary between two stylized settings divs */
 /* Extra specficity for first box to work properly with Tidy UI styles */
 div#client-settings div#chbSetDiv {
@@ -229,6 +230,12 @@ div#client-settings div#coreSetDiv {
     border-top: none;
 }
 
+#client-settings div#chbDisableDiv > label
+,#client-settings div#coreDisableDiv > label {
+    margin-left: 0;
+    flex: none;
+}
+
 /* with apologies to sdenec, lifted from Tidy UI Settings module, which you should install... */
 #client-settings .chb-setting label,
 #client-settings .chb-setting > label {
@@ -239,6 +246,8 @@ div#client-settings div#coreSetDiv {
   margin: 0 0 .25rem calc(13px + 1rem);
   order: -1;
 }
+
+#disableDiv
 
 .macro .tooltip span {
     z-index: 4;

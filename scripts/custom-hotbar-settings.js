@@ -3,6 +3,7 @@ import { CoreHotbarSettingsForm } from './core-hotbar-settings-form.js';
 import { CustomHotbarFlagsForm } from './custom-hotbar-flags-form.js';
 import { CoreHotbarFlagsForm } from './core-hotbar-flags-form.js';
 import { hotkeys } from '../../lib-df-hotkeys/lib-df-hotkeys.shim.js';
+import { CHBDebug } from './custom-hotbar-debug.js';
 
 export class CustomHotbarSettings {
     /**
@@ -43,23 +44,54 @@ export class CustomHotbarSettings {
         })
         */
 
-        //User-only "settings" menu that uses flags instead
-        game.settings.registerMenu("custom-hotbar", 'chbFlagsMenu', {
-            name: 'Your Custom Hotbar Settings',
-            label: 'Your Custom Hotbar',
-            icon: 'fas fa-bars',
-            type: CustomHotbarFlagsForm,
-            restricted: false
+        //Add checkbox option to disable custom hotbar
+        game.settings.register("custom-hotbar", "chbDisabled", {
+            config: true,
+            type: Boolean,
+            default: false,
+            name: 'Disable Custom Hotbar?',
+            hint: 'Check to disable the Custom Hotbar for yourself only. Uncheck to re-enable. Refresh required.',
+            onChange: value => { // A callback function which triggers when the setting is changed
+              CHBDebug(`Is the CHB disabled? ${value}`)
+            }
         });
 
-        game.settings.registerMenu("custom-hotbar", 'coreFlagsMenu', {
-            name: 'Your Core Foundry Hotbar Settings',
-            label: 'Your Core Hotbar',
-            icon: 'fas fa-minus',
-            type: CoreHotbarFlagsForm,
-            restricted: false
+        //Add checkbox option to disable core Foundry hotbar
+        game.settings.register("custom-hotbar", "coreDisabled", {
+            config: true,
+            type: Boolean,
+            default: false,
+            name: 'Disable Core Foundry Hotbar?',
+            hint: 'Check to disable the core Foundry hotbar for yourself only. Uncheck to re-enable. Refresh required.',
+            onChange: value => { // A callback function which triggers when the setting is changed
+                CHBDebug(`Is the core Foundry hotbar disabled? ${value}`)
+            }
         });
+
+        //User-only "settings" menu that uses flags instead
+        if (game.settings.get("custom-hotbar","chbDisabled") !== true) {        
+            game.settings.registerMenu("custom-hotbar", 'chbFlagsMenu', {
+                name: 'Your Custom Hotbar Settings',
+                label: 'Your Custom Hotbar',
+                icon: 'fas fa-bars',
+                type: CustomHotbarFlagsForm,
+                restricted: false
+            });
+        }
+
+        if (game.settings.get("custom-hotbar","coreDisabled") !== true) {        
+            game.settings.registerMenu("custom-hotbar", 'coreFlagsMenu', {
+                name: 'Your Core Foundry Hotbar Settings',
+                label: 'Your Core Hotbar',
+                icon: 'fas fa-minus',
+                type: CoreHotbarFlagsForm,
+                restricted: false
+            });
+        }
     
+
+
+
         //TO DO: add hotbarPageKeyEnabled and chbKeyEnabled
     
     //CUSTOM HOTBAR SETTINGS    

@@ -11,6 +11,7 @@ async function customHotbarInit() {
   ui.customHotbar = new CustomHotbar(window.customHotbar);
   ui.customHotbar.macros = ui.customHotbar.getData();
   let obj = {
+      enabled: true,
       left: 100,
       top: 100,
       width: 502,
@@ -26,11 +27,26 @@ async function customHotbarInit() {
 
   //apply settings styles, first for custom hotbar, then for core hotbar
   //For each setting, use flag if present, otherwise use game setting.
+  
+
+  let chbDisplay = "flex";
+  if (game.settings.get("custom-hotbar","chbDisabled") === true) {
+    CHBDebug('Custom Hotbar | User disabled custom hotbar.');
+    chbDisplay = "none";
+  }
+
+  let coreDisplay = "flex";
+  if (game.settings.get("custom-hotbar","coreDisabled") === true) {
+    CHBDebug('Custom Hotbar | User disabled core Foundry hotbar.');
+    coreDisplay = "none";
+  }
 
    var css =
       '#custom-hotbar' 
     + ` { bottom: ${CustomHotbarSettings.getCHBYPos()}px; ` 
     + `   left: ${CustomHotbarSettings.getCHBXPos()}px; `
+    //oops at importanting, not sure why it's needed, but hey.
+    + `   display: ${chbDisplay} !important`
     + ' }'
 
     + '#custom-hotbar #custom-macro-list' 
@@ -63,6 +79,8 @@ async function customHotbarInit() {
     + '#hotbar' 
     + ` { bottom: ${CustomHotbarSettings.getCoreYPos()}px; ` 
     + `   left: ${CustomHotbarSettings.getCoreXPos()}px; `
+    //oops at importanting, not sure why it's needed, but hey.
+    + `   display: ${coreDisplay} !important`
     + ' }'
 
     + '#hotbar #custom-macro-list' 
@@ -103,7 +121,7 @@ async function customHotbarInit() {
     element.ondragend = ui.hotbar._onDrop;
   });
 
-  await ui.customHotbar.render(true, obj);
+  ui.customHotbar.render(true, obj);
 
   //DF Hotkey Code Snippet to check for active module before registering keys
   //This should be the last init code due to the potential return statement.
@@ -467,6 +485,12 @@ Hooks.on("renderCustomHotbar", async () => {
   CHBDebug("Custom Hotbar | The custom hotbar just rendered!");
 });
 
+Hooks.on("renderHotbar", async () => {
+  if ( ui.customHotbar !== undefined ) {
+    ui.customHotbar.render();
+  }
+});
+
 /* Firefox debugging hook
 //This should never fire, even on Firefox
 Hooks.on("render", async () => {
@@ -520,15 +544,50 @@ Hooks.on("renderSettingsConfig", async () => {
   $(coreSetDiv).addClass('chb-global');
   $(coreSetDiv).attr('id', 'coreSetDiv');
 
-  let chbFlagDiv = $(coreSetDiv).next();
-  $(chbFlagDiv).addClass('chb-setting');
-  $(chbFlagDiv).addClass('chb-user');
-  $(chbFlagDiv).attr('id', 'chbFlagDiv');
+  //only apply these classes and id if the custom hotbar is enabled for the user
+  if (game.settings.get("custom-hotbar","chbDisabled") === false) {  
+    let chbFlagDiv = $(coreSetDiv).next();
+    $(chbFlagDiv).addClass('chb-setting');
+    $(chbFlagDiv).addClass('chb-user');
+    $(chbFlagDiv).attr('id', 'chbFlagDiv');
+  }
+
+  //only apply these classes and id if the core Foundry hotbar is enabled for the user
+  if (game.settings.get("custom-hotbar","coreDisabled") === false) {
+    let coreFlagDiv = $(coreSetDiv).next();
+    //check to make sure that the custom hotbar is enabled and ajdust if it isn't
+    if (game.settings.get("custom-hotbar","chbDisabled") === true) {
+      coreFlagDiv = $(coreSetDiv).next();      
+    } else {
+      coreFlagDiv = $(chbFlagDiv).next();
+    }
+    $(coreFlagDiv).addClass('chb-setting');
+    $(coreFlagDiv).addClass('chb-user');
+    $(coreFlagDiv).attr('id', 'coreFlagDiv');
+  }
+
+  //find which is the previous displayed div based on disable settings
+  let chbDisableDiv = {};
+  //check to see if the first possible flag div, the custom hotbar, is disabled
+  if (game.settings.get("custom-hotbar","chbDisabled") === true) {
+    //check to see if Core hotbar is also disabled  
+    if (game.settings.get("custom-hotbar","coreDisabled") === true) {
+      //skip both flag divs
+      chbDisableDiv = $(coreSetDiv).next();
+    } else {
+      //skip just the first div
+      chbDisableDiv = $(coreFlagDiv).next();
+    }
+  } 
+  $(chbDisableDiv).addClass('chb-setting');
+  $(chbDisableDiv).addClass('chb-disable');
+  $(chbDisableDiv).attr('id', 'chbDisableDiv');
+
+  let coreDisableDiv = $(chbDisableDiv).next();
+  $(coreDisableDiv).addClass('core-setting');
+  $(coreDisableDiv).addClass('core-disable');
+  $(coreDisableDiv).attr('id', 'coreDisableDiv');
   
-  let coreFlagDiv = $(chbFlagDiv).next();
-  $(coreFlagDiv).addClass('chb-setting');
-  $(coreFlagDiv).addClass('chb-user');
-  $(coreFlagDiv).attr('id', 'coreFlagDiv');
 });
 
 /* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (to verify with 0.8.x and log)

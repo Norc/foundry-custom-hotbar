@@ -211,7 +211,7 @@ export class CustomHotbar extends Hotbar {
   _contextMenu(html) {
     new ContextMenu(html, ".macro", [
       {
-        name: "Edit",
+        name: "Edit Macro",
         icon: '<i class="fas fa-edit"></i>',
         condition: li => {
           const macro = game.macros.get(li.data("macro-id"));
@@ -223,14 +223,15 @@ export class CustomHotbar extends Hotbar {
         }
       },
       {
-        name: "Remove",
+        name: "Remove Macro",
         icon: '<i class="fas fa-times"></i>',
-        callback: li => {
-            ui.customHotbar.assignCustomHotbarMacro(null, li.data("slot"));
+        callback: async li => {
+            await ui.customHotbar.assignCustomHotbarMacro(null, li.data("slot"));
+            ui.customHotbar.render();
       }
       },
       {
-        name: "Delete",
+        name: "Delete Macro",
         icon: '<i class="fas fa-trash"></i>',
         condition: li => {
           const macro = game.macros.get(li.data("macro-id"));
@@ -305,6 +306,7 @@ export class CustomHotbar extends Hotbar {
       CHBDebug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
         await this.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.customSlot});
     }
+    await ui.customHotbar.render();
   }
 
 
