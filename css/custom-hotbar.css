@@ -291,3 +291,15 @@ div#custom-hotbar-settings-form h1 {
 div#custom-hotbar-settings-form h2 {
     font-size:large;
 }
+
+div#keyHintDiv {
+    font-weight: bolder;
+}
+
+div#keyHintDiv > p {
+        font-weight:normal;
+    }
+
+div#keyHintDiv > div> input {
+    display:none;
+}

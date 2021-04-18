@@ -535,6 +535,7 @@ Hooks.on("renderSettingsConfig", async () => {
   let settingsDiv = document.getElementById("client-settings");
   
   let chbSetDiv = $( `#${settingsDiv.id} div h2.module-header:contains("Custom Hotbar")` ).next();
+
   $(chbSetDiv).addClass('chb-setting');
   $(chbSetDiv).addClass('chb-global');
   $(chbSetDiv).attr('id', 'chbSetDiv');
@@ -578,7 +579,14 @@ Hooks.on("renderSettingsConfig", async () => {
       //skip just the first div
       chbDisableDiv = $(coreFlagDiv).next();
     }
-  } 
+  } else {
+    if (game.settings.get("custom-hotbar","coreDisabled") === true) { 
+      chbDisableDiv = $(chbFlagDiv).next();
+    } else {
+      chbDisableDiv = $(coreFlagDiv).next();
+    }
+  }
+
   $(chbDisableDiv).addClass('chb-setting');
   $(chbDisableDiv).addClass('chb-disable');
   $(chbDisableDiv).attr('id', 'chbDisableDiv');
@@ -587,7 +595,9 @@ Hooks.on("renderSettingsConfig", async () => {
   $(coreDisableDiv).addClass('core-setting');
   $(coreDisableDiv).addClass('core-disable');
   $(coreDisableDiv).attr('id', 'coreDisableDiv');
-  
+
+  let keyHintDiv = $(coreDisableDiv).next();
+  $(keyHintDiv).attr('id', 'keyHintDiv');
 });
 
 /* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (to verify with 0.8.x and log)

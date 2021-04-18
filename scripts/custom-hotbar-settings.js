@@ -89,8 +89,14 @@ export class CustomHotbarSettings {
             });
         }
     
-
-
+        //Add checkbox option to disable core Foundry hotbar
+        game.settings.register("custom-hotbar", "keyHint", {
+            config: true,
+            type: Boolean,
+            default: false,
+            name: 'Hotbar Keybindings',
+            hint: 'Use the Module Settings of "Library: DF Hotkeys" to view and edit your keybindings.',
+        });     
 
         //TO DO: add hotbarPageKeyEnabled and chbKeyEnabled
     
