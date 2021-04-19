@@ -13,16 +13,20 @@ export class CustomHotbarSettings {
     static register(){
     //Global, GM-only settings menus
         game.settings.registerMenu("custom-hotbar", 'chbSettingsMenu', {
-            name: '(𝗚𝗠 𝗢𝗻𝗹𝘆) Default Custom Hotbar Settings for All Users',
-            label: 'Global Custom Hotbar',
+            //name: '(𝗚𝗠 𝗢𝗻𝗹𝘆) Default Custom Hotbar Settings for All Users',
+            name: game.i18n.localize('customHotbar.settings.chbSettingsMenu.nameHint'),
+            //label: 'Global Custom Hotbar',
+            label: game.i18n.localize('customHotbar.settings.chbSettingsMenu.name'),
             icon: 'fas fa-bars',
             type: CustomHotbarSettingsForm,
             restricted: true
         });
 
         game.settings.registerMenu("custom-hotbar", 'coreSettingsMenu', {
-            name: '(𝗚𝗠 𝗢𝗻𝗹𝘆) Default Core Foundry Hotbar Settings for All Users',
-            label: 'Global Core Hotbar',
+            //name: '(𝗚𝗠 𝗢𝗻𝗹𝘆) Default Core Foundry Hotbar Settings for All Users',
+            //name: game.i18n.localize('customHotbar.settings.coreSettingsMenu.nameHint'),
+            //label: 'Global Core Hotbar',
+            label: game.i18n.localize('customHotbar.settings.coreSettingsMenu.name'),
             icon: 'fas fa-minus',
             type: CoreHotbarSettingsForm,
             restricted: true
@@ -49,8 +53,10 @@ export class CustomHotbarSettings {
             config: true,
             type: Boolean,
             default: false,
-            name: 'Disable Custom Hotbar?',
-            hint: 'Check to disable the Custom Hotbar for yourself only. Uncheck to re-enable. Refresh required.',
+            //name: 'Disable Custom Hotbar?',
+            name: game.i18n.localize('customHotbar.settings.chbDisable.name'),
+            //hint: 'Check to disable the Custom Hotbar for yourself only. Uncheck to re-enable. Refresh required.',
+            hint: game.i18n.localize('customHotbar.settings.chbDisable.nameHint'),
             onChange: value => { // A callback function which triggers when the setting is changed
               CHBDebug(`Is the CHB disabled? ${value}`)
             }
@@ -61,8 +67,10 @@ export class CustomHotbarSettings {
             config: true,
             type: Boolean,
             default: false,
-            name: 'Disable Core Foundry Hotbar?',
-            hint: 'Check to disable the core Foundry hotbar for yourself only. Uncheck to re-enable. Refresh required.',
+            //name: 'Disable Core Foundry Hotbar?',
+            name: game.i18n.localize('customHotbar.settings.coreDisable.name'),
+            //hint: 'Check to disable the core Foundry hotbar for yourself only. Uncheck to re-enable. Refresh required.',
+            hint: game.i18n.localize('customHotbar.settings.coreDisable.nameHint'),
             onChange: value => { // A callback function which triggers when the setting is changed
                 CHBDebug(`Is the core Foundry hotbar disabled? ${value}`)
             }
@@ -71,8 +79,10 @@ export class CustomHotbarSettings {
         //User-only "settings" menu that uses flags instead
         if (game.settings.get("custom-hotbar","chbDisabled") !== true) {        
             game.settings.registerMenu("custom-hotbar", 'chbFlagsMenu', {
-                name: 'Your Custom Hotbar Settings',
-                label: 'Your Custom Hotbar',
+                //name: 'Your Custom Hotbar Settings',
+                //name: game.i18n.localize('customHotbar.settings.chbFlagsMenu.nameHint'),
+                //label: 'Your Custom Hotbar',
+                label: game.i18n.localize('customHotbar.settings.chbFlagsMenu.nameHint'),
                 icon: 'fas fa-bars',
                 type: CustomHotbarFlagsForm,
                 restricted: false
@@ -81,8 +91,10 @@ export class CustomHotbarSettings {
 
         if (game.settings.get("custom-hotbar","coreDisabled") !== true) {        
             game.settings.registerMenu("custom-hotbar", 'coreFlagsMenu', {
-                name: 'Your Core Foundry Hotbar Settings',
-                label: 'Your Core Hotbar',
+                //name: 'Your Core Foundry Hotbar Settings',
+                //name: game.i18n.localize('customHotbar.settings.coreFlagsMenu.nameHint'),
+                //label: 'Your Core Hotbar',
+                label: game.i18n.localize('customHotbar.settings.coreFlagsMenu.nameHint'),
                 icon: 'fas fa-minus',
                 type: CoreHotbarFlagsForm,
                 restricted: false
@@ -94,8 +106,10 @@ export class CustomHotbarSettings {
             config: true,
             type: Boolean,
             default: false,
-            name: 'Hotbar Keybindings',
-            hint: 'Use the Module Settings of "Library: DF Hotkeys" to view and edit your keybindings.',
+            //name: 'Hotbar Keybindings',
+            name: game.i18n.localize('customHotbar.settings.keybind.name'),
+            //hint: 'Use the Module Settings of "Library: DF Hotkeys" to view and edit your keybindings.',
+            hint: game.i18n.localize('customHotbar.settings.keybind.nameHint'),
         });     
 
         //TO DO: add hotbarPageKeyEnabled and chbKeyEnabled
@@ -561,4 +575,8 @@ export class CustomHotbarSettings {
         var sett = game.settings.get("custom-hotbar","coreYPos");
         return (flag) ? flag : sett;
     }
+}
+
+function chbSettingsClose() {
+    return true
 }

@@ -153,11 +153,13 @@ async function customHotbarInit() {
 		set: async value => await game.settings.set('custom-hotbar', 'chb1', value),
 		default: () => { return { key: hotkeys.keys.Digit1, alt: false, ctrl: false, shift: true }; },
 		onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","chbDisabled") !== true) {
         CHBDebug('Custom Hotbar | Fire custom hotbar macro slot 1!');
         const num = 1;
         const slot = ui.customHotbar.macros.find(m => m.key === num);
         if ( ui.customHotbar.macros[num] ) slot.macro.execute();
-      },
+      }
+    }
 	});
     
   //CHB Slot 2
@@ -169,11 +171,13 @@ async function customHotbarInit() {
     set: async value => await game.settings.set('custom-hotbar', 'chb2', value),
     default: () => { return { key: hotkeys.keys.Digit2, alt: false, ctrl: false, shift: true }; },
     onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","chbDisabled") !== true) {      
         CHBDebug('Custom Hotbar | Fire custom hotbar macro slot 2!');
         const num = 2;
         const slot = ui.customHotbar.macros.find(m => m.key === num);
         if ( ui.customHotbar.macros[num] ) slot.macro.execute();
-      },
+      }
+    }
   });
 
   //CHB Slot 3
@@ -185,11 +189,13 @@ async function customHotbarInit() {
     set: async value => await game.settings.set('custom-hotbar', 'chb3', value),
     default: () => { return { key: hotkeys.keys.Digit3, alt: false, ctrl: false, shift: true }; },
     onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","chbDisabled") !== true) {      
         CHBDebug('Custom Hotbar | Fire custom hotbar macro slot 3!');
         const num = 3;
         const slot = ui.customHotbar.macros.find(m => m.key === num);
         if ( ui.customHotbar.macros[num] ) slot.macro.execute();
-      },
+      }
+    }
   });
 
   //CHB Slot 4
@@ -201,11 +207,13 @@ async function customHotbarInit() {
     set: async value => await game.settings.set('custom-hotbar', 'chb4', value),
     default: () => { return { key: hotkeys.keys.Digit4, alt: false, ctrl: false, shift: true }; },
     onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","chbDisabled") !== true) {
         CHBDebug('Custom Hotbar | Fire custom hotbar macro slot 4!');
         const num = 4;
         const slot = ui.customHotbar.macros.find(m => m.key === num);
         if ( ui.customHotbar.macros[num] ) slot.macro.execute();
-      },
+      }
+    }
   });
 
   //CHB Slot 5
@@ -217,11 +225,13 @@ async function customHotbarInit() {
     set: async value => await game.settings.set('custom-hotbar', 'chb5', value),
     default: () => { return { key: hotkeys.keys.Digit5, alt: false, ctrl: false, shift: true }; },
     onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","chbDisabled") !== true) {
         CHBDebug('Custom Hotbar | Fire custom hotbar macro slot 5!');
         const num = 5;
         const slot = ui.customHotbar.macros.find(m => m.key === num);
         if ( ui.customHotbar.macros[num] ) slot.macro.execute();
-      },
+      }
+    }
   });
 
   //CHB Slot 6
@@ -233,11 +243,13 @@ async function customHotbarInit() {
     set: async value => await game.settings.set('custom-hotbar', 'chb6', value),
     default: () => { return { key: hotkeys.keys.Digit6, alt: false, ctrl: false, shift: true }; },
     onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","chbDisabled") !== true) {      
         CHBDebug('Custom Hotbar | Fire custom hotbar macro slot 6!');
         const num = 6;
         const slot = ui.customHotbar.macros.find(m => m.key === num);
         if ( ui.customHotbar.macros[num] ) slot.macro.execute();
-      },
+      }
+    }
   });
   
   //CHB Slot 7
@@ -249,11 +261,13 @@ async function customHotbarInit() {
     set: async value => await game.settings.set('custom-hotbar', 'chb7', value),
     default: () => { return { key: hotkeys.keys.Digit7, alt: false, ctrl: false, shift: true }; },
     onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","chbDisabled") !== true) {
         CHBDebug('Custom Hotbar | Fire custom hotbar macro slot 7!');
         const num = 7;
         const slot = ui.customHotbar.macros.find(m => m.key === num);
         if ( ui.customHotbar.macros[num] ) slot.macro.execute();
-      },
+      }
+    }
   });
   
   //CHB Slot 8
@@ -265,11 +279,13 @@ async function customHotbarInit() {
     set: async value => await game.settings.set('custom-hotbar', 'chb8', value),
     default: () => { return { key: hotkeys.keys.Digit8, alt: false, ctrl: false, shift: true }; },
     onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","chbDisabled") !== true) {
         CHBDebug('Custom Hotbar | Fire custom hotbar macro slot 8!');
         const num = 8;
         const slot = ui.customHotbar.macros.find(m => m.key === num);
         if ( ui.customHotbar.macros[num] ) slot.macro.execute();
-      },
+       }
+     }
   });
   
   //CHB Slot 9
@@ -281,11 +297,13 @@ async function customHotbarInit() {
     set: async value => await game.settings.set('custom-hotbar', 'chb9', value),
     default: () => { return { key: hotkeys.keys.Digit9, alt: false, ctrl: false, shift: true }; },
     onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","chbDisabled") !== true) {
         CHBDebug('Custom Hotbar | Fire custom hotbar macro slot 9!');
         const num = 9;
         const slot = ui.customHotbar.macros.find(m => m.key === num);
         if ( ui.customHotbar.macros[num] ) slot.macro.execute();
-      },
+      }
+    }
   });
   
    //CHB Slot 0
@@ -297,11 +315,13 @@ async function customHotbarInit() {
     set: async value => await game.settings.set('custom-hotbar', 'chb0', value),
     default: () => { return { key: hotkeys.keys.Digit0, alt: false, ctrl: false, shift: true }; },
     onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","chbDisabled") !== true) {
         CHBDebug('Custom Hotbar | Fire custom hotbar macro slot 0!');
         const num = 0;
         const slot = ui.customHotbar.macros.find(m => m.key === num);
         if ( ui.customHotbar.macros[num] ) slot.macro.execute();
-      },
+      }
+    }
   }); 
 
   //Core Page 1
@@ -313,11 +333,12 @@ async function customHotbarInit() {
 		set: async value => await game.settings.set('custom-hotbar', 'corePage1', value),
 		default: () => { return { key: hotkeys.keys.Digit1, alt: false, ctrl: true, shift: false }; },
 		onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","coreDisabled") !== true) {      
         CHBDebug('Custom Hotbar | Set core hotbar to page 1!');
         const num = 1;
         ui.hotbar.page=num;
-//        ui.hotbar.render();
-      },
+      }
+    }
 	});
     
   //Core Page 2
@@ -329,11 +350,12 @@ async function customHotbarInit() {
 		set: async value => await game.settings.set('custom-hotbar', 'corePage2', value),
 		default: () => { return { key: hotkeys.keys.Digit2, alt: false, ctrl: true, shift: false }; },
 		onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","coreDisabled") !== true) {
         CHBDebug('Custom Hotbar | Set core hotbar to page 2!');
-        const num = 2;
-        ui.hotbar.page=num;
-  //      ui.hotbar.render();
-      },
+          const num = 2;
+          ui.hotbar.page=num;
+      }
+    }
 	});
 
   //Core Page 3
@@ -345,12 +367,13 @@ async function customHotbarInit() {
 		set: async value => await game.settings.set('custom-hotbar', 'corePage3', value),
 		default: () => { return { key: hotkeys.keys.Digit3, alt: false, ctrl: true, shift: false }; },
 		onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","coreDisabled") !== true) {      
         CHBDebug('Custom Hotbar | Set core hotbar to page 3!');
         const num = 3;
         ui.hotbar.page=num;
-//        ui.hotbar.render();
-      },
-	});
+      }
+    }
+   });
 
   //Core Page 4
   hotkeys.registerShortcut({
@@ -361,12 +384,13 @@ async function customHotbarInit() {
 		set: async value => await game.settings.set('custom-hotbar', 'corePage4', value),
 		default: () => { return { key: hotkeys.keys.Digit4, alt: false, ctrl: true, shift: false }; },
 		onKeyDown: self => {
+      if (game.settings.get("custom-hotbar","coreDisabled") !== true) {
         CHBDebug('Custom Hotbar | Set core hotbar to page 4!');
-        const num = 4;
-        ui.hotbar.page=num;
-//        ui.hotbar.render();
-      },
-	});
+          const num = 4;
+          ui.hotbar.page=num;       
+      }
+    }
+  });
 
   //Core Page 5
   hotkeys.registerShortcut({
@@ -377,11 +401,12 @@ async function customHotbarInit() {
 		set: async value => await game.settings.set('custom-hotbar', 'corePage5', value),
 		default: () => { return { key: hotkeys.keys.Digit5, alt: false, ctrl: true, shift: false }; },
 		onKeyDown: self => {
-        CHBDebug('Custom Hotbar | Set core hotbar to page 5!');
-        const num = 5;
-        ui.hotbar.page=num;
-//        ui.hotbar.render();
-      },
+        if (game.settings.get("custom-hotbar","coreDisabled") !== true) {
+          CHBDebug('Custom Hotbar | Set core hotbar to page 5!');
+          const num = 5;
+          ui.hotbar.page=num;
+        }
+      }
 	});
 
   /* multiple CHB pages not yet implemented

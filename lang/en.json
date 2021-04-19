@@ -12,6 +12,34 @@
         },
 
         "settings": {
+
+            "chbSettingsMenu": {
+                "name": "Set Default Custom Hotbar for All Users",
+                "nameHint": "(GM Only)"
+            },
+            "coreSettingsMenu": {
+                "name": "Set Default Core Foundry Hotbar for All Users"
+            },
+            "chbFlagsMenu": {
+                "nameHint": "Customize Your Custom Hotbar"
+            },
+            "coreFlagsMenu": {
+                "nameHint": "Customize Your Core Foundry Hotbar"
+            },
+
+            "chbDisable": {
+                "name": "Disable Custom Hotbar?",
+                "nameHint": "Check to disable the Custom Hotbar for yourself only. Uncheck to re-enable."
+            },
+            "coreDisable": {
+                "name": "Disable Core Hotbar?",
+                "nameHint": "Check to disable the Core Hotbar for yourself only. Uncheck to re-enable."
+            },
+
+            "keybind": {
+                "name": "Hotbar Keybindings",
+                "nameHint": "Use the Module Settings of 'Library: DF Hotkeys' to view and edit your keybindings."
+            },
             
             "chbPrimaryColor": {
                 "name": "Custom Hotbar Color:",

@@ -10,7 +10,7 @@
       "index.js"
       , "./lib/colorsettings/colorSettingStub.js"
       ],
-    "dependencies": [ { "name": "lib-df-hotkeys" } ],  
+    "dependencies": [ { "name": "lib-df-hotkeys" }, { "name": "colorsettings" }  ],  
     "languages": [
         {
       "lang": "pt-BR",
