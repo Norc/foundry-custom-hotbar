@@ -239,11 +239,17 @@ export class CustomHotbar extends Hotbar {
         },
         callback: li => {
           let mDeleteWarn = "MACRO.DeleteWarning";
-          if (game.data.version === "0.7.9") mDeleteWarn = "MACRO.ConfirmDelete";
+          //backwards compatibility
+          if (game.data.version === "0.7.9") {
+            mDeleteWarn = "MACRO.ConfirmDelete";
+          }
+          else {
+            mDeleteWarn = "MACRO.DeleteWarning"
+          }
           const macro = game.macros.get(li.data("macro-id"));
           Dialog.confirm({
             title: `${game.i18n.localize("MACRO.Delete")} ${macro.name}`,
-            content: game.i18n.localize("MACRO.DeleteWarning"),
+            content: game.i18n.localize(mDeleteWarn),
             yes: macro.delete.bind(macro)
           });
         }
