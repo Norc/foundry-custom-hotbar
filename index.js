@@ -556,62 +556,63 @@ Hooks.once('ready', () => {
 
 
 Hooks.on("renderSettingsConfig", async () => {
-  //add CSS ids and classes to CustomHotbar settings section for styling
-  let settingsDiv = document.getElementById("client-settings");
-  
-  let chbSetDiv = $( `#${settingsDiv.id} div h2.module-header:contains("Custom Hotbar")` ).next();
+  //customize styling for CHB settings
+    //add CSS ids and classes to CustomHotbar settings section for styling
+    let settingsDiv = document.getElementById("client-settings");
+    
+    let chbSetDiv = $( `#${settingsDiv.id} div h2.module-header:contains("Custom Hotbar")` ).next();
+    let usrFirstDiv = $(chbSetDiv);
 
-  $(chbSetDiv).addClass('chb-setting');
-  $(chbSetDiv).addClass('chb-global');
-  $(chbSetDiv).attr('id', 'chbSetDiv');
-  
-  let coreSetDiv = $(chbSetDiv).next();
-  $(coreSetDiv).addClass('chb-setting');
-  $(coreSetDiv).addClass('chb-global');
-  $(coreSetDiv).attr('id', 'coreSetDiv');
+  //Add ids and classes for "GM only" button divs if user is GM.
+  if (game.users.current.isGM ===true ) {
 
-  //only apply these classes and id if the custom hotbar is enabled for the user
+    $(chbSetDiv).addClass('chb-setting');
+    $(chbSetDiv).addClass('chb-global');
+    $(chbSetDiv).attr('id', 'chbSetDiv');
+    
+    let coreSetDiv = $(chbSetDiv).next();
+    $(coreSetDiv).addClass('chb-setting');
+    $(coreSetDiv).addClass('chb-global');
+    $(coreSetDiv).attr('id', 'coreSetDiv');
+
+    usrFirstDiv = $(coreSetDiv).next();
+  }
+
+  //Add ids and classes for the custom hotbar menu button divs, if it's enabled for the user
   if (game.settings.get("custom-hotbar","chbDisabled") === false) {  
-    let chbFlagDiv = $(coreSetDiv).next();
+    let chbFlagDiv = $(usrFirstDiv);
     $(chbFlagDiv).addClass('chb-setting');
     $(chbFlagDiv).addClass('chb-user');
     $(chbFlagDiv).attr('id', 'chbFlagDiv');
   }
 
-  //only apply these classes and id if the core Foundry hotbar is enabled for the user
+  //Add ids and classes for the core hotbar menu button divs, if it's enabled for the user
   if (game.settings.get("custom-hotbar","coreDisabled") === false) {
-    let coreFlagDiv = $(coreSetDiv).next();
+    let coreFlagDiv = $(usrFirstDiv).next();
     //check to make sure that the custom hotbar is enabled and ajdust if it isn't
     if (game.settings.get("custom-hotbar","chbDisabled") === true) {
-      coreFlagDiv = $(coreSetDiv).next();      
-    } else {
-      coreFlagDiv = $(chbFlagDiv).next();
+      coreFlagDiv = $(usrFirstDiv);      
     }
     $(coreFlagDiv).addClass('chb-setting');
     $(coreFlagDiv).addClass('chb-user');
     $(coreFlagDiv).attr('id', 'coreFlagDiv');
   }
 
-  //find which is the previous displayed div based on disable settings
-  let chbDisableDiv = {};
-  //check to see if the first possible flag div, the custom hotbar, is disabled
-  if (game.settings.get("custom-hotbar","chbDisabled") === true) {
-    //check to see if Core hotbar is also disabled  
-    if (game.settings.get("custom-hotbar","coreDisabled") === true) {
-      //skip both flag divs
-      chbDisableDiv = $(coreSetDiv).next();
-    } else {
-      //skip just the first div
-      chbDisableDiv = $(coreFlagDiv).next();
-    }
-  } else {
-    if (game.settings.get("custom-hotbar","coreDisabled") === true) { 
-      chbDisableDiv = $(chbFlagDiv).next();
-    } else {
-      chbDisableDiv = $(coreFlagDiv).next();
-    }
-  }
 
+  //Assess disable settings to help determine which div precedes Disable
+  let chbDisabled = game.settings.get("custom-hotbar","chbDisabled");
+  let coreDisabled = game.settings.get("custom-hotbar","coreDisabled");
+
+  //Default case for convenience: Both are disabled
+  let chbDisableDiv = usrFirstDiv;
+
+  //Case: Core Hotbar is enabled (so state of Custom Hotbar doesn't matter)
+  if ( coreDisabled === false ) chbDisableDiv = $(coreFlagDiv).next(); 
+
+  //Case: Core hotbar is disabled but Custom hotbar is not  
+  if (chbDisabled === false && coreDisabled === true ) chbDisableDiv = $(chbFlagDiv).next();
+
+  //Add ids and classes for the disable checkbox divs
   $(chbDisableDiv).addClass('chb-setting');
   $(chbDisableDiv).addClass('chb-disable');
   $(chbDisableDiv).attr('id', 'chbDisableDiv');
