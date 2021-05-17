@@ -238,10 +238,12 @@ export class CustomHotbar extends Hotbar {
           return macro ? macro.owner : false;
         },
         callback: li => {
+          let mDeleteWarn = "MACRO.DeleteWarning";
+          if (game.data.version === "0.7.9") mDeleteWarn = "MACRO.ConfirmDelete";
           const macro = game.macros.get(li.data("macro-id"));
           Dialog.confirm({
             title: `${game.i18n.localize("MACRO.Delete")} ${macro.name}`,
-            content: game.i18n.localize("MACRO.DeleteConfirm"),
+            content: game.i18n.localize("MACRO.DeleteWarning"),
             yes: macro.delete.bind(macro)
           });
         }
