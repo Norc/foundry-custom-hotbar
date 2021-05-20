@@ -1,4 +1,4 @@
-const customHotbarDebug = true;
+const customHotbarDebug = false;
 
 export function CHBDebug(message) {
   if (customHotbarDebug) { 
