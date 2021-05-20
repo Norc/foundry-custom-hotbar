@@ -299,3 +299,8 @@ div#keyHintDiv > p {
 div#keyHintDiv > div> input {
     display:none;
 }
+
+div.chbSettings > div.colorsplash > input {
+    background-color: white;
+    border: 1px solid black;
+}
