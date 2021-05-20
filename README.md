@@ -3,20 +3,15 @@ Foundry VTT module to add an extra, fully functional macro hotbar above the core
 
 ![Image of custom hotbar](https://i.imgur.com/L9QwR9u.png)
 
-Module compatibility is a primary goal of Custom Hotbar, and is compatible with all known modules, including Minor Quality of Life, Better Rolls, The Furnace, Macro Marker, and especially [Stan's Token Hotbar module](https://github.com/janssen-io/foundry-token-hotbar). We encourage you to try the two modules together:
-   
-   <img src="https://github.com/janssen-io/foundry-token-hotbar/blob/master/img/thb-custom-hotbar.gif" width="40%" height = "40%">)
+Module and system compatibility is a primary goal of Custom Hotbar. If Custom Hotbar isn't compatible with a module or system that you think it should be, please let me know as a GitHub issue or ping me on Discord (Norc#5108).
 
-The Custom Hotbar can now be repositioned and recolored as needed, and the same control is also granted over the core Foundry hotbar:
+The Custom Hotbar now matches the core Foundry hotbar styling by default, but it can now be repositioned and recolored as needed, and the same control is also granted over the core Foundry hotbar:
 
 ![Image of customized hotbar](https://imgur.com/EKSjoYf.png)
 
+Additionally, players (or GMs I guess!) can disable either hotbar entirely if they don't want it for themselves.
+
 Lastly, additional keybinds are also available: **Shift-Number** to run a macro on the custom hotbar, and **Ctrl-Shift-1 through 5** to change the core Foundry Hotbar page
-
-If you encounter an issue or have a suggestion for a feature not currently on the roadmap, please let me know on Discord (Norc#5108) or log an issue here on GitHub.
-
-### Special Thanks
-Special thanks to Ardistristan for his excellent Lib - Color Settings Module and extraordinary support as I implemented it! Further thanks to Stan for his continued support and to the awesome Foundry modding community as a whole.
 
 ## Installation
 * **Manifest**: Use this manifest link to install the module (https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/master/module.json)
@@ -42,9 +37,8 @@ Special thanks to Ardistristan for his excellent Lib - Color Settings Module and
 See the [changelog.](https://github.com/Norc/foundry-custom-hotbar/blob/dev/CHANGELOG.md)
 
 ## Roadmap:
-_Next release (minor cleanup):_
-1. Basic settings for keyboard shortcuts
-2. More minor features and bugfixes that didn't make it into 2.0.
+_Next releases (minor cleanup):_
+1. Ongoing bug/stability/module compat cleanup for 0.8.x as needed.
 
 _Next major version:_
 1. Add ability to create multiple Custom Hotbars, not just one
@@ -52,3 +46,9 @@ _Next major version:_
 _Potential Future Features (Undecided)_
 1. Add option to popout hotbars for positioning by dragging and dropping
 1. Add pages 2-4 or more for each Custom Hotbar.
+
+### Special Thanks
+Special thanks to Ardistristan for his excellent Lib - Color Settings Module and extraordinary support as I implemented it! Thanks to DF (flamewave000) for the Library: DF Hotkeys library. Both of these libraries do a better job than I *ever* could.
+
+Further thanks to Stan of Token Hotbar fame for everything he's done and to the awesome Foundry modding community as a whole.
+
