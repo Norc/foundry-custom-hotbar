@@ -1,5 +1,5 @@
-## COMING VERY SOON!: Version 2.1.0 (2021/05/20, probably)
-Long overdue bugfix and minor feature improvement in preparation for 0.8.x upgrade.
+## Version 2.1.0 (2021/05/20)
+0.8.x update, a few new features, and misc bugfixes
 • Updates Custom Hotbar for Foundry 0.8.x release branch while maintaining backwards compatibility.
 • NEW FEATURE: Ability for users to disable their own custom hotbar entirely if they don't want it (and core hotbar too, because why not?)
 • NEW FEATURE: keybinding library for a high level of keybinding customization and reliability improvements.
@@ -7,7 +7,7 @@ Long overdue bugfix and minor feature improvement in preparation for 0.8.x upgra
 • Portuguese translation (sorry about the delay rinnocenti!!)
 • Changed hotbar coloration to match core foundry (#0000FF60 is the "classic blue" if you want to change back)
 • Firefox compatibility improvements
-• odule is now less talkative in console log
+• Module is now less talkative in console log
 • Many miscellaneous bugfixes (see changelog).
 
 ## Version 2.0.6 (2020/10/21)
