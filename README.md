@@ -30,7 +30,7 @@ Lastly, additional keybinds are also available: **Shift-Number** to run a macro 
    
    <img src="https://github.com/janssen-io/foundry-token-hotbar/blob/master/img/thb-custom-hotbar.gif" width="40%" height = "40%">)
 1. Broad compatibility:
-   1. Closely mimics built-in methods to allow modules like Minor Quality of Life and Better Rolls to use the Custom Hotbar without specific support
+   1. Closely mimics built-in methods to allow modules like Midi QoL and Better Rolls to use the Custom Hotbar without specific support
    1. Does not interfere with the operation of the original Macro Hotbar
 
 ## Changelog
