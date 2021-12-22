@@ -40,7 +40,7 @@ See the [changelog.](https://github.com/Norc/foundry-custom-hotbar/blob/dev/CHAN
 
 ## Roadmap:
 _Next releases (minor cleanup):_
-1. Ongoing bug/stability/module compat cleanup for 0.8.x as needed.
+1. Ongoing bug/stability/module compat cleanup for v9 as needed.
 
 _Next major version:_
 1. Add ability to create multiple Custom Hotbars, not just one
