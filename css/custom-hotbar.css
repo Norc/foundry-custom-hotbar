@@ -196,6 +196,12 @@ span.custom-macro-key {
     z-index: 2;
 }
 
+/*
+nav#context-menu {
+    z-index: 71;
+}
+*/
+
 /* Border around Global Settings */
 div#client-settings div.chb-global {
     border-style: solid;
