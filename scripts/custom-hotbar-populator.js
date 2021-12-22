@@ -23,7 +23,10 @@ export class CustomHotbarPopulator {
      * @return {Promise<unknown>} Promise indicating whether the macro was set and the hotbar was rendered.
      */
     async chbSetMacro(macroId, slot) {
-        CHBDebug("Custom Hotbar |", "Setting macro", slot, macroId);
+        CHBDebug("Custom Hotbar |Setting macro with slot and macro ID in macroMap");
+        CHBDebug(slot);
+        CHBDebug(macroId);
+        CHBDebug(this);
         this.macroMap[slot] = macroId;
         await this._updateFlags();
         return ui.customHotbar.render();
