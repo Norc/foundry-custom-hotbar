@@ -1,3 +1,11 @@
+### Version 2.2 (2021/12/12)
+* Added compatibility with v9. This was a breaking change, so use 2.1 for 0.8.x and earlier.
+* Fixed CustomHotbar app being added to UI twice
+* Note: support for v9 keybinding library coming soon.
+
+### Version 2.1
+Did something important, probably. Version bump for v8?
+
 ### Version 2.0.4 (2020/07/24)
 
 Bugfix: fixed z-index of macro context menus.
