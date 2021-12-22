@@ -1,5 +1,4 @@
-**PLEASE NOTE: v9 COMPATIBILITY UPDATE COMING 12/21/2021, SORRY ABOUT DELAY **
-While the module is mostly working for v9, there are some oddities that need to be addressed. Update coming soon.
+UPDATE: Should be v9 compatible after v2.2 release. Please log issue if any remaining problems arise. v9 core keybind system adoption is planned for next update.
 
 # Custom Hotbar
 Foundry VTT module to add an extra, fully functional macro hotbar above the core Foundry macro hotbar:
