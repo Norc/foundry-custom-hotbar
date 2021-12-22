@@ -1,3 +1,5 @@
+import { CHBDebug } from './scripts/custom-hotbar-debug.js';
+
 export class CustomHotbar extends Hotbar {
     /**
      * @param {CustomHotbarPopulator} populator
@@ -6,7 +8,7 @@ export class CustomHotbar extends Hotbar {
   constructor(populator, options) {
     super(Hotbar);
     //super(options);
-    game.macros.apps.push(this);
+    if( !game.macros.apps.find( (app) => app.constructor.name=="CustomHotbar" ) ) game.macros.apps.push(this);
     /**
      * The currently viewed macro page
      * @type {number}
@@ -115,7 +117,12 @@ export class CustomHotbar extends Hotbar {
    * @return {Promise}          A Promise which resolves once the User update is complete
    */
   async assignCustomHotbarMacro(macro, slot, {fromSlot=null}={}) {
-    console.debug("Custom Hotbar | assignCustomHotbarMarcro", macro, slot, fromSlot);
+    CHBDebug("Custom Hotbar | assignCustomHotbarMacro: macro");
+    CHBDebug(macro);
+    CHBDebug("Custom Hotbar | assignCustomHotbarMacro: slot");
+    CHBDebug(slot);
+    CHBDebug("Custom Hotbar | assignCustomHotbarMacro: fromSlot");
+    CHBDebug(fromSlot);
     if ( !(macro instanceof Macro) && (macro !== null) ) throw new Error("Invalid Macro provided");
     // const chbMacros = this.populator.chbGetMacros();
 
@@ -125,35 +132,41 @@ export class CustomHotbar extends Hotbar {
     if ( slot < 1 || slot > 10 ) throw new Error("Invalid Hotbar slot requested");
 
     // Update the hotbar data
-    const update = duplicate(ui.customHotbar);
-    console.debug("Custom Hotbar |", slot);
-    if ( macro ) await this.populator.chbSetMacro(macro.id,slot);
+    const update = foundry.utils.duplicate(ui.customHotbar);
+    if ( macro )  {
+      CHBDebug("Custom Hotbar | Setting macro with following ID and slot:");
+      CHBDebug(macro.id);
+      CHBDebug(slot);
+      await this.populator.chbSetMacro(macro.id,slot);
+    }
     else {
-      console.debug('Custom Hotbar | Unsetting!');
+      CHBDebug('Custom Hotbar | Unsetting!');
       await this.populator.chbUnsetMacro(slot);
     }
 
+
+    
     //functional but needs cleanup
-    console.debug("Custom Hotbar | Finding move origin");
+    CHBDebug("Custom Hotbar | Finding move origin");
     if ( fromSlot ) {
-      console.debug("Custom Hotbar |", ui.customHotbar.macros);
-      console.debug("Custom Hotbar |", ui.customHotbar.macros[fromSlot-1]?.macro, ui.customHotbar.macros[fromSlot-1]?.macro === macro);
+      CHBDebug("Custom Hotbar |", ui.customHotbar.macros);
+      CHBDebug("Custom Hotbar |", ui.customHotbar.macros[fromSlot-1]?.macro, ui.customHotbar.macros[fromSlot-1]?.macro === macro);
      
       if (ui.customHotbar.macros[fromSlot-1]?.macro === macro) {
-        console.debug("Custom Hotbar | internal move detected!");
+        CHBDebug("Custom Hotbar | internal move detected!");
         if ( fromSlot != slot ) {
-          console.debug(`Custom Hotbar | trying to delete slot ${fromSlot} in CustomHotbar`);
+          CHBDebug(`Custom Hotbar | trying to delete slot ${fromSlot} in CustomHotbar`);
           await this.populator.chbUnsetMacro(fromSlot);
         }
       } else {
-        console.debug("Custom Hotbar | drop from core macro hotbar detected!");
+        CHBDebug("Custom Hotbar | drop from core macro hotbar detected!");
       }
     } else {
-      console.debug("Custom Hotbar | non-hotbar drop detected!");
+      CHBDebug("Custom Hotbar | non-hotbar drop detected!");
     }
  
-    ui.customHotbar.render();
-    //code suggested by tposney. creates hook to allow reassignment of monky hotpatch
+    //ui.customHotbar.render();
+    //code suggested by tposney. creates hook to allow reassignment of monkey hotpatch
     Hooks.callAll("customHotbarAssignComplete");
     return update;
   };
@@ -198,52 +211,59 @@ export class CustomHotbar extends Hotbar {
       });
     });
   } 
+//const macro = game.macros.get(this.populator.macroMap[li.data("slot")]);
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  _contextMenu(html) {
+    ContextMenu.create(this, html, ".macro", this._getEntryContextOptions());
+  }
 
   /* -------------------------------------------- */
 
   /**
-   * Create a Context Menu attached to each Macro button
-   * @param html
+   * Get the Macro entry context options
+   * @returns {object[]}  The Macro entry context options
    * @private
    */
-  _contextMenu(html) {
-    new ContextMenu(html, ".macro", [
+  _getEntryContextOptions() {
+    return [
       {
-        name: "Edit",
+        name: "MACRO.Edit",
         icon: '<i class="fas fa-edit"></i>',
         condition: li => {
-          const macro = game.macros.get(li.data("macro-id"));
-          return macro ? macro.owner : false;
+          const macro = game.macros.get(this.populator.macroMap[li.data("slot")]);
+          return macro ? macro.isOwner : false;
         },
         callback: li => {
-          const macro = game.macros.get(li.data("macro-id"));
+          const macro = game.macros.get(this.populator.macroMap[li.data("slot")]);
           macro.sheet.render(true);
         }
       },
       {
-        name: "Remove",
+        name: "MACRO.Remove",
         icon: '<i class="fas fa-times"></i>',
-        callback: li => {
-            ui.customHotbar.assignCustomHotbarMacro(null, li.data("slot"));
-      }
+        condition: li => !!this.populator.macroMap[li.data("slot")],
+        callback: li => game.user.assignHotbarMacro(null, Number(li.data("slot")))
       },
       {
-        name: "Delete",
+        name: "MACRO.Delete",
         icon: '<i class="fas fa-trash"></i>',
         condition: li => {
-          const macro = game.macros.get(li.data("macro-id"));
-          return macro ? macro.owner : false;
+          const macro = game.macros.get(this.populator.macroMap[li.data("slot")]);
+          return macro ? macro.isOwner : false;
         },
         callback: li => {
-          const macro = game.macros.get(li.data("macro-id"));
-          Dialog.confirm({
+          const macro = game.macros.get(this.populator.macroMap[li.data("slot")]);
+          return Dialog.confirm({
             title: `${game.i18n.localize("MACRO.Delete")} ${macro.name}`,
-            content: game.i18n.localize("MACRO.DeleteConfirm"),
+            content: `<h4>${game.i18n.localize("AreYouSure")}</h4><p>${game.i18n.localize("MACRO.DeleteWarning")}</p>`,
             yes: macro.delete.bind(macro)
           });
         }
       },
-    ]);
+    ];
   }
 
   	/* -------------------------------------------- */
@@ -262,7 +282,7 @@ export class CustomHotbar extends Hotbar {
   /** @override */
   async _onDrop(event) {
     event.preventDefault();
-    console.debug("Custom Hotbar | custom-hotbar drop detected!");
+    CHBDebug("Custom Hotbar | custom-hotbar drop detected!");
     // Try to extract the data
     let data;
     try {
@@ -279,31 +299,33 @@ export class CustomHotbar extends Hotbar {
     //If needed, temporarily hijack assignHotbarMacro to trick core/modules to auto-create macros for CustomHotbar instead
     //only needs to be done when dropping an item onto the Custom Hotbar.
     //revert once assign custom macro complete
-    console.debug("Custom Hotbar | Dropped type:", data.type);
+    CHBDebug("Custom Hotbar | Dropped type:", data.type);
     if (data.type == "Item" || data.type =="RollTable") {
-      console.debug("Custom Hotbar | Attempting monkey hotpatch!");
+      CHBDebug("Custom Hotbar | Attempting monkey hotpatch!");
       let coreAssignHotbarMacro = game.user.assignHotbarMacro;
       game.user.assignHotbarMacro = this.assignCustomHotbarMacro.bind(this); 
       Hooks.once("customHotbarAssignComplete", () => game.user.assignHotbarMacro = coreAssignHotbarMacro);
-    }
   
-    //does this need to be set to false when done?
-    if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
-      console.debug("Custom Hotbar | hotbarDrop not found, reverting monkey hotpatch!")
-      game.user.assignHotbarMacro = coreAssignHotbarMacro; 
-      return; 
-    } else {
-      console.debug("Custom Hotbar | hotbarDrop true");
+      //does this need to be set to false when done?
+      if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
+        CHBDebug("Custom Hotbar | hotbarDrop not found, reverting monkey hotpatch!")
+        game.user.assignHotbarMacro = coreAssignHotbarMacro; 
+        return; 
+      } else {
+        CHBDebug("Custom Hotbar | hotbarDrop true");
+      }
     }
- 
+
     // Only handles Macro drops
     const macro = await this._getDropMacro(data);
     if ( macro ) {
-      console.debug("Custom Hotbar | macro provided:", macro, "fromSlot", data.customSlot);
-      console.debug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
+      CHBDebug("Custom Hotbar | macro provided:", macro, "fromSlot", data.customSlot);
+      CHBDebug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
         await this.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.customSlot});
     }
+    await ui.customHotbar.render();
   }
+
 
   /* -------------------------------------------- */
 
@@ -313,7 +335,7 @@ export class CustomHotbar extends Hotbar {
    * @private
    */
   async _onClickMacro(event) {
-    console.debug("custom macro click detected!");
+    CHBDebug("custom macro click detected!");
 
     event.preventDefault();
     const li = event.currentTarget;
@@ -327,7 +349,7 @@ export class CustomHotbar extends Hotbar {
 
     // Case 2 - trigger a Macro
     else {
-      const macro = game.macros.get(li.dataset.macroId);
+      const macro = game.macros.get(this.populator.macroMap[li.dataset.slot]);
       return macro.execute();
     }
   }
@@ -337,12 +359,12 @@ export class CustomHotbar extends Hotbar {
   /** @override */
   _onDragStart(event) {
     //hide tooltip so it doesn't get in the way
-    console.debug("Custom Hotbar | Attempting to hide tooltip.");
+    CHBDebug("Custom Hotbar | Attempting to hide tooltip.");
     document.getElementsByClassName("tooltip")[0].style.display = "none";
 
     const li = event.currentTarget.closest(".macro");
-    if ( !li.dataset.macroId ) return false;
-    const dragData = { type: "Macro", id: li.dataset.macroId, customSlot: li.dataset.slot };
+    if ( !this.populator.macroMap[li.dataset.slot] ) return false;
+    const dragData = { type: "Macro", id: this.populator.macroMap[li.dataset.slot], customSlot: li.dataset.slot };
     event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
   }
 
@@ -357,7 +379,7 @@ export class CustomHotbar extends Hotbar {
    * @private
    */
   async _getDropMacro(data) {
-    console.debug("Custom Hotbar | in _getDropMacro", data);
+    CHBDebug("Custom Hotbar | in _getDropMacro", data);
     if ( data.type !== "Macro" ) return null;
 
     // Case 1 - Data explicitly provided (but no ID)
@@ -396,10 +418,12 @@ export class CustomHotbar extends Hotbar {
 
     // Handle hover-in
     if ( event.type === "mouseenter" ) {
-      console.debug("Custom Hotbar | Macro tooltip override fired!");
+      CHBDebug("Custom Hotbar | Macro tooltip override fired!");
       this._hover = li.dataset.slot;
       if ( hasAction ) {
-        const macro = game.macros.get(li.dataset.macroId);
+        CHBDebug("Custom Hotbar | hasAction true.");
+        const macro = game.macros.get(this.populator.macroMap[li.dataset.slot]);
+        CHBDebug( li.dataset );
         const tooltip = document.createElement("SPAN");
         tooltip.classList.add("tooltip");
         tooltip.textContent = macro.name;
@@ -407,9 +431,11 @@ export class CustomHotbar extends Hotbar {
       }
     }
 
+    
+
     // Handle hover-out
     else {
-      console.debug("Custom Hotbar | Mouse out!");
+      CHBDebug("Custom Hotbar | Mouse out!");
       this._hover = null;
     }
   }

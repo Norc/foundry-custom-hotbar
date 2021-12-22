@@ -3,15 +3,20 @@
     "title": "Custom Hotbar",   
     "description": "An extra fully functional hotbar (currently 1 row only) above the first.",   
     "author": "Norc",
-    "version": "2.0.4",
-    "minimumCoreVersion": "0.5.7",
-    "compatibleCoreVersion":"0.7.0",
+    "version": "2.2.0",
+    "minimumCoreVersion": "9",
+    "compatibleCoreVersion":"9",
     "esmodules": [
       "index.js"
-      , "./lib/colorsettings/colorSetting.js"
+      , "./lib/colorsettings/colorSettingStub.js"
       ],
-
+    "dependencies": [ { "name": "lib-df-hotkeys" }, { "name": "colorsettings" }  ],  
     "languages": [
+        {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt-BR.json"
+    },  
       {
         "lang": "en",
         "name": "English",
@@ -19,9 +24,8 @@
       }],
     "styles": [
       "./css/custom-hotbar.css"
-      , "./lib/colorsettings/css/colorpicker.css"
       ],
-    "manifest": "https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/dev/module.json",
-    "download": "https://github.com/Norc/foundry-custom-hotbar/archive/v2.0.4.zip",
+    "manifest": "https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/master/module.json",
+    "download": "https://github.com/Norc/foundry-custom-hotbar/archive/v2.2.0.zip",
     "url": "https://github.com/Norc/foundry-custom-hotbar"
   }

@@ -1,3 +1,5 @@
+import { CHBDebug } from './custom-hotbar-debug.js';
+
 export class CoreHotbarSettingsForm extends FormApplication {
 
     constructor(object, options = {}) {
@@ -55,7 +57,7 @@ export class CoreHotbarSettingsForm extends FormApplication {
      */
 
     async _updateObject(e, d) {
-        console.debug("Custom Hotbar | Attempting to update settings with form values...");
+        CHBDebug("Custom Hotbar | Attempting to update settings with form values...");
         game.settings.set("custom-hotbar", "corePrimaryColor", d.corePrimaryColor);
         game.settings.set("custom-hotbar", "coreBorderColor", d.coreBorderColor);
         game.settings.set("custom-hotbar", "coreBorderColorActive", d.coreBorderColorActive);
@@ -67,33 +69,33 @@ export class CoreHotbarSettingsForm extends FormApplication {
     }
 
     onReset() {
-        console.debug("Custom Hotbar | Attempting to reset coreSettingsForm to defaults");
+        CHBDebug("Custom Hotbar | Attempting to reset coreSettingsForm to defaults");
         this.reset = true;
         this.render();
     }
 
     onCorePrimaryColorClick() {
-        console.debug("Custom Hotbar | corePrimaryColor button click detected");
+        CHBDebug("Custom Hotbar | corePrimaryColor button click detected");
         $( event.target ).addClass("expanded");
     }
 
     onCoreBorderColorClick() {
-        console.debug("Custom Hotbar | coreBorderColor button click detected");
+        CHBDebug("Custom Hotbar | coreBorderColor button click detected");
         $( event.target ).addClass("expanded");
     }
 
     onCoreBorderColorActiveClick() {
-        console.debug("Custom Hotbar | coreBorderColorActive button click detected");
+        CHBDebug("Custom Hotbar | coreBorderColorActive button click detected");
         $( event.target ).addClass("expanded");
     }
 
     onCoreBorderColorInactiveClick() {
-        console.debug("Custom Hotbar | coreBorderColorInactive button click detected");
+        CHBDebug("Custom Hotbar | coreBorderColorInactive button click detected");
         $( event.target ).addClass("expanded");
     }
 
     activateListeners(html) {
-        console.debug("Custom Hotbar | Attempting to activate Core Settings Form listeners");
+        CHBDebug("Custom Hotbar | Attempting to activate Core Settings Form listeners");
         super.activateListeners(html);
         //bind buttons and inputs 
         html.find('button[name="reset"]').on('click', this.onReset.bind(this));
@@ -106,7 +108,7 @@ export class CoreHotbarSettingsForm extends FormApplication {
 }
 
 Hooks.on("renderCoreHotbarSettingsForm", (a, b, c) => {
-    console.debug( "Custom Hotbar | Initializing current color values..." );
+    CHBDebug( "Custom Hotbar | Initializing current color values..." );
     $( "#corePrimaryColorSplash" ).css("background-color", c.corePrimaryColor);
     $( "#coreBorderColorSplash" ).css("background-color", c.coreBorderColor);
     $( "#coreBorderColorActiveSplash" ).css("background-color", c.coreBorderColorActive);
@@ -114,7 +116,7 @@ Hooks.on("renderCoreHotbarSettingsForm", (a, b, c) => {
 });
 
 Hooks.on("pickerDone", (parentDiv, hexColor) => {
-    console.debug("Custom Hotbar | pickerDone hook detected");
+    CHBDebug("Custom Hotbar | pickerDone hook detected");
     $( parentDiv ).find("input").removeClass("expanded");
     $( parentDiv ).css("background-color", hexColor);
 });

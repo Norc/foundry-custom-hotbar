@@ -1,3 +1,5 @@
+import { CHBDebug } from './custom-hotbar-debug.js';
+
 export class CustomHotbarSettingsForm extends FormApplication {
 
     constructor(object, options = {}) {
@@ -54,7 +56,7 @@ export class CustomHotbarSettingsForm extends FormApplication {
      *  'key':entry.metadata.package+'.'+entry.metadata.name
      */
     async _updateObject(e, d) {
-        console.debug("Custom Hotbar | Attempting to update settings with form values...");
+        CHBDebug("Custom Hotbar | Attempting to update settings with form values...");
         game.settings.set("custom-hotbar", "chbPrimaryColor", d.chbPrimaryColor);
         game.settings.set("custom-hotbar", "chbBorderColor", d.chbBorderColor);
         game.settings.set("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
@@ -66,13 +68,13 @@ export class CustomHotbarSettingsForm extends FormApplication {
     }
 
     onReset() {
-        console.debug("Custom Hotbar | Attempting to reset chbSettingsForm to defaults");
+        CHBDebug("Custom Hotbar | Attempting to reset chbSettingsForm to defaults");
         this.reset = true;
         this.render();
     }
 
     onChbPrimaryColorClick() {
-        console.debug("Custom Hotbar | chbPrimaryColor button click detected");
+        CHBDebug("Custom Hotbar | chbPrimaryColor button click detected");
         $( event.target ).addClass("expanded");
         //$( event.target ).prop( "disabled", true );
  
@@ -81,22 +83,22 @@ $( "#x" ).prop( "disabled", false );
     }
 
     onChbBorderColorClick() {
-        console.debug("Custom Hotbar | chbBorderColor button click detected");
+        CHBDebug("Custom Hotbar | chbBorderColor button click detected");
         $( event.target ).addClass("expanded");
     }
 
     onChbBorderColorActiveClick() {
-        console.debug("Custom Hotbar | chbBorderColorActive button click detected");
+        CHBDebug("Custom Hotbar | chbBorderColorActive button click detected");
         $( event.target ).addClass("expanded");
     }
 
     onChbBorderColorInactiveClick() {
-        console.debug("Custom Hotbar | chbBorderColorInactive button click detected");
+        CHBDebug("Custom Hotbar | chbBorderColorInactive button click detected");
         $( event.target ).addClass("expanded");
     }
 
     activateListeners(html) {
-        console.debug("Custom Hotbar | Attempting to activate CHB Settings Form listeners");
+        CHBDebug("Custom Hotbar | Attempting to activate CHB Settings Form listeners");
         super.activateListeners(html);
         //bind buttons and inputs 
         html.find('button[name="reset"]').on('click', this.onReset.bind(this));
@@ -109,7 +111,7 @@ $( "#x" ).prop( "disabled", false );
 }
 
 Hooks.on("renderCustomHotbarSettingsForm", (a, b, c) => {
-    console.debug( "Custom Hotbar | Initializing current color values..." );
+    CHBDebug( "Custom Hotbar | Initializing current color values..." );
     $( "#chbPrimaryColorSplash" ).css("background-color", c.chbPrimaryColor);
     $( "#chbBorderColorSplash" ).css("background-color", c.chbBorderColor);
     $( "#chbBorderColorActiveSplash" ).css("background-color", c.chbBorderColorActive);
@@ -117,7 +119,7 @@ Hooks.on("renderCustomHotbarSettingsForm", (a, b, c) => {
 });
 
 Hooks.on("pickerDone", (parentDiv, hexColor) => {
-    console.debug("Custom Hotbar | pickerDone hook detected");
+    CHBDebug("Custom Hotbar | pickerDone hook detected");
     $( parentDiv ).find("input").removeClass("expanded");
     //$( parentDiv ).find("input").prop( "disabled", true );
     $( parentDiv ).css("background-color", hexColor);

@@ -3,12 +3,26 @@
 * Fixed CustomHotbar app being added to UI twice
 * Note: support for v9 keybinding library coming soon.
 
-### Version 2.1
-Did something important, probably. Version bump for v8?
+## Version 2.1.0 (2021/05/20)
+0.8.x update, a few new features, and misc bugfixes
+* Updates Custom Hotbar for Foundry 0.8.x release branch while maintaining backwards compatibility.
+* NEW FEATURE: Ability for users to disable their own custom hotbar entirely if they don't want it (and core hotbar too, because why not?)
+* NEW FEATURE: keybinding library for a high level of keybinding customization and reliability improvements.
+* Adds color settings library as an official dependency to assist with hotbar customization
+* Portuguese translation (sorry about the delay rinnocenti!!)
+* Changed hotbar coloration to match core foundry (#0000FF60 is the "classic blue" if you want to change back)
+* Firefox compatibility improvements
+* Module is now less talkative in console log
+* Many miscellaneous bugfixes (see changelog).
 
-### Version 2.0.4 (2020/07/24)
+## Version 2.0.6 (2020/10/21)
+* Marked as compatibile with 0.7.5 after successful testing.
+* The weird duplicate custom hotbar issue mysteriously fixed itself in 0.7.5
+* Fixed Shift-number keybind (thanks Nihilistkitten and everyone else for the investigation)
+* Updated ColorSettings Library by moving to the stub solution.
 
-Bugfix: fixed z-index of macro context menus.
+## Version 2.0.5 (2020/07/27)
+Fixed Z index issue introduced in v2.0.3 that was preventing the right-click context menu of the core Foundry hotbar from being on top of the Custom Hotbar. My attempted fix for the same issue in 2.0.4 was not actually present in the release due to versioning issues. Oops.
 
 ## Version 2.0.3 (2020/07/24)
 
