@@ -245,7 +245,10 @@ export class CustomHotbar extends Hotbar {
         name: "MACRO.Remove",
         icon: '<i class="fas fa-times"></i>',
         condition: li => !!this.populator.macroMap[li.data("slot")],
-        callback: li => game.user.assignHotbarMacro(null, Number(li.data("slot")))
+        callback: async li => {
+          await this.populator.chbUnsetMacro( li.data("slot") )
+          this.render();
+        }
       },
       {
         name: "MACRO.Delete",
