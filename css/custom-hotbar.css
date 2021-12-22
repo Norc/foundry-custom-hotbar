@@ -1,7 +1,7 @@
 /*Global styles*/
 
 #custom-hotbar {
-    z-index: 69;
+    z-index: 29;
     position: fixed;
     bottom: 63px;
     left: 220px;
@@ -198,7 +198,7 @@ span.custom-macro-key {
 
 /*
 nav#context-menu {
-    z-index: 71;
+    z-index: 31;
 }
 */
 
@@ -216,7 +216,6 @@ div#client-settings div.chb-user {
     padding: 5px;
     padding-left: 6px;
 }
-
 
 /* fix boundary between two stylized settings divs */
 /* Extra specficity for first box to work properly with Tidy UI styles */
@@ -236,19 +235,15 @@ div#client-settings div#coreSetDiv {
     border-top: none;
 }
 
-#client-settings div#chbDisableDiv > span
-,#client-settings div#coreDisableDiv > span {
-    margin-left: 0;
-    flex: none;
-}
-
-div.chb-setting > button {
-    flex: 1 1 100%;
-}
-
-
-div.chbDisable {
-    padding-left: 45px;
+/* with apologies to sdenec, lifted from Tidy UI Settings module, which you should install... */
+#client-settings .chb-setting label,
+#client-settings .chb-setting > label {
+  flex-grow: unset;
+  flex-basis: unset;
+  flex: 1 1 100%;
+  line-height: 1.2;
+  margin: 0 0 .25rem calc(13px + 1rem);
+  order: -1;
 }
 
 .macro .tooltip span {
@@ -292,21 +287,4 @@ div#custom-hotbar-settings-form h1 {
 
 div#custom-hotbar-settings-form h2 {
     font-size:large;
-}
-
-div#keyHintDiv {
-    font-weight: bolder;
-}
-
-div#keyHintDiv > p {
-        font-weight:normal;
-    }
-
-div#keyHintDiv > div> input {
-    display:none;
-}
-
-div.chbSettings > div.colorsplash > input {
-    background-color: white;
-    border: 1px solid black;
 }
