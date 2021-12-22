@@ -11,7 +11,7 @@
         <ol id="custom-macro-list" class="flexrow" data-page="{{page}}">
             {{#each macros}}
             <li class="macro {{this.cssClass}}" data-slot="{{this.slot}}"
-                {{#if this.macro}}data-macro-id="{{this.macro._id}}"{{/if}}>
+                {{#if this.macro}}data-macro-id="{{this.macro.id}}"{{/if}}>
                 <span class="custom-macro-key">Sh-{{this.key}}</span>
                 {{#if this.icon}}
                 <img class="macro-icon" src="{{this.icon}}"/>
