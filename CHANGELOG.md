@@ -1,3 +1,8 @@
+### Version 2.2 (2021/12/12)
+* Added compatibility with v9. This was a breaking change, so use 2.1 for 0.8.x and earlier.
+* Fixed CustomHotbar app being added to UI twice
+* Note: support for v9 keybinding library coming soon.
+
 ## Version 2.1.0 (2021/05/20)
 0.8.x update, a few new features, and misc bugfixes
 * Updates Custom Hotbar for Foundry 0.8.x release branch while maintaining backwards compatibility.
