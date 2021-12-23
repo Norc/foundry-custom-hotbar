@@ -1,25 +1,25 @@
-<div id="custom-hotbar" class="flexrow">
-    <div id="custom-hotbar-directory-controls" class="bar-controls flexcol">
-        <a id="custom-bar-toggle">
+<div id="hotbar" class="flexrow">
+    <div id="hotbar-directory-controls" class="bar-controls flexcol">
+        <a id="bar-toggle">
             <i class="fas fa-caret-down"></i>
         </a>
-        <a id="custom-macro-directory">
+        <a id="macro-directory">
             <i class="fas fa-folder"></i>
         </a>
     </div>
-    <nav id="custom-action-bar" class="flexrow {{barClass}}">
-        <ol id="custom-macro-list" class="flexrow" data-page="{{page}}">
+    <nav id="action-bar" class="flexrow {{barClass}}">
+        <ol id="macro-list" class="flexrow" data-page="{{page}}">
             {{#each macros}}
             <li class="macro {{this.cssClass}}" data-slot="{{this.slot}}"
                 {{#if this.macro}}data-macro-id="{{this.macro.id}}"{{/if}}>
-                <span class="macro-key">Sh-{{this.key}}</span>
+                <span class="macro-key">{{this.key}}</span>
                 {{#if this.icon}}
                 <img class="macro-icon" src="{{this.icon}}"/>
                 {{/if}}
             </li>
             {{/each}}
         </ol>
-        <div id="custom-hotbar-page-controls" class="bar-controls flexcol">
+        <div id="hotbar-page-controls" class="bar-controls flexcol">
             <a class="page-control" data-action="page-up"><i class="fas fa-angle-up"></i></a>
             <span class="page-number">{{page}}</span>
             <a class="page-control" data-action="page-down"><i class="fas fa-angle-down"></i></a>
