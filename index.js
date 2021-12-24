@@ -497,7 +497,7 @@ Hooks.on("init", async () => {
   if( document.querySelector('#hotbar') !== null ) {
     //find core hotbar and insert div nex to it for custom-hotbar to automatically render into
     let hbEl = document.querySelector('#hotbar');
-    let chbsEl = document.createElement('template');
+    let chbEl = document.createElement('template');
     chbEl.setAttribute('id','custom-hotbar');
     hbEl.insertAdjacentElement('beforebegin',chbEl);
     let parEl = hbEl.parentElement;
