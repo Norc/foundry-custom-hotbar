@@ -22,7 +22,6 @@ async function customHotbarInit() {
       renderData: "init"
   };
 
-
   CustomHotbarSettings.register();
 
   //apply settings styles, first for custom hotbar, then for core hotbar
@@ -40,7 +39,7 @@ async function customHotbarInit() {
     CHBDebug('Custom Hotbar | User disabled core Foundry hotbar.');
     coreDisplay = "none";
   }
-
+/*
    var css =
       '#custom-hotbar' 
     + ` { bottom: ${CustomHotbarSettings.getCHBYPos()}px; ` 
@@ -114,7 +113,7 @@ async function customHotbarInit() {
 
   style.type = 'text/css';
   style.appendChild(document.createTextNode(css));
-
+*/
   //ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
     element.ondragstart = ui.hotbar._onDragStart;
@@ -494,6 +493,14 @@ async function customHotbarInit() {
   
 }
 
+Hooks.on("init", async () => {
+  //find core hotbar and insert div nex to it for custom-hotbar to automatically render into
+  let hbEl = document.querySelector('#hotbar');
+  let chbEl = document.createElement('template');
+  chbEl.setAttribute('id','custom-hotbar');
+  hbEl.insertAdjacentElement('beforebegin',chbEl)
+});
+
 Hooks.on("renderHotbar", async () => {
   CHBDebug("Custom Hotbar | The core hotbar just rendered!");
   //Add a new event listener to core hotbar macro icons to disable tooltip display on drag start so it doesn't get in way of Custom Hotbar
@@ -504,24 +511,15 @@ Hooks.on("renderHotbar", async () => {
       document.getElementsByClassName("tooltip")[0].style.display = "none";
     });
   }
+  if ( ui.customHotbar !== undefined ) {
+    ui.customHotbar.render();
+  }
 });
 
 Hooks.on("renderCustomHotbar", async () => {
   CHBDebug("Custom Hotbar | The custom hotbar just rendered!");
 });
 
-Hooks.on("renderHotbar", async () => {
-  if ( ui.customHotbar !== undefined ) {
-    ui.customHotbar.render();
-  }
-});
-
-/* Firefox debugging hook
-//This should never fire, even on Firefox
-Hooks.on("render", async () => {
-  CHBDebug("Custom Hotbar | If you are seeing this, the core Hotbar class is not calling its render hook properly. Perhaps you are using Firefox?");
-});
-*/
 
 Hooks.once('ready', () => {
   //triple-check to make sure something didn't go horribly wrong with Lib Color Picker 

@@ -10,7 +10,7 @@
 /*  Hotbar                                  */
 /* ---------------------------------------- */
 #custom-hotbar {
-  z-index: calc(var(--z-index-ui) + 10-1);
+  z-index: calc(var(--z-index-ui) + 9);
   width: var(--hotbar-width);
   height: var(--hotbar-height);
   pointer-events: none;
@@ -117,6 +117,7 @@
 #custom-hotbar #custom-hotbar-directory-controls,
 #custom-hotbar #custom-hotbar-page-controls {
   pointer-events: all;
+  z-index: calc(var(--z-index-ui) + 9);
 }
 #custom-hotbar #custom-hotbar-directory-controls a {
   line-height: 24px;
