@@ -560,46 +560,38 @@ Hooks.once('ready', () => {
 Hooks.on("renderSettingsConfig", async () => {
   //customize styling for CHB settings
     //add CSS ids and classes to CustomHotbar settings section for styling
-    let settingsDiv = document.getElementById("client-settings");
-    
-    let chbSetDiv = $( `#${settingsDiv.id} div h2.module-header:contains("Custom Hotbar")` ).next();
-    let usrFirstDiv = $(chbSetDiv);
+    let chbConfigDiv = document.body.querySelector("section[data-tab='custom-hotbar']");
+    chbConfigDiv.setAttribute('id','chbConfigDiv');
+
+    let usrFirstDiv;
 
   //Add ids and classes for "GM only" button divs if user is GM.
-  if (game.users.current.isGM ===true ) {
+  if (game.users.current.isGM === true ) {
 
-    $(chbSetDiv).addClass('chb-setting');
-    $(chbSetDiv).addClass('chb-global');
-    $(chbSetDiv).attr('id', 'chbSetDiv');
+    let chbSetDiv = chbConfigDiv.querySelector("div");
+    chbSetDiv.setAttribute('id','chbSetDiv');
     
-    let coreSetDiv = $(chbSetDiv).next();
-    $(coreSetDiv).addClass('chb-setting');
-    $(coreSetDiv).addClass('chb-global');
-    $(coreSetDiv).attr('id', 'coreSetDiv');
+    let coreSetDiv = chbSetDiv.nextElementSibling;
+    coreSetDiv.setAttribute('id','coreSetDiv');
 
-    usrFirstDiv = $(coreSetDiv).next();
+    usrFirstDiv = coreSetDiv.nextElementSibling;
   }
 
   //Add ids and classes for the custom hotbar menu button divs, if it's enabled for the user
   if (game.settings.get("custom-hotbar","chbDisabled") === false) {  
-    let chbFlagDiv = $(usrFirstDiv);
-    $(chbFlagDiv).addClass('chb-setting');
-    $(chbFlagDiv).addClass('chb-user');
-    $(chbFlagDiv).attr('id', 'chbFlagDiv');
+    let chbFlagDiv = usrFirstDiv;
+    chbFlagDiv.setAttribute('id', 'chbFlagDiv');
   }
 
   //Add ids and classes for the core hotbar menu button divs, if it's enabled for the user
   if (game.settings.get("custom-hotbar","coreDisabled") === false) {
-    let coreFlagDiv = $(usrFirstDiv).next();
+    let coreFlagDiv = usrFirstDiv.nextElementSibling;
     //check to make sure that the custom hotbar is enabled and ajdust if it isn't
     if (game.settings.get("custom-hotbar","chbDisabled") === true) {
-      coreFlagDiv = $(usrFirstDiv);      
+      coreFlagDiv = usrFirstDiv;      
     }
-    $(coreFlagDiv).addClass('chb-setting');
-    $(coreFlagDiv).addClass('chb-user');
-    $(coreFlagDiv).attr('id', 'coreFlagDiv');
+    coreFlagDiv.setAttribute('id', 'coreFlagDiv');
   }
-
 
   //Assess disable settings to help determine which div precedes Disable
   let chbDisabled = game.settings.get("custom-hotbar","chbDisabled");
@@ -609,23 +601,19 @@ Hooks.on("renderSettingsConfig", async () => {
   let chbDisableDiv = usrFirstDiv;
 
   //Case: Core Hotbar is enabled (so state of Custom Hotbar doesn't matter)
-  if ( coreDisabled === false ) chbDisableDiv = $(coreFlagDiv).next(); 
+  if ( coreDisabled === false ) chbDisableDiv = coreFlagDiv.nextElementSibling; 
 
   //Case: Core hotbar is disabled but Custom hotbar is not  
-  if (chbDisabled === false && coreDisabled === true ) chbDisableDiv = $(chbFlagDiv).next();
+  if (chbDisabled === false && coreDisabled === true ) chbDisableDiv = chbFlagDiv.nextElementSibling;
 
   //Add ids and classes for the disable checkbox divs
-  $(chbDisableDiv).addClass('chb-setting');
-  $(chbDisableDiv).addClass('chb-disable');
-  $(chbDisableDiv).attr('id', 'chbDisableDiv');
+  chbDisableDiv.setAttribute('id', 'chbDisableDiv');
 
-  let coreDisableDiv = $(chbDisableDiv).next();
-  $(coreDisableDiv).addClass('core-setting');
-  $(coreDisableDiv).addClass('core-disable');
-  $(coreDisableDiv).attr('id', 'coreDisableDiv');
+  let coreDisableDiv = chbDisableDiv.nextElementSibling;
+  coreDisableDiv.setAttribute('id', 'coreDisableDiv');
 
-  let keyHintDiv = $(coreDisableDiv).next();
-  $(keyHintDiv).attr('id', 'keyHintDiv');
+  let keyHintDiv = coreDisableDiv.nextElementSibling;
+  keyHintDiv.setAttribute('id', 'keyHintDiv');
 });
 
 /* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (to verify with 0.8.x and log)
