@@ -76,7 +76,7 @@ export class CustomHotbar extends Hotbar {
     for ( let [i, m] of macros.entries() ) {
       m.key = i<9 ? i+1 : 0;
       m.cssClass = m.macro ? "active" : "inactive";
-      m.icon = m.macro ? m.macro.data.img : null;
+      m.icon = m.macro ? m.macro.img : null;
     }
     return macros;
   }
@@ -287,17 +287,18 @@ export class CustomHotbar extends Hotbar {
     event.preventDefault();
     CHBDebug("Custom Hotbar | custom-hotbar drop detected!");
     // Try to extract the data
-    let data;
-    try {
-      data = JSON.parse(event.dataTransfer.getData('text/plain'));
-    }
-    catch (err) { return }
+    const data = TextEditor.getDragEventData(event);
 
     // Get the drop target
     const li = event.target.closest(".macro");
 
     // Allow for a Hook function to handle the event
-    let customSlot = li.dataset.slot;
+    let customSlot = Number(li.dataset.slot);
+
+    // Get the dropped document
+    const cls = getDocumentClass(data.type);
+    const doc = await cls?.fromDropData(data);
+    if ( !doc ) return;
 
     //If needed, temporarily hijack assignHotbarMacro to trick core/modules to auto-create macros for CustomHotbar instead
     //only needs to be done when dropping an item onto the Custom Hotbar.
@@ -320,7 +321,12 @@ export class CustomHotbar extends Hotbar {
     }
 
     // Only handles Macro drops
-    const macro = await this._getDropMacro(data);
+    // Get the Macro to add to the bar
+    let macro;
+    if ( data.type === "Macro" ) {
+      macro = game.macros.has(doc.id) ? doc : await cls.create(doc.toObject());
+    }
+    else macro = await this._createDocumentSheetToggle(doc);
     if ( macro ) {
       CHBDebug("Custom Hotbar | macro provided:", macro, "fromSlot", data.customSlot);
       CHBDebug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
