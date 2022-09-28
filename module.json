@@ -1,28 +1,16 @@
 {   
-    "name": "custom-hotbar",
-    "id": "custom-hotbar",   
+    "name": "custom-hotbar",   
     "title": "Custom Hotbar",   
     "description": "An extra fully functional hotbar (currently 1 row only) above the first.",   
     "author": "Norc",
-    "version": "2.3.0",
-    "minimumCoreVersion": 10,
-    "compatibility": {
-      "minimum": 10,
-      "verified": "10.286"
-    },
+    "version": "2.2.0",
+    "minimumCoreVersion": "9",
+    "compatibleCoreVersion":"9",
     "esmodules": [
       "index.js"
       , "./lib/colorsettings/colorSettingStub.js"
       ],
-    "dependencies": [ { "name": "lib-df-hotkeys" }, { "name": "colorsettings" }  ],
-    "requires": [{
-      "id": "lib-df-hotkeys",
-      "type": "module",
-      "manifest": "https://raw.githubusercontent.com/ardittristan/VTTColorSettings/2.9.0/module.json",
-      "compatibility": {
-        "verified": "2.9.0"
-      }
-     }],  
+    "dependencies": [ { "name": "lib-df-hotkeys" }, { "name": "colorsettings" }  ],  
     "languages": [
         {
       "lang": "pt-BR",
