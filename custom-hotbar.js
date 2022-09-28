@@ -363,7 +363,7 @@ export class CustomHotbar extends Hotbar {
   _onDragStart(event) {
     //hide tooltip so it doesn't get in the way
     CHBDebug("Custom Hotbar | Attempting to hide tooltip.");
-    document.getElementsByClassName("tooltip")[0].style.display = "none";
+    document.getElementById("tooltip").style.display = "none";
 
     const li = event.currentTarget.closest(".macro");
     if ( !this.populator.macroMap[li.dataset.slot] ) return false;

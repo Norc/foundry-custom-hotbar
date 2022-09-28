@@ -512,7 +512,7 @@ Hooks.on("renderHotbar", async () => {
     m.addEventListener("dragstart", (event) => {
       CHBDebug('Custom Hotbar | Core Hotbar Dragged');
       CHBDebug(event);
-      document.getElementsByClassName("tooltip")[0].style.display = "none";
+      document.getElementById("tooltip").style.display = "none";
     });
   }
   if ( ui.customHotbar !== undefined ) {
