@@ -369,13 +369,11 @@ export class CustomHotbar extends Hotbar {
   _onDragStart(event) {
     //hide tooltip so it doesn't get in the way
     CHBDebug("Custom Hotbar | Attempting to hide tooltip.");
-    document.getElementById("tooltip").style.display = "none";
+    game.tooltip.deactivate();
 
     const li = event.currentTarget.closest(".macro");
     const macro = game.macros.get(this.populator.macroMap[li.dataset.slot]);
-    //if ( !this.populator.macroMap[li.dataset.slot] ) return false;
     if ( !macro ) return false;
-    //const dragData = { type: "Macro", id: this.populator.macroMap[li.dataset.slot], customSlot: li.dataset.slot };
     const dragData = foundry.utils.mergeObject(macro.toDragData(), {customSlot: li.dataset.slot});
     event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
   }
@@ -425,8 +423,8 @@ export class CustomHotbar extends Hotbar {
     const hasAction = !li.classList.contains("inactive");
 
     // Remove any existing tooltip
-    const tooltip = li.querySelector(".tooltip");
-    if ( tooltip ) li.removeChild(tooltip);
+    //const tooltip = li.querySelector(".tooltip");
+    //if ( tooltip ) li.removeChild(tooltip);
 
     // Handle hover-in
     if ( event.type === "mouseenter" ) {
