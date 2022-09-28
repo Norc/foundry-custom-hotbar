@@ -372,8 +372,11 @@ export class CustomHotbar extends Hotbar {
     document.getElementById("tooltip").style.display = "none";
 
     const li = event.currentTarget.closest(".macro");
-    if ( !this.populator.macroMap[li.dataset.slot] ) return false;
-    const dragData = { type: "Macro", id: this.populator.macroMap[li.dataset.slot], customSlot: li.dataset.slot };
+    const macro = game.macros.get(this.populator.macroMap[li.dataset.slot]);
+    //if ( !this.populator.macroMap[li.dataset.slot] ) return false;
+    if ( !macro ) return false;
+    //const dragData = { type: "Macro", id: this.populator.macroMap[li.dataset.slot], customSlot: li.dataset.slot };
+    const dragData = foundry.utils.mergeObject(macro.toDragData(), {customSlot: li.dataset.slot});
     event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
   }
 
