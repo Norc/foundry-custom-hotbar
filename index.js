@@ -507,12 +507,12 @@ Hooks.on("init", async () => {
 
 Hooks.on("renderHotbar", async () => {
   CHBDebug("Custom Hotbar | The core hotbar just rendered!");
-  //Add a new event listener to core hotbar macro icons to disable tooltip display on drag start so it doesn't get in way of Custom Hotbar
+  //Add a new event listener to core hotbar macro icons to disable tooltip display on drag start so it doesn't get in way of Custom Hotbar - Disabled
   for ( let m of document.getElementsByClassName("macro-icon") ) {
     m.addEventListener("dragstart", (event) => {
       CHBDebug('Custom Hotbar | Core Hotbar Dragged');
       CHBDebug(event);
-      document.getElementById("tooltip").style.display = "none";
+      //document.getElementById("tooltip").style.display = "none";
     });
   }
   if ( ui.customHotbar !== undefined ) {
