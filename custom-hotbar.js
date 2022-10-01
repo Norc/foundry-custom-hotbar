@@ -74,10 +74,10 @@ export class CustomHotbar extends Hotbar {
   _getCustomMacrosByPage(page) { 
     const macros = this.getCustomHotbarMacros(page);
     for ( let [i, m] of macros.entries() ) {
-      m.key = i<9 ? i+1 : 0;
+      m.customSlot = i<9 ? i+1 : 0;
       m.cssClass = m.macro ? "active" : "inactive";
       m.icon = m.macro ? m.macro.img : null;
-      m.slot = m.key;
+      //m.customSlot = m.key;
       m.tooltip = m.macro ? m.macro.name : "";
     }
     return macros;
