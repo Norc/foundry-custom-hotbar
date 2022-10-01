@@ -334,6 +334,7 @@ export class CustomHotbar extends Hotbar {
       CHBDebug("Custom Hotbar | monkey hotpatch?", game.user.assignHotbarMacro === this.assignCustomHotbarMacro);
         await this.assignCustomHotbarMacro(macro, customSlot, {fromSlot: data.customSlot});
     }
+    game.tooltip.deactivate();
     await ui.customHotbar.render();
   }
 
