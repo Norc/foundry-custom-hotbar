@@ -122,6 +122,120 @@
 #custom-hotbar #custom-hotbar-directory-controls a {
   line-height: 24px;
 }
+
+
+
+
+
+/* Settings CSS */
+#chbConfigDiv div.form-group {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+#chbConfigDiv input[is="colorpicker-input"] {
+  background-color: unset;
+  max-width:20%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+
+  border: black 1px;
+}
+
+#chbConfigDiv input[type="Number"] {
+  background-color: white;
+  max-width:10%;
+  text-align: center;
+  border: black 1px;
+  float: left;
+  margin-right: 0.75em;
+}
+
+#chbConfigDiv div.colorsplash {
+  display: grid;
+  place-items: center;
+  background-color: blue;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  border: black 1px;
+  border-radius: 0.5em;
+}
+
+#chbSetDiv button, #coreSetDiv button, #chbFlagDiv button, #coreFlagDiv button{
+  min-width: 100%;
+}
+
+/* fix boundary between two stylized settings divs */
+/* Extra specficity for first box to work properly with Tidy UI styles */
+#coreSetDiv, #chbSetDiv {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  background-color: #d3d3d380;
+  padding: 4px;
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+#coreSetDiv {
+  margin-top: 0;
+  border-top: none;
+}
+
+/* with apologies to sdenec, lifted from Tidy UI Settings module, which you should install... 
+#client-settings .chb-setting label,
+#client-settings .chb-setting > label {
+flex-grow: unset;
+flex-basis: unset;
+flex: 1 1 100%;
+line-height: 1.2;
+margin: 0 0 .25rem calc(13px + 1rem);
+order: -1;
+} */
+
+
+/*
+div.chbSettings div.colorsplash .layout_default.picker_wrapper{
+  margin-bottom: 26px;
+}
+
+
+div#client-settings .chb-setting label {
+  padding-top: 8px;
+}
+
+/* Settings Menu 
+div#custom-hotbar-settings-form div.colorsplash input.expanded {
+  opacity:0;
+}
+
+div#custom-hotbar-flags-form div.colorsplash input.expanded {
+  opacity:0;
+}
+
+div#core-hotbar-settings-form div.colorsplash input.expanded {
+  opacity:0;
+}
+
+div#core-hotbar-flags-form div.colorsplash input.expanded {
+  opacity:0;
+}
+*/
+
+/* hide extra button on color picker selection */
+
+
+/* In Settings Menu, Make H1 and H2 less ridonkulous
+div#custom-hotbar-settings-form h1 {
+  font-size:x-large;
+}
+
+div#custom-hotbar-settings-form h2 {
+  font-size:large;
+} */
+
 @media (max-width: 1120px) {
   #custom-hotbar {
     width: calc(var(--hotbar-width) / 2);
@@ -144,3 +258,47 @@
     flex: 1;
   }
 }
+
+/* unused styles */
+
+/*
+  span.custom-macro-key {
+    z-index: 2;
+  }
+
+
+  nav#context-menu {
+    z-index: 31;
+  } 
+
+  .macro .tooltip span {
+    z-index: 4;
+  }
+*/
+
+/* 
+  Match box styling for User Settings 
+  #chbSetDiv div {
+    padding: 5px;
+    padding-left: 6px;
+  }
+*/
+
+
+/* Border around Global Settings
+#chbSetDiv div {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  background-color: #d3d3d380;
+  padding: 4px;
+} */
+
+/* Border around Global Settings 
+#coreSetDiv {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  background-color: #d3d3d380;
+  padding: 4px;
+} */
