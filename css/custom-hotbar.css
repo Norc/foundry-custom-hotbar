@@ -44,7 +44,7 @@
   text-align: center;
   color: var(--color-text-light-heading);
   background: var(--custom-hotbar-chb-primaryColor);
-  border: 1px solid var(--color-border-dark);
+  border: 1px solid var(--custom-hotbar-chb-border-color);
   box-shadow: 0 0 3px #444 inset;
   border-radius: 3px;
 }
@@ -76,7 +76,7 @@
   list-style: none;
   margin: 0 2px;
   padding: 0;
-  border: 1px solid var(--color-border-dark);
+  border: 1px solid var(--custom-hotbar-chb-border-color);
   border-radius: 3px;
   display: grid;
   grid-template-columns: repeat(10, var(--custom-hotbar-chb-macro-size));
@@ -85,7 +85,7 @@
   position: relative;
   width: var(--custom-hotbar-chb-macro-size);
   height: var(--custom-hotbar-chb-macro-size);
-  border: 1px solid var(--color-border-dark);
+  border: 1px solid var(--custom-hotbar-chb-border-color);
   border-radius: 2px;
   background: var(--custom-hotbar-chb-primaryColor);;
   box-shadow: 0 0 5px var(--color-shadow-dark) inset;
@@ -95,10 +95,10 @@
   box-shadow: 0 0 5px #444 inset;
 }
 #custom-hotbar .macro:hover {
-  box-shadow: 0 0 10px var(--color-shadow-highlight) inset;
+  box-shadow: 0 0 10px var(--custom-hotbar-chb-border-color-inactive) inset;
 }
 #custom-hotbar .macro.active:hover {
-  border: 1px solid var(--color-border-highlight-alt);
+  border: 1px solid var(--custom-hotbar-chb-border-color-active);
 }
 #custom-hotbar .macro .macro-key {
   position: absolute;
