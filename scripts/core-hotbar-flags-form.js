@@ -61,8 +61,20 @@ export class CoreHotbarFlagsForm extends FormApplication {
         await game.user.setFlag("custom-hotbar", "coreBorderColorActive", d.coreBorderColorActive);
         await game.user.setFlag("custom-hotbar", "coreBorderColorInactive", d.coreBorderColorInactive);
 
-        await game.user.setFlag("custom-hotbar","coreXPos", d.coreXPos);
-        await game.user.setFlag("custom-hotbar","coreYPos", d.coreYPos);
+        if (d.coreXPos === 0) {
+            await game.user.setFlag("custom-hotbar","coreZeroXPos", true);
+        } else {
+            await game.user.setFlag("custom-hotbar","coreZeroXPos", false);
+            await game.user.setFlag("custom-hotbar","coreXPos", d.coreXPos);
+        };
+        
+        if (d.coreYPos === 0) {
+            await game.user.setFlag("custom-hotbar","coreZeroYPos", true);
+        } else {
+            await game.user.setFlag("custom-hotbar","coreZeroYPos", false);
+            await game.user.setFlag("custom-hotbar","coreYPos", d.coreYPos);
+        };
+        
         this.render();
         ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                     
     }

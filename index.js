@@ -40,7 +40,11 @@ async function customHotbarInit() {
     coreDisplay = "none";
   }
 
+  //
   //initialize CSS variables to match current settings and user flags
+  //
+
+  //TODO: Make not store directly in document model??
   let r = document.querySelector(':root');
 
   r.style.setProperty('--custom-hotbar-chb-primaryColor', CustomHotbarSettings.getCHBPrimaryColor());
