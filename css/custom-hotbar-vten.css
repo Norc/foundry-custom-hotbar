@@ -1,0 +1,126 @@
+
+:root {
+    --hotbar-height: 52px;
+    --hotbar-width: 578px;
+}
+
+/* ---------------------------------------- */
+/*  Hotbar                                  */
+/* ---------------------------------------- */
+#hotbar {
+    z-index: calc(var(--z-index-ui) + 10);
+    width: var(--hotbar-width);
+    height: var(--hotbar-height);
+    pointer-events: none;
+    flex-wrap: nowrap;
+    margin-bottom: 10px;
+  }
+  #hotbar .bar-controls {
+    flex: 0 0 32px;
+    height: 100%;
+    margin: 0 2px;
+    text-align: center;
+    color: var(--color-text-light-heading);
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--color-border-dark);
+    box-shadow: 0 0 3px #444 inset;
+    border-radius: 3px;
+  }
+  #hotbar .bar-controls a {
+    display: block;
+  }
+  #hotbar .bar-controls a.page-control {
+    font-size: 1.5em;
+    line-height: 12px;
+  }
+  #hotbar .bar-controls span.page-number {
+    display: block;
+    font-size: var(--font-size-20);
+    line-height: 8px;
+  }
+  #hotbar #action-bar {
+    flex: 1;
+    height: 100%;
+    pointer-events: all;
+    flex-wrap: nowrap;
+  }
+  #hotbar #action-bar.collapsed {
+    display: none;
+    pointer-events: none;
+  }
+  #hotbar #macro-list {
+    flex-wrap: nowrap;
+    height: 100%;
+    list-style: none;
+    margin: 0 2px;
+    padding: 0;
+    border: 1px solid var(--color-border-dark);
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: repeat(10, var(--macro-size));
+  }
+  #hotbar .macro {
+    position: relative;
+    width: var(--macro-size);
+    height: var(--macro-size);
+    border: 1px solid var(--color-border-dark);
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px var(--color-shadow-dark) inset;
+    cursor: pointer;
+  }
+  #hotbar .macro.inactive {
+    box-shadow: 0 0 5px #444 inset;
+  }
+  #hotbar .macro:hover {
+    box-shadow: 0 0 10px var(--color-shadow-highlight) inset;
+  }
+  #hotbar .macro.active:hover {
+    border: 1px solid var(--color-border-highlight-alt);
+  }
+  #hotbar .macro .macro-key {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    padding: 1px 3px;
+    background: #111;
+    color: var(--color-text-light-highlight);
+    font-weight: bold;
+    pointer-events: none;
+  }
+  #hotbar .macro .macro-icon {
+    object-fit: cover;
+    object-position: 50% 0;
+    border: none;
+    height: calc(var(--macro-size) - 2px);
+    width: calc(var(--macro-size) - 2px);
+  }
+  #hotbar #hotbar-directory-controls,
+  #hotbar #hotbar-page-controls {
+    pointer-events: all;
+  }
+  #hotbar #hotbar-directory-controls a {
+    line-height: 24px;
+  }
+  @media (max-width: 1120px) {
+    #hotbar {
+      width: calc(var(--hotbar-width) / 2);
+      height: calc(var(--hotbar-height) * 2);
+    }
+    #hotbar #macro-list {
+      grid-template-columns: repeat(5, 50px);
+    }
+    #hotbar .bar-controls {
+      justify-content: space-between;
+    }
+    #hotbar .bar-controls a {
+      flex: 0;
+    }
+    #hotbar .bar-controls span.page-number {
+      line-height: unset;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+  }
