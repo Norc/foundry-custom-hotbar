@@ -77,7 +77,8 @@ export class CustomHotbar extends Hotbar {
       m.customSlot = i<9 ? i+1 : 0;
       m.cssClass = m.macro ? "active" : "inactive";
       m.icon = m.macro ? m.macro.img : null;
-      //m.customSlot = m.key;
+      //TODO: Apply better logic to match keybinding options
+      m.key = `Sh-${m.customSlot}`;
       m.tooltip = m.macro ? m.macro.name : "";
     }
     return macros;
