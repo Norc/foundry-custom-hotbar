@@ -1,4 +1,4 @@
-UPDATE: Should be v9 compatible after v2.2 release. Please log issue if any remaining problems arise. v9 core keybind system adoption is planned for next update.
+UPDATE: Initial v10 compatiblility release. There is a known issue where the shift keybindings for the custom hotbar are non-functional for now, but this should otherwise be functionally equivalent to the v10 version.
 
 # Custom Hotbar
 Foundry VTT module to add an extra, fully functional macro hotbar above the core Foundry macro hotbar:
