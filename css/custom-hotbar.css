@@ -2,20 +2,29 @@
 /*  Root                                     */
 /* ----------------------------------------- */
 :root {
-  --custom-hotbar-height: 52px;
-  --custom-hotbar-width: 578px;
-  --custom-macro-size: 50px;
+  --custom-hotbar-chb-height: 52px;
+  --custom-hotbar-chb-macro-size: 50px;
+
+  --custom-hotbar-chb-primaryColor: #00000080;
+  --custom-hotbar-chb-border-color: #000000ff;
+  --custom-hotbar-chb-x-pos: 220;
+  --custom-hotbar-chb-y-pos: 63;
+  --custom-hotbar-chb-border-color-active: #ff6400ff;
+  --custom-hotbar-chb-border-color-inactive: #939799ff;
 }
 /* ---------------------------------------- */
 /*  Hotbar                                  */
 /* ---------------------------------------- */
 #custom-hotbar {
   z-index: calc(var(--z-index-ui) + 9);
-  width: var(--hotbar-width);
-  height: var(--hotbar-height);
+  height: var(--custom-hotbar-chb-height);
   pointer-events: none;
   flex-wrap: nowrap;
   margin-bottom: 10px;
+  position: absolute;
+  display: var(--custom-hotbar-chb-display);
+  bottom: var(--custom-hotbar-chb-y-pos);  
+  left: var(--custom-hotbar-chb-x-pos);
 }
 #custom-hotbar .bar-controls {
   flex: 0 0 32px;
@@ -23,8 +32,8 @@
   margin: 0 2px;
   text-align: center;
   color: var(--color-text-light-heading);
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid var(--color-border-dark);
+  background: var(--custom-hotbar-chb-primaryColor);
+  border: 1px solid var(--custom-hotbar-chb-border-color);
   box-shadow: 0 0 3px #444 inset;
   border-radius: 3px;
 }
@@ -56,18 +65,18 @@
   list-style: none;
   margin: 0 2px;
   padding: 0;
-  border: 1px solid var(--color-border-dark);
+  border: 1px solid var(--custom-hotbar-chb-border-color);
   border-radius: 3px;
   display: grid;
-  grid-template-columns: repeat(10, var(--macro-size));
+  grid-template-columns: repeat(10, var(--custom-hotbar-chb-macro-size));
 }
 #custom-hotbar .macro {
   position: relative;
-  width: var(--macro-size);
-  height: var(--macro-size);
-  border: 1px solid var(--color-border-dark);
+  width: var(--custom-hotbar-chb-macro-size);
+  height: var(--custom-hotbar-chb-macro-size);
+  border: 1px solid var(--custom-hotbar-chb-border-color);
   border-radius: 2px;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--custom-hotbar-chb-primaryColor);;
   box-shadow: 0 0 5px var(--color-shadow-dark) inset;
   cursor: pointer;
 }
@@ -75,10 +84,10 @@
   box-shadow: 0 0 5px #444 inset;
 }
 #custom-hotbar .macro:hover {
-  box-shadow: 0 0 10px var(--color-shadow-highlight) inset;
+  box-shadow: 0 0 10px var(--custom-hotbar-chb-border-color-inactive) inset;
 }
 #custom-hotbar .macro.active:hover {
-  border: 1px solid var(--color-border-highlight-alt);
+  border: 1px solid var(--custom-hotbar-chb-border-color-active);
 }
 #custom-hotbar .macro .macro-key {
   position: absolute;
@@ -94,8 +103,8 @@
   object-fit: cover;
   object-position: 50% 0;
   border: none;
-  height: calc(var(--macro-size) - 2px);
-  width: calc(var(--macro-size) - 2px);
+  height: calc(var(--custom-hotbar-chb-macro-size) - 2px);
+  width: calc(var(--custom-hotbar-chb-macro-size) - 2px);
 }
 #custom-hotbar .macro .tooltip {
   display: block;
@@ -122,20 +131,160 @@
 #custom-hotbar #custom-hotbar-directory-controls a {
   line-height: 24px;
 }
+
+/* config container for positioning */
+#hotbars {
+  display:block;
+}
+
+
+
+/* ---------------------------------------- */
+/*  Settings                                */
+/* ---------------------------------------- */
+#chbConfigDiv div.form-group {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+#chbConfigDiv input[is="colorpicker-input"] {
+  background-color: unset;
+  max-width:20%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  border: black 1px;
+}
+
+#chbConfigDiv input[type="Number"] {
+  background-color: white;
+  max-width:10%;
+  text-align: center;
+  border: black 1px;
+  float: left;
+  margin-right: 0.75em;
+}
+
+#chbConfigDiv div.colorsplash {
+  display: grid;
+  place-items: center;
+  background-color: blue;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  border: black 1px;
+  border-radius: 0.5em;
+}
+
+#chbSetDiv button, #coreSetDiv button, #chbFlagDiv button, #coreFlagDiv button{
+  min-width: 100%;
+}
+
+/* fix boundary between two stylized settings divs */
+/* Extra specficity for first box to work properly with Tidy UI styles */
+#chbConfigDiv #chbSetDiv {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  background-color: #d3d3d380;
+  padding: 4px;
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+#chbConfigDiv #coreSetDiv {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  background-color: #d3d3d380;
+  padding: 4px;
+  margin-top: 0;
+  border-top: none;
+  padding-top: 0;
+}
+
+/* Hide unnecessary, broken, or unused elements */
+#custom-hotbar-page-controls, #custom-hotbar-directory-controls #custom-macro-directory {
+  display: none;
+}
+
+/* with apologies to sdenec, lifted from Tidy UI Settings module, which you should install... 
+#client-settings .chb-setting label,
+#client-settings .chb-setting > label {
+flex-grow: unset;
+flex-basis: unset;
+flex: 1 1 100%;
+line-height: 1.2;
+margin: 0 0 .25rem calc(13px + 1rem);
+order: -1;
+} */
+
+
+/*
+div.chbSettings div.colorsplash .layout_default.picker_wrapper{
+  margin-bottom: 26px;
+}
+
+
+div#client-settings .chb-setting label {
+  padding-top: 8px;
+}
+
+/* Settings Menu 
+div#custom-hotbar-settings-form div.colorsplash input.expanded {
+  opacity:0;
+}
+
+div#custom-hotbar-flags-form div.colorsplash input.expanded {
+  opacity:0;
+}
+
+div#core-hotbar-settings-form div.colorsplash input.expanded {
+  opacity:0;
+}
+
+div#core-hotbar-flags-form div.colorsplash input.expanded {
+  opacity:0;
+}
+*/
+
+/* hide extra button on color picker selection */
+
+
+/* In Settings Menu, Make H1 and H2 less ridonkulous
+div#custom-hotbar-settings-form h1 {
+  font-size:x-large;
+}
+
+div#custom-hotbar-settings-form h2 {
+  font-size:large;
+} */
+
+
+
+
+
+/* ---------------------------------------- */
+/*  Media                                   */
+/* ---------------------------------------- */
 @media (max-width: 1120px) {
   #custom-hotbar {
     width: calc(var(--hotbar-width) / 2);
     height: calc(var(--hotbar-height) * 2);
   }
+
   #custom-hotbar #custom-macro-list {
     grid-template-columns: repeat(5, 50px);
   }
+
   #custom-hotbar .bar-controls {
     justify-content: space-between;
   }
+
   #custom-hotbar .bar-controls a {
     flex: 0;
   }
+
   #customhotbar .bar-controls span.page-number {
     line-height: unset;
     display: flex;

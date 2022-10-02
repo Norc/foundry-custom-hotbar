@@ -61,8 +61,20 @@ export class CustomHotbarFlagsForm extends FormApplication {
         await game.user.setFlag("custom-hotbar", "chbBorderColorActive", d.chbBorderColorActive);
         await game.user.setFlag("custom-hotbar", "chbBorderColorInactive", d.chbBorderColorInactive);
 
-        await game.user.setFlag("custom-hotbar","chbXPos", d.chbXPos);
-        await game.user.setFlag("custom-hotbar","chbYPos", d.chbYPos);
+        if (d.chbXPos === 0) {
+            await game.user.setFlag("custom-hotbar","chbZeroXPos", true);
+        } else {
+            await game.user.setFlag("custom-hotbar","chbZeroXPos", false);
+            await game.user.setFlag("custom-hotbar","chbXPos", d.chbXPos);
+        };
+        
+        if (d.chbYPos === 0) {
+            await game.user.setFlag("custom-hotbar","chbZeroYPos", true);
+        } else {
+            await game.user.setFlag("custom-hotbar","chbZeroYPos", false);
+            await game.user.setFlag("custom-hotbar","chbYPos", d.chbYPos);
+        };
+
         this.render();
         ui.notifications.notify("Saving... Please refresh Foundry to apply changes.");                                                     
     }

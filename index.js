@@ -23,97 +23,46 @@ async function customHotbarInit() {
   };
 
   CustomHotbarSettings.register();
-
-  //apply settings styles, first for custom hotbar, then for core hotbar
-  //For each setting, use flag if present, otherwise use game setting.
   
 
-  let chbDisplay = "flex";
+  //
+  //initialize CSS variables to match current settings and user flags
+  //
+
+  //TODO: Make not store directly in document model??
+  let r = document.querySelector(':root');
+
+  r.style.setProperty('--custom-hotbar-chb-primaryColor', CustomHotbarSettings.getCHBPrimaryColor());
+  r.style.setProperty('--custom-hotbar-chb-border-color', CustomHotbarSettings.getCHBBorderColor());
+  r.style.setProperty('--custom-hotbar-chb-border-color-active', CustomHotbarSettings.getCHBBorderColorActive());
+  r.style.setProperty('--custom-hotbar-chb-border-color-inactive', CustomHotbarSettings.getCHBBorderColorInactive());
+  r.style.setProperty('--custom-hotbar-chb-x-pos', `${CustomHotbarSettings.getCHBXPos()}px`);
+  r.style.setProperty('--custom-hotbar-chb-y-pos', `${CustomHotbarSettings.getCHBYPos()}px`);
+ 
+  r.style.setProperty('--custom-hotbar-core-primaryColor', CustomHotbarSettings.getCorePrimaryColor());
+  r.style.setProperty('--custom-hotbar-core-border-color', CustomHotbarSettings.getCoreBorderColor());
+  r.style.setProperty('--custom-hotbar-core-border-color-active', CustomHotbarSettings.getCoreBorderColorActive());
+  r.style.setProperty('--custom-hotbar-core-border-color-inactive', CustomHotbarSettings.getCoreBorderColorInactive());
+  r.style.setProperty('--custom-hotbar-core-x-pos', `${CustomHotbarSettings.getCoreXPos()}px`);
+  r.style.setProperty('--custom-hotbar-core-y-pos', `${CustomHotbarSettings.getCoreYPos()}px`);
+
+  let chbDisplay = "flex"; 
+  /* TODO: shouldn't this be a user flag? or a combo with a getter?? */
   if (game.settings.get("custom-hotbar","chbDisabled") === true) {
     CHBDebug('Custom Hotbar | User disabled custom hotbar.');
     chbDisplay = "none";
   }
 
   let coreDisplay = "flex";
+  /* TODO: shouldn't this be a user flag? or a combo with a getter?? */
   if (game.settings.get("custom-hotbar","coreDisabled") === true) {
     CHBDebug('Custom Hotbar | User disabled core Foundry hotbar.');
     coreDisplay = "none";
   }
-/*
-   var css =
-      '#custom-hotbar' 
-    + ` { bottom: ${CustomHotbarSettings.getCHBYPos()}px; ` 
-    + `   left: ${CustomHotbarSettings.getCHBXPos()}px; `
-    //oops at importanting, not sure why it's needed, but hey.
-    + `   display: ${chbDisplay} !important`
-    + ' }'
 
-    + '#custom-hotbar #custom-macro-list' 
-    + ` {` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCHBBorderColor()};`
-    + ' }'
-    
-    + '#custom-hotbar .bar-controls' 
-    + ` { background: ${CustomHotbarSettings.getCHBPrimaryColor()};` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCHBBorderColor()};`
-    + ' }'
+  r.style.setProperty('--custom-hotbar-chb-display', chbDisplay);
+  r.style.setProperty('--custom-hotbar-core-display', coreDisplay);
 
-    + '#custom-hotbar .macro' 
-    + ` { background: ${CustomHotbarSettings.getCHBPrimaryColor()};` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCHBBorderColor()};`
-    + ' }'
-
-    + '#custom-hotbar .macro.active:hover' 
-    + ' {' 
-    + `     border: 1px solid ${CustomHotbarSettings.getCHBBorderColorActive()};`
-    + ' }'
-
-    + '#custom-hotbar .macro.inactive:hover' 
-    + ' {' 
-    + `     border: 1px solid ${CustomHotbarSettings.getCHBBorderColorInactive()};`
-    + ' }'
-
-
-
-    + '#hotbar' 
-    + ` { bottom: ${CustomHotbarSettings.getCoreYPos()}px; ` 
-    + `   left: ${CustomHotbarSettings.getCoreXPos()}px; `
-    //oops at importanting, not sure why it's needed, but hey.
-    + `   display: ${coreDisplay} !important`
-    + ' }'
-
-    + '#hotbar #custom-macro-list' 
-    + ` {` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
-    + ' }'
-    
-    + '#hotbar .bar-controls' 
-    + ` { background: ${CustomHotbarSettings.getCorePrimaryColor()};` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
-    + ' }'
-
-    + '#hotbar .macro' 
-    + ` { background: ${CustomHotbarSettings.getCorePrimaryColor()};` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
-    + ' }'
-
-    + '#hotbar .macro.active:hover' 
-    + ' {' 
-    + `     border: 1px solid ${CustomHotbarSettings.getCoreBorderColorActive()};`
-    + ' }'
-
-    + '#hotbar .macro.inactive:hover' 
-    + ' {' 
-    + `     border: 1px solid ${CustomHotbarSettings.getCoreBorderColorInactive()};`
-    + ' }'
-  , head = document.head || document.getElementsByTagName('head')[0]
-  , style = document.createElement('style');
-
-  head.appendChild(style);
-
-  style.type = 'text/css';
-  style.appendChild(document.createTextNode(css));
-*/
   //ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
     element.ondragstart = ui.hotbar._onDragStart;
@@ -507,12 +456,12 @@ Hooks.on("init", async () => {
 
 Hooks.on("renderHotbar", async () => {
   CHBDebug("Custom Hotbar | The core hotbar just rendered!");
-  //Add a new event listener to core hotbar macro icons to disable tooltip display on drag start so it doesn't get in way of Custom Hotbar
+  //Add a new event listener to core hotbar macro icons to disable tooltip display on drag start so it doesn't get in way of Custom Hotbar - Disabled
   for ( let m of document.getElementsByClassName("macro-icon") ) {
     m.addEventListener("dragstart", (event) => {
       CHBDebug('Custom Hotbar | Core Hotbar Dragged');
       CHBDebug(event);
-      document.getElementsByClassName("tooltip")[0].style.display = "none";
+      //document.getElementById("tooltip").style.display = "none";
     });
   }
   if ( ui.customHotbar !== undefined ) {
@@ -560,46 +509,38 @@ Hooks.once('ready', () => {
 Hooks.on("renderSettingsConfig", async () => {
   //customize styling for CHB settings
     //add CSS ids and classes to CustomHotbar settings section for styling
-    let settingsDiv = document.getElementById("client-settings");
-    
-    let chbSetDiv = $( `#${settingsDiv.id} div h2.module-header:contains("Custom Hotbar")` ).next();
-    let usrFirstDiv = $(chbSetDiv);
+    let chbConfigDiv = document.body.querySelector("section[data-tab='custom-hotbar']");
+    chbConfigDiv.setAttribute('id','chbConfigDiv');
+
+    let usrFirstDiv;
 
   //Add ids and classes for "GM only" button divs if user is GM.
-  if (game.users.current.isGM ===true ) {
+  if (game.users.current.isGM === true ) {
 
-    $(chbSetDiv).addClass('chb-setting');
-    $(chbSetDiv).addClass('chb-global');
-    $(chbSetDiv).attr('id', 'chbSetDiv');
+    let chbSetDiv = chbConfigDiv.querySelector("div");
+    chbSetDiv.setAttribute('id','chbSetDiv');
     
-    let coreSetDiv = $(chbSetDiv).next();
-    $(coreSetDiv).addClass('chb-setting');
-    $(coreSetDiv).addClass('chb-global');
-    $(coreSetDiv).attr('id', 'coreSetDiv');
+    let coreSetDiv = chbSetDiv.nextElementSibling;
+    coreSetDiv.setAttribute('id','coreSetDiv');
 
-    usrFirstDiv = $(coreSetDiv).next();
+    usrFirstDiv = coreSetDiv.nextElementSibling;
   }
 
   //Add ids and classes for the custom hotbar menu button divs, if it's enabled for the user
   if (game.settings.get("custom-hotbar","chbDisabled") === false) {  
-    let chbFlagDiv = $(usrFirstDiv);
-    $(chbFlagDiv).addClass('chb-setting');
-    $(chbFlagDiv).addClass('chb-user');
-    $(chbFlagDiv).attr('id', 'chbFlagDiv');
+    let chbFlagDiv = usrFirstDiv;
+    chbFlagDiv.setAttribute('id', 'chbFlagDiv');
   }
 
   //Add ids and classes for the core hotbar menu button divs, if it's enabled for the user
   if (game.settings.get("custom-hotbar","coreDisabled") === false) {
-    let coreFlagDiv = $(usrFirstDiv).next();
+    let coreFlagDiv = usrFirstDiv.nextElementSibling;
     //check to make sure that the custom hotbar is enabled and ajdust if it isn't
     if (game.settings.get("custom-hotbar","chbDisabled") === true) {
-      coreFlagDiv = $(usrFirstDiv);      
+      coreFlagDiv = usrFirstDiv;      
     }
-    $(coreFlagDiv).addClass('chb-setting');
-    $(coreFlagDiv).addClass('chb-user');
-    $(coreFlagDiv).attr('id', 'coreFlagDiv');
+    coreFlagDiv.setAttribute('id', 'coreFlagDiv');
   }
-
 
   //Assess disable settings to help determine which div precedes Disable
   let chbDisabled = game.settings.get("custom-hotbar","chbDisabled");
@@ -609,23 +550,19 @@ Hooks.on("renderSettingsConfig", async () => {
   let chbDisableDiv = usrFirstDiv;
 
   //Case: Core Hotbar is enabled (so state of Custom Hotbar doesn't matter)
-  if ( coreDisabled === false ) chbDisableDiv = $(coreFlagDiv).next(); 
+  if ( coreDisabled === false ) chbDisableDiv = coreFlagDiv.nextElementSibling; 
 
   //Case: Core hotbar is disabled but Custom hotbar is not  
-  if (chbDisabled === false && coreDisabled === true ) chbDisableDiv = $(chbFlagDiv).next();
+  if (chbDisabled === false && coreDisabled === true ) chbDisableDiv = chbFlagDiv.nextElementSibling;
 
   //Add ids and classes for the disable checkbox divs
-  $(chbDisableDiv).addClass('chb-setting');
-  $(chbDisableDiv).addClass('chb-disable');
-  $(chbDisableDiv).attr('id', 'chbDisableDiv');
+  chbDisableDiv.setAttribute('id', 'chbDisableDiv');
 
-  let coreDisableDiv = $(chbDisableDiv).next();
-  $(coreDisableDiv).addClass('core-setting');
-  $(coreDisableDiv).addClass('core-disable');
-  $(coreDisableDiv).attr('id', 'coreDisableDiv');
+  let coreDisableDiv = chbDisableDiv.nextElementSibling;
+  coreDisableDiv.setAttribute('id', 'coreDisableDiv');
 
-  let keyHintDiv = $(coreDisableDiv).next();
-  $(keyHintDiv).attr('id', 'keyHintDiv');
+  let keyHintDiv = coreDisableDiv.nextElementSibling;
+  keyHintDiv.setAttribute('id', 'keyHintDiv');
 });
 
 /* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (to verify with 0.8.x and log)

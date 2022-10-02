@@ -1,0 +1,71 @@
+/* ----------------------------------------- */
+/*  Root                                     */
+/* ----------------------------------------- */
+:root {  
+  --custom-hotbar-core-primaryColor: #00000080;
+  --custom-hotbar-core-border-color: #000000ff;
+  --custom-hotbar-core-x-pos: 220;
+  --custom-hotbar-core-y-pos: 63;
+  --custom-hotbar-core-border-color-active: #ff6400ff;
+  --custom-hotbar-core-border-color-inactive: #939799ff;  
+}
+/* ---------------------------------------- */
+/*  Hotbar                                  */
+/* ---------------------------------------- */
+#hotbar {
+  position: absolute; 
+  display: var(--custom-hotbar-core-display);
+  bottom: var(--custom-hotbar-core-y-pos);  
+  left: var(--custom-hotbar-core-x-pos);
+}
+
+#hotbar .bar-controls {
+  background: var(--custom-hotbar-core-primaryColor);
+  border: 1px solid var(--custom-hotbar-core-border-color);
+}
+
+
+#hotbar #macro-list {
+  border: 1px solid var(--custom-hotbar-core-border-color);
+}
+
+#hotbar .macro {
+  border: 1px solid var(--custom-hotbar-core-border-color);
+  background: var(--custom-hotbar-core-primaryColor);;
+  /* need to be fixed */
+  box-shadow: 0 0 5px var(--color-shadow-dark) inset;
+}
+
+#hotbar .macro:hover {
+  box-shadow: 0 0 10px var(--custom-hotbar-core-border-color-inactive) inset;
+}
+
+#hotbar .macro.active:hover {
+  border: 1px solid var(--custom-hotbar-core-border-color-active);
+}
+
+/* Think this is handled elsewhere in v10 
+#hotbar .macro .tooltip {
+  display: block;
+  min-width: 148px;
+  height: 26px;
+  padding: 2px 4px;
+  position: absolute;
+  top: -32px;
+  left: -50px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--color-border-dark-primary);
+  border-radius: 3px;
+  color: var(--color-text-light-highlight);
+  line-height: 22px;
+  text-align: center;
+  white-space: nowrap;
+  word-break: break-all;
+}*/
+
+/* unnecessary?
+#hotbar #hotbar-directory-controls,
+#hotbar #hotbar-page-controls {
+  pointer-events: all;
+  z-index: calc(var(--z-index-ui) + 9);
+} */

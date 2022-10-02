@@ -174,7 +174,7 @@ export class CustomHotbarSettings {
             hint: "customHotbar.settings.chbXPos.nameHint",
             scope: "world",
             config: false,
-            default: "220",
+            default: "0",
             type: Number,
             onChange: value => {
                 ui.customHotbar.render();
@@ -186,7 +186,7 @@ export class CustomHotbarSettings {
             hint: "customHotbar.settings.chbYPos.nameHint",
             scope: "world",
             config: false,
-            default: "63",
+            default: "53",
             type: Number,
             onChange: value => {
                 ui.customHotbar.render();
@@ -480,7 +480,7 @@ export class CustomHotbarSettings {
             hint: "customHotbar.settings.coreXPos.nameHint",
             scope: "world",
             config: false,
-            default: "220",
+            default: "0",
             type: Number,
             onChange: value => {
                 ui.hotbar.render();
@@ -492,12 +492,13 @@ export class CustomHotbarSettings {
             hint: "customHotbar.settings.coreYPos.nameHint",
             scope: "world",
             config: false,
-            default: "10",
+            default: "0",
             type: Number,
             onChange: value => {
                 ui.hotbar.render();
             }
         }); 
+ 
     }
 
     //getters that determine whether to grab the user flag or the setting
@@ -530,13 +531,21 @@ export class CustomHotbarSettings {
     static getCHBXPos(){
         var flag = game.user.getFlag("custom-hotbar", "chbXPos");
         var sett = game.settings.get("custom-hotbar","chbXPos");
-        return (flag) ? flag : sett;
+        if (game.user.getFlag("custom-hotbar", "chbZeroXPos") === true){
+            return 0;
+        } else {
+            return (flag) ? flag : sett;
+        }
     }
 
     static getCHBYPos(){
         var flag = game.user.getFlag("custom-hotbar", "chbYPos");
         var sett = game.settings.get("custom-hotbar","chbYPos");
-        return (flag) ? flag : sett;
+        if (game.user.getFlag("custom-hotbar", "chbZeroYPos") === true){
+            return 0;
+        } else {
+            return (flag) ? flag : sett;
+        }
     }
 
     //Core Hotbar getters
@@ -567,15 +576,29 @@ export class CustomHotbarSettings {
     static getCoreXPos(){
         var flag = game.user.getFlag("custom-hotbar", "coreXPos");
         var sett = game.settings.get("custom-hotbar","coreXPos");
-        return (flag) ? flag : sett;
+        if (game.user.getFlag("custom-hotbar", "coreZeroXPos") === true){
+            return 0;
+        } else {
+            return (flag) ? flag : sett;
+        }
     }
 
     static getCoreYPos(){
         var flag = game.user.getFlag("custom-hotbar", "coreYPos");
         var sett = game.settings.get("custom-hotbar","coreYPos");
-        return (flag) ? flag : sett;
+        if (game.user.getFlag("custom-hotbar", "coreZeroYPos") === true){
+            return 0;
+        } else {
+            return (flag) ? flag : sett;
+        }
     }
 }
+
+Hooks.on("closeSettingsConfig", (args) => {
+    if (args.activeCategory === "custom-hotbar") {
+        ui.notifications.notify("If you made any changes, please refresh Foundry.");
+    };    
+});
 
 function chbSettingsClose() {
     return true

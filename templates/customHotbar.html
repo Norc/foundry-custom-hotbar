@@ -1,28 +1,30 @@
-<div id="custom-hotbar" class="flexrow">
+<div id="custom-hotbar" class="flexrow" data-tooltip-direction="UP">
     <div id="custom-hotbar-directory-controls" class="bar-controls flexcol">
-        <a id="custom-bar-toggle">
+        <a id="custom-bar-toggle" data-tooltip="MACRO.CollapseHotbar">
             <i class="fas fa-caret-down"></i>
         </a>
-        <a id="custom-macro-directory">
+        <a id="custom-macro-directory" data-tooltip="MACRO.Directory">
             <i class="fas fa-folder"></i>
         </a>
     </div>
-    <nav id="custom-action-bar" class="flexrow {{barClass}}">
+    <nav id="custom-action-bar" class="flexrow {{barClass}}" aria-label="{{localize 'MACRO.NavLabel'}}">
         <ol id="custom-macro-list" class="flexrow" data-page="{{page}}">
             {{#each macros}}
             <li class="macro {{this.cssClass}}" data-slot="{{this.slot}}"
-                {{#if this.macro}}data-macro-id="{{this.macro.id}}"{{/if}}>
-                <span class="macro-key">Sh-{{this.key}}</span>
+            {{#if this.macro}}data-macro-id="{{this.macro.id}}" data-tooltip="{{this.tooltip}}"{{/if}}>
+                <span class="macro-key">{{this.key}}</span>
                 {{#if this.icon}}
-                <img class="macro-icon" src="{{this.icon}}"/>
+                <img class="macro-icon" src="{{this.icon}}" alt="{{this.tooltip}}"/>
                 {{/if}}
             </li>
             {{/each}}
         </ol>
-        <div id="custom-hotbar-page-controls" class="bar-controls flexcol">
-            <a class="page-control" data-action="page-up"><i class="fas fa-angle-up"></i></a>
+        <div id="custom-hotbar-page-controls" class="bar-controls flexcol" data-tooltip-direction="UP">
+            <a class="page-control" data-action="page-up" data-tooltip="MACRO.PageUp" alt="{{localize 'MACRO.PageUp'}}">
+                <i class="fas fa-angle-up"></i></a>
             <span class="page-number">{{page}}</span>
-            <a class="page-control" data-action="page-down"><i class="fas fa-angle-down"></i></a>
+            <a class="page-control" data-action="page-down" data-tooltip="MACRO.PageDown" alt="{{localize 'MACRO.PageDown'}}">
+                <i class="fas fa-angle-down" ></i></a>
         </div>
     </nav>
 </div>
