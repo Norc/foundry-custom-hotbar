@@ -5,24 +5,12 @@
   --custom-hotbar-chb-height: 52px;
   --custom-hotbar-chb-macro-size: 50px;
 
-  --custom-hotbar-core-height: 52px;
-  --custom-hotbar-core-width: 578px;
-  --custom-hotbar-core-macro-size: 50px;  
-
   --custom-hotbar-chb-primaryColor: #00000080;
   --custom-hotbar-chb-border-color: #000000ff;
   --custom-hotbar-chb-x-pos: 220;
   --custom-hotbar-chb-y-pos: 63;
   --custom-hotbar-chb-border-color-active: #ff6400ff;
   --custom-hotbar-chb-border-color-inactive: #939799ff;
-
-  --custom-hotbar-core-primaryColor: #00000080;
-  --custom-hotbar-core-border-color: #000000ff;
-  --custom-hotbar-core-x-pos: 220;
-  --custom-hotbar-core-y-pos: 63;
-  --custom-hotbar-core-border-color-active: #ff6400ff;
-  --custom-hotbar-core-border-color-inactive: #939799ff;  
-
 }
 /* ---------------------------------------- */
 /*  Hotbar                                  */
@@ -35,7 +23,7 @@
   margin-bottom: 10px;
   position:absolute;
   bottom: var(--custom-hotbar-chb-x-pos);  
-  left: var(--custom-hotbar-core-y-pos);
+  left: var(--custom-hotbar-chb-y-pos);
 }
 #custom-hotbar .bar-controls {
   flex: 0 0 32px;

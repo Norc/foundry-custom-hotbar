@@ -34,7 +34,7 @@
         "path": "lang/en.json"
       }],
     "styles": [
-      "./css/custom-hotbar.css"
+      "./css/custom-hotbar.css","./css/core-hotbar.css"
       ],
     "manifest": "https://raw.githubusercontent.com/Norc/foundry-custom-hotbar/dev/module.json",
     "download": "https://github.com/Norc/foundry-custom-hotbar/archive/v2.2.0.zip",
