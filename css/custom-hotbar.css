@@ -3,7 +3,6 @@
 /* ----------------------------------------- */
 :root {
   --custom-hotbar-chb-height: 52px;
-  --custom-hotbar-chb-width: 578px;
   --custom-hotbar-chb-macro-size: 50px;
 
   --custom-hotbar-core-height: 52px;
@@ -30,7 +29,6 @@
 /* ---------------------------------------- */
 #custom-hotbar {
   z-index: calc(var(--z-index-ui) + 9);
-  width: var(--custom-hotbar-chb-width);
   height: var(--custom-hotbar-chb-height);
   pointer-events: none;
   flex-wrap: nowrap;
@@ -45,7 +43,7 @@
   margin: 0 2px;
   text-align: center;
   color: var(--color-text-light-heading);
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--custom-hotbar-chb-primaryColor);
   border: 1px solid var(--color-border-dark);
   box-shadow: 0 0 3px #444 inset;
   border-radius: 3px;
@@ -89,7 +87,7 @@
   height: var(--custom-hotbar-chb-macro-size);
   border: 1px solid var(--color-border-dark);
   border-radius: 2px;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--custom-hotbar-chb-primaryColor);;
   box-shadow: 0 0 5px var(--color-shadow-dark) inset;
   cursor: pointer;
 }
@@ -213,6 +211,11 @@
   padding-top: 0;
 }
 
+/* Hide unnecessary, broken, or unused elements */
+#custom-hotbar-page-controls, #custom-hotbar-directory-controls #custom-macro-directory {
+  display: none;
+}
+
 /* with apologies to sdenec, lifted from Tidy UI Settings module, which you should install... 
 #client-settings .chb-setting label,
 #client-settings .chb-setting > label {
@@ -277,15 +280,19 @@ div#custom-hotbar-settings-form h2 {
     width: calc(var(--hotbar-width) / 2);
     height: calc(var(--hotbar-height) * 2);
   }
+
   #custom-hotbar #custom-macro-list {
     grid-template-columns: repeat(5, 50px);
   }
+
   #custom-hotbar .bar-controls {
     justify-content: space-between;
   }
+
   #custom-hotbar .bar-controls a {
     flex: 0;
   }
+
   #customhotbar .bar-controls span.page-number {
     line-height: unset;
     display: flex;
@@ -294,55 +301,3 @@ div#custom-hotbar-settings-form h2 {
     flex: 1;
   }
 }
-
-
-
-
-
-/* ---------------------------------------- */
-/*  Unused                                  */
-/* ---------------------------------------- */
-
-/* unused styles */
-
-/*
-  span.custom-macro-key {
-    z-index: 2;
-  }
-
-
-  nav#context-menu {
-    z-index: 31;
-  } 
-
-  .macro .tooltip span {
-    z-index: 4;
-  }
-*/
-
-/* 
-  Match box styling for User Settings 
-  #chbSetDiv div {
-    padding: 5px;
-    padding-left: 6px;
-  }
-*/
-
-
-/* Border around Global Settings
-#chbSetDiv div {
-  border-style: solid;
-  border-color: black;
-  border-width: 1px;
-  background-color: #d3d3d380;
-  padding: 4px;
-} */
-
-/* Border around Global Settings 
-#coreSetDiv {
-  border-style: solid;
-  border-color: black;
-  border-width: 1px;
-  background-color: #d3d3d380;
-  padding: 4px;
-} */
