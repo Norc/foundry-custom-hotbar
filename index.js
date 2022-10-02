@@ -23,22 +23,7 @@ async function customHotbarInit() {
   };
 
   CustomHotbarSettings.register();
-
-  //apply settings styles, first for custom hotbar, then for core hotbar
-  //For each setting, use flag if present, otherwise use game setting.
   
-
-  let chbDisplay = "flex";
-  if (game.settings.get("custom-hotbar","chbDisabled") === true) {
-    CHBDebug('Custom Hotbar | User disabled custom hotbar.');
-    chbDisplay = "none";
-  }
-
-  let coreDisplay = "flex";
-  if (game.settings.get("custom-hotbar","coreDisabled") === true) {
-    CHBDebug('Custom Hotbar | User disabled core Foundry hotbar.');
-    coreDisplay = "none";
-  }
 
   //
   //initialize CSS variables to match current settings and user flags
@@ -61,81 +46,23 @@ async function customHotbarInit() {
   r.style.setProperty('--custom-hotbar-core-x-pos', `${CustomHotbarSettings.getCoreXPos()}px`);
   r.style.setProperty('--custom-hotbar-core-y-pos', `${CustomHotbarSettings.getCoreYPos()}px`);
 
-/*
-   var css =
-      '#custom-hotbar' 
-    + ` { bottom: ${CustomHotbarSettings.getCHBYPos()}px; ` 
-    + `   left: ${CustomHotbarSettings.getCHBXPos()}px; `
-    //oops at importanting, not sure why it's needed, but hey.
-    + `   display: ${chbDisplay} !important`
-    + ' }'
+  let chbDisplay = "flex"; 
+  /* TODO: shouldn't this be a user flag? or a combo with a getter?? */
+  if (game.settings.get("custom-hotbar","chbDisabled") === true) {
+    CHBDebug('Custom Hotbar | User disabled custom hotbar.');
+    chbDisplay = "none";
+  }
 
-    + '#custom-hotbar #custom-macro-list' 
-    + ` {` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCHBBorderColor()};`
-    + ' }'
-    
-    + '#custom-hotbar .bar-controls' 
-    + ` { background: ${CustomHotbarSettings.getCHBPrimaryColor()};` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCHBBorderColor()};`
-    + ' }'
+  let coreDisplay = "flex";
+  /* TODO: shouldn't this be a user flag? or a combo with a getter?? */
+  if (game.settings.get("custom-hotbar","coreDisabled") === true) {
+    CHBDebug('Custom Hotbar | User disabled core Foundry hotbar.');
+    coreDisplay = "none";
+  }
 
-    + '#custom-hotbar .macro' 
-    + ` { background: ${CustomHotbarSettings.getCHBPrimaryColor()};` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCHBBorderColor()};`
-    + ' }'
+  r.style.setProperty('--custom-hotbar-chb-display', chbDisplay);
+  r.style.setProperty('--custom-hotbar-core-display', coreDisplay);
 
-    + '#custom-hotbar .macro.active:hover' 
-    + ' {' 
-    + `     border: 1px solid ${CustomHotbarSettings.getCHBBorderColorActive()};`
-    + ' }'
-
-    + '#custom-hotbar .macro.inactive:hover' 
-    + ' {' 
-    + `     border: 1px solid ${CustomHotbarSettings.getCHBBorderColorInactive()};`
-    + ' }'
-
-
-
-    + '#hotbar' 
-    + ` { bottom: ${CustomHotbarSettings.getCoreYPos()}px; ` 
-    + `   left: ${CustomHotbarSettings.getCoreXPos()}px; `
-    //oops at importanting, not sure why it's needed, but hey.
-    + `   display: ${coreDisplay} !important`
-    + ' }'
-
-    + '#hotbar #custom-macro-list' 
-    + ` {` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
-    + ' }'
-    
-    + '#hotbar .bar-controls' 
-    + ` { background: ${CustomHotbarSettings.getCorePrimaryColor()};` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
-    + ' }'
-
-    + '#hotbar .macro' 
-    + ` { background: ${CustomHotbarSettings.getCorePrimaryColor()};` 
-    + `   border: 1px solid ${CustomHotbarSettings.getCoreBorderColor()};`
-    + ' }'
-
-    + '#hotbar .macro.active:hover' 
-    + ' {' 
-    + `     border: 1px solid ${CustomHotbarSettings.getCoreBorderColorActive()};`
-    + ' }'
-
-    + '#hotbar .macro.inactive:hover' 
-    + ' {' 
-    + `     border: 1px solid ${CustomHotbarSettings.getCoreBorderColorInactive()};`
-    + ' }'
-  , head = document.head || document.getElementsByTagName('head')[0]
-  , style = document.createElement('style');
-
-  head.appendChild(style);
-
-  style.type = 'text/css';
-  style.appendChild(document.createTextNode(css));
-*/
   //ui.hotbar.render();
   Array.from(document.getElementsByClassName("macro")).forEach(function (element) {
     element.ondragstart = ui.hotbar._onDragStart;

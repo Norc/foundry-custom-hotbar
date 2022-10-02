@@ -13,7 +13,8 @@
 /*  Hotbar                                  */
 /* ---------------------------------------- */
 #hotbar {
-  position: absolute;
+  position: absolute; 
+  display: var(--custom-hotbar-core-display);
   bottom: var(--custom-hotbar-core-y-pos);  
   left: var(--custom-hotbar-core-x-pos);
 }

@@ -22,6 +22,7 @@
   flex-wrap: nowrap;
   margin-bottom: 10px;
   position: absolute;
+  display: var(--custom-hotbar-chb-display);
   bottom: var(--custom-hotbar-chb-y-pos);  
   left: var(--custom-hotbar-chb-x-pos);
 }
