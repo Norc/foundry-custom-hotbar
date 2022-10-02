@@ -596,7 +596,7 @@ export class CustomHotbarSettings {
 
 Hooks.on("closeSettingsConfig", (args) => {
     if (args.activeCategory === "custom-hotbar") {
-        ui.notifications.notify("Saving... Please refresh Foundry to apply any changes.");
+        ui.notifications.notify("If you made any changes, please refresh Foundry.");
     };    
 });
 
