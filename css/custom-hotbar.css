@@ -21,9 +21,9 @@
   pointer-events: none;
   flex-wrap: nowrap;
   margin-bottom: 10px;
-  position:absolute;
-  bottom: var(--custom-hotbar-chb-x-pos);  
-  left: var(--custom-hotbar-chb-y-pos);
+  position: absolute;
+  bottom: var(--custom-hotbar-chb-y-pos);  
+  left: var(--custom-hotbar-chb-x-pos);
 }
 #custom-hotbar .bar-controls {
   flex: 0 0 32px;
@@ -131,7 +131,10 @@
   line-height: 24px;
 }
 
-
+/* config container for positioning */
+#hotbars {
+  display:block;
+}
 
 
 

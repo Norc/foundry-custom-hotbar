@@ -498,6 +498,7 @@ export class CustomHotbarSettings {
                 ui.hotbar.render();
             }
         }); 
+ 
     }
 
     //getters that determine whether to grab the user flag or the setting
@@ -530,13 +531,21 @@ export class CustomHotbarSettings {
     static getCHBXPos(){
         var flag = game.user.getFlag("custom-hotbar", "chbXPos");
         var sett = game.settings.get("custom-hotbar","chbXPos");
-        return (flag) ? flag : sett;
+        if (game.user.getFlag("custom-hotbar", "chbZeroXPos") === true){
+            return 0;
+        } else {
+            return (flag) ? flag : sett;
+        }
     }
 
     static getCHBYPos(){
         var flag = game.user.getFlag("custom-hotbar", "chbYPos");
         var sett = game.settings.get("custom-hotbar","chbYPos");
-        return (flag) ? flag : sett;
+        if (game.user.getFlag("custom-hotbar", "chbZeroYPos") === true){
+            return 0;
+        } else {
+            return (flag) ? flag : sett;
+        }
     }
 
     //Core Hotbar getters

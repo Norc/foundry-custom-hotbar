@@ -13,13 +13,13 @@
 /*  Hotbar                                  */
 /* ---------------------------------------- */
 #hotbar {
-  position:absolute;
-  bottom: var(--custom-hotbar-core-x-pos);  
-  left: var(--custom-hotbar-core-y-pos);
+  position: absolute;
+  bottom: var(--custom-hotbar-core-y-pos);  
+  left: var(--custom-hotbar-core-x-pos);
 }
 
 #hotbar .bar-controls {
-  background: var(--custom-hotbar-core--primaryColor);
+  background: var(--custom-hotbar-core-primaryColor);
   border: 1px solid var(--custom-hotbar-core-border-color);
 }
 
