@@ -577,6 +577,12 @@ export class CustomHotbarSettings {
     }
 }
 
+Hooks.on("closeSettingsConfig", (args) => {
+    if (args.activeCategory === "custom-hotbar") {
+        ui.notifications.notify("Saving... Please refresh Foundry to apply any changes.");
+    };    
+});
+
 function chbSettingsClose() {
     return true
 }
