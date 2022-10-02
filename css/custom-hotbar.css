@@ -127,7 +127,9 @@
 
 
 
-/* Settings CSS */
+/* ---------------------------------------- */
+/*  Settings                                */
+/* ---------------------------------------- */
 #chbConfigDiv div.form-group {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
@@ -139,7 +141,6 @@
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-
   border: black 1px;
 }
 
@@ -168,7 +169,7 @@
 
 /* fix boundary between two stylized settings divs */
 /* Extra specficity for first box to work properly with Tidy UI styles */
-#coreSetDiv, #chbSetDiv {
+#chbConfigDiv #chbSetDiv {
   border-style: solid;
   border-color: black;
   border-width: 1px;
@@ -179,9 +180,15 @@
   padding-bottom: 0;
 }
 
-#coreSetDiv {
+#chbConfigDiv #coreSetDiv {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  background-color: #d3d3d380;
+  padding: 4px;
   margin-top: 0;
   border-top: none;
+  padding-top: 0;
 }
 
 /* with apologies to sdenec, lifted from Tidy UI Settings module, which you should install... 
@@ -236,6 +243,13 @@ div#custom-hotbar-settings-form h2 {
   font-size:large;
 } */
 
+
+
+
+
+/* ---------------------------------------- */
+/*  Media                                   */
+/* ---------------------------------------- */
 @media (max-width: 1120px) {
   #custom-hotbar {
     width: calc(var(--hotbar-width) / 2);
@@ -258,6 +272,14 @@ div#custom-hotbar-settings-form h2 {
     flex: 1;
   }
 }
+
+
+
+
+
+/* ---------------------------------------- */
+/*  Unused                                  */
+/* ---------------------------------------- */
 
 /* unused styles */
 
