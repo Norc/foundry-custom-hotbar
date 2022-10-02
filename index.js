@@ -39,6 +39,24 @@ async function customHotbarInit() {
     CHBDebug('Custom Hotbar | User disabled core Foundry hotbar.');
     coreDisplay = "none";
   }
+
+  //initialize CSS variables to match current settings and user flags
+  let r = document.querySelector(':root');
+
+  r.style.setProperty('--custom-hotbar-chb-primaryColor', CustomHotbarSettings.getCHBPrimaryColor());
+  r.style.setProperty('--custom-hotbar-chb-border-color', CustomHotbarSettings.getCHBBorderColor());
+  r.style.setProperty('--custom-hotbar-chb-border-color-active', CustomHotbarSettings.getCHBBorderColorActive());
+  r.style.setProperty('--custom-hotbar-chb-border-color-inactive', CustomHotbarSettings.getCHBBorderColorInactive());
+  r.style.setProperty('--custom-hotbar-chb-x-pos', `${CustomHotbarSettings.getCHBXPos()}px`);
+  r.style.setProperty('--custom-hotbar-chb-y-pos', `${CustomHotbarSettings.getCHBYPos()}px`);
+ 
+  r.style.setProperty('--custom-hotbar-core-primaryColor', CustomHotbarSettings.getCorePrimaryColor());
+  r.style.setProperty('--custom-hotbar-core-border-color', CustomHotbarSettings.getCoreBorderColor());
+  r.style.setProperty('--custom-hotbar-core-border-color-active', CustomHotbarSettings.getCoreBorderColorActive());
+  r.style.setProperty('--custom-hotbar-core-border-color-inactive', CustomHotbarSettings.getCoreBorderColorInactive());
+  r.style.setProperty('--custom-hotbar-core-x-pos', `${CustomHotbarSettings.getCoreXPos()}px`);
+  r.style.setProperty('--custom-hotbar-core-y-pos', `${CustomHotbarSettings.getCoreYPos()}px`);
+
 /*
    var css =
       '#custom-hotbar' 

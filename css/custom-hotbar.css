@@ -2,20 +2,42 @@
 /*  Root                                     */
 /* ----------------------------------------- */
 :root {
-  --custom-hotbar-height: 52px;
-  --custom-hotbar-width: 578px;
-  --custom-macro-size: 50px;
+  --custom-hotbar-chb-height: 52px;
+  --custom-hotbar-chb-width: 578px;
+  --custom-hotbar-chb-macro-size: 50px;
+
+  --custom-hotbar-core-height: 52px;
+  --custom-hotbar-core-width: 578px;
+  --custom-hotbar-core-macro-size: 50px;  
+
+  --custom-hotbar-chb-primaryColor: #00000080;
+  --custom-hotbar-chb-border-color: #000000ff;
+  --custom-hotbar-chb-x-pos: 220;
+  --custom-hotbar-chb-y-pos: 63;
+  --custom-hotbar-chb-border-color-active: #ff6400ff;
+  --custom-hotbar-chb-border-color-inactive: #939799ff;
+
+  --custom-hotbar-core-primaryColor: #00000080;
+  --custom-hotbar-core-border-color: #000000ff;
+  --custom-hotbar-core-x-pos: 220;
+  --custom-hotbar-core-y-pos: 63;
+  --custom-hotbar-core-border-color-active: #ff6400ff;
+  --custom-hotbar-core-border-color-inactive: #939799ff;  
+
 }
 /* ---------------------------------------- */
 /*  Hotbar                                  */
 /* ---------------------------------------- */
 #custom-hotbar {
   z-index: calc(var(--z-index-ui) + 9);
-  width: var(--hotbar-width);
-  height: var(--hotbar-height);
+  width: var(--custom-hotbar-chb-width);
+  height: var(--custom-hotbar-chb-height);
   pointer-events: none;
   flex-wrap: nowrap;
   margin-bottom: 10px;
+  position:absolute;
+  bottom: var(--custom-hotbar-chb-x-pos);  
+  left: var(--custom-hotbar-core-y-pos);
 }
 #custom-hotbar .bar-controls {
   flex: 0 0 32px;
@@ -59,12 +81,12 @@
   border: 1px solid var(--color-border-dark);
   border-radius: 3px;
   display: grid;
-  grid-template-columns: repeat(10, var(--macro-size));
+  grid-template-columns: repeat(10, var(--custom-hotbar-chb-macro-size));
 }
 #custom-hotbar .macro {
   position: relative;
-  width: var(--macro-size);
-  height: var(--macro-size);
+  width: var(--custom-hotbar-chb-macro-size);
+  height: var(--custom-hotbar-chb-macro-size);
   border: 1px solid var(--color-border-dark);
   border-radius: 2px;
   background: rgba(0, 0, 0, 0.5);
@@ -94,8 +116,8 @@
   object-fit: cover;
   object-position: 50% 0;
   border: none;
-  height: calc(var(--macro-size) - 2px);
-  width: calc(var(--macro-size) - 2px);
+  height: calc(var(--custom-hotbar-chb-macro-size) - 2px);
+  width: calc(var(--custom-hotbar-chb-macro-size) - 2px);
 }
 #custom-hotbar .macro .tooltip {
   display: block;
