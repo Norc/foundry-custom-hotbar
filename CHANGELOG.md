@@ -1,3 +1,8 @@
+### Version 2.3 (2022/10/01)
+* Added compatibility with v10. This was a breaking change, so use 2.2 for v9 (once I fix my module versioning, that is, oops).
+* Fixed everything that broke, which was EVERYTHING
+* Note: Keybindings being broken for CHB is a known issue. Will resolve by moving to v9 keybindings finally.
+
 ### Version 2.2 (2021/12/12)
 * Added compatibility with v9. This was a breaking change, so use 2.1 for 0.8.x and earlier.
 * Fixed CustomHotbar app being added to UI twice
