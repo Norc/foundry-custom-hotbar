@@ -307,20 +307,18 @@ export class CustomHotbar extends Hotbar {
     //only needs to be done when dropping an item onto the Custom Hotbar.
     //revert once assign custom macro complete
     CHBDebug("Custom Hotbar | Dropped type:", data.type);
-    if (data.type == "Item" || data.type =="RollTable") {
-      CHBDebug("Custom Hotbar | Attempting monkey hotpatch!");
-      let coreAssignHotbarMacro = game.user.assignHotbarMacro;
-      game.user.assignHotbarMacro = this.assignCustomHotbarMacro.bind(this); 
-      Hooks.once("customHotbarAssignComplete", () => game.user.assignHotbarMacro = coreAssignHotbarMacro);
-  
-      //does this need to be set to false when done?
-      if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
-        CHBDebug("Custom Hotbar | hotbarDrop not found, reverting monkey hotpatch!")
-        game.user.assignHotbarMacro = coreAssignHotbarMacro; 
-        return; 
-      } else {
-        CHBDebug("Custom Hotbar | hotbarDrop true");
-      }
+    CHBDebug("Custom Hotbar | Attempting monkey hotpatch!");
+    let coreAssignHotbarMacro = game.user.assignHotbarMacro;
+    game.user.assignHotbarMacro = this.assignCustomHotbarMacro.bind(this); 
+    Hooks.once("customHotbarAssignComplete", () => game.user.assignHotbarMacro = coreAssignHotbarMacro);
+
+    //does this need to be set to false when done?
+    if ( await Hooks.call("hotbarDrop", this, data, customSlot) === undefined ) {
+      CHBDebug("Custom Hotbar | hotbarDrop not found, reverting monkey hotpatch!")
+      game.user.assignHotbarMacro = coreAssignHotbarMacro; 
+      return; 
+    } else {
+      CHBDebug("Custom Hotbar | hotbarDrop true");
     }
 
     // Only handles Macro drops
