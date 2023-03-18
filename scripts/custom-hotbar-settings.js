@@ -2,7 +2,6 @@ import { CustomHotbarSettingsForm } from './custom-hotbar-settings-form.js';
 import { CoreHotbarSettingsForm } from './core-hotbar-settings-form.js';
 import { CustomHotbarFlagsForm } from './custom-hotbar-flags-form.js';
 import { CoreHotbarFlagsForm } from './core-hotbar-flags-form.js';
-import { hotkeys } from '../../lib-df-hotkeys/lib-df-hotkeys.shim.js';
 import { CHBDebug } from './custom-hotbar-debug.js';
 
 export class CustomHotbarSettings {
@@ -102,15 +101,15 @@ export class CustomHotbarSettings {
         }
     
         //Add checkbox option to disable core Foundry hotbar
-        game.settings.register("custom-hotbar", "keyHint", {
-            config: true,
-            type: Boolean,
-            default: false,
-            //name: 'Hotbar Keybindings',
-            name: game.i18n.localize('customHotbar.settings.keybind.name'),
-            //hint: 'Use the Module Settings of "Library: DF Hotkeys" to view and edit your keybindings.',
-            hint: game.i18n.localize('customHotbar.settings.keybind.nameHint'),
-        });     
+        // game.settings.register("custom-hotbar", "keyHint", {
+        //     config: true,
+        //     type: Boolean,
+        //     default: false,
+        //     //name: 'Hotbar Keybindings',
+        //     name: game.i18n.localize('customHotbar.settings.keybind.name'),
+        //     //hint: 'Use the Module Settings of "Library: DF Hotkeys" to view and edit your keybindings.',
+        //     hint: game.i18n.localize('customHotbar.settings.keybind.nameHint'),
+        // });   
 
         //TO DO: add hotbarPageKeyEnabled and chbKeyEnabled
     
@@ -196,173 +195,173 @@ export class CustomHotbarSettings {
         //Add ZPos set to uneditable?
 
     //KEYBIND SETTINGS
-
-        //CHB Macro Slot Bindings
-        game.settings.register("custom-hotbar", "chb1", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit1,
-                alt: false,
-                ctrl: false,
-                shift: true
-            }
-        });
-
-        game.settings.register("custom-hotbar", "chb2", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit2,
-                alt: false,
-                ctrl: false,
-                shift: true
-            }
-        });
-
-        game.settings.register("custom-hotbar", "chb3", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit3,
-                alt: false,
-                ctrl: false,
-                shift: true
-            }
-        });
-
-        game.settings.register("custom-hotbar", "chb4", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit4,
-                alt: false,
-                ctrl: false,
-                shift: true
-            }
-        });
-
-        game.settings.register("custom-hotbar", "chb5", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit5,
-                alt: false,
-                ctrl: false,
-                shift: true
-            }
-        });
-
-        game.settings.register("custom-hotbar", "chb6", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit6,
-                alt: false,
-                ctrl: false,
-                shift: true
-            }
-        });
-
-        game.settings.register("custom-hotbar", "chb7", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit7,
-                alt: false,
-                ctrl: false,
-                shift: true
-            }
-        });
-
-        game.settings.register("custom-hotbar", "chb8", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit8,
-                alt: false,
-                ctrl: false,
-                shift: true
-            }
-        });
-
-        game.settings.register("custom-hotbar", "chb9", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit9,
-                alt: false,
-                ctrl: false,
-                shift: true
-            }
-        });
-
-        game.settings.register("custom-hotbar", "chb0", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit0,
-                alt: false,
-                ctrl: false,
-                shift: true
-            }
-        });
-
-        //Macro page settings
-        game.settings.register("custom-hotbar", "corePage1", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit1,
-                alt: false,
-                ctrl: true,
-                shift: false
-           }
-        });
-
-        game.settings.register("custom-hotbar", "corePage2", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit2,
-                alt: false,
-                ctrl: true,
-                shift: false
-            }
-        });
-
-        game.settings.register("custom-hotbar", "corePage3", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit3,
-                alt: false,
-                ctrl: true,
-                shift: false
-           }
-        });
-
-        game.settings.register("custom-hotbar", "corePage4", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit4,
-                alt: false,
-                ctrl: true,
-                shift: false
-            }
-        });
-
-        game.settings.register("custom-hotbar", "corePage5", {
-            scope: 'world',
-            config: false,
-            default: {
-                key: hotkeys.keys.Digit5,
-                alt: false,
-                ctrl: true,
-                shift: false
-            }
-        });
+        //
+        // //CHB Macro Slot Bindings
+        // game.settings.register("custom-hotbar", "chb1", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit1,
+        //         alt: false,
+        //         ctrl: false,
+        //         shift: true
+        //     }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "chb2", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit2,
+        //         alt: false,
+        //         ctrl: false,
+        //         shift: true
+        //     }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "chb3", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit3,
+        //         alt: false,
+        //         ctrl: false,
+        //         shift: true
+        //     }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "chb4", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit4,
+        //         alt: false,
+        //         ctrl: false,
+        //         shift: true
+        //     }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "chb5", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit5,
+        //         alt: false,
+        //         ctrl: false,
+        //         shift: true
+        //     }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "chb6", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit6,
+        //         alt: false,
+        //         ctrl: false,
+        //         shift: true
+        //     }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "chb7", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit7,
+        //         alt: false,
+        //         ctrl: false,
+        //         shift: true
+        //     }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "chb8", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit8,
+        //         alt: false,
+        //         ctrl: false,
+        //         shift: true
+        //     }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "chb9", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit9,
+        //         alt: false,
+        //         ctrl: false,
+        //         shift: true
+        //     }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "chb0", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit0,
+        //         alt: false,
+        //         ctrl: false,
+        //         shift: true
+        //     }
+        // });
+        //
+        // //Macro page settings
+        // game.settings.register("custom-hotbar", "corePage1", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit1,
+        //         alt: false,
+        //         ctrl: true,
+        //         shift: false
+        //    }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "corePage2", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit2,
+        //         alt: false,
+        //         ctrl: true,
+        //         shift: false
+        //     }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "corePage3", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit3,
+        //         alt: false,
+        //         ctrl: true,
+        //         shift: false
+        //    }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "corePage4", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit4,
+        //         alt: false,
+        //         ctrl: true,
+        //         shift: false
+        //     }
+        // });
+        //
+        // game.settings.register("custom-hotbar", "corePage5", {
+        //     scope: 'world',
+        //     config: false,
+        //     default: {
+        //         key: hotkeys.keys.Digit5,
+        //         alt: false,
+        //         ctrl: true,
+        //         shift: false
+        //     }
+        // });
 
         /* Multiple CHB pages not yet implemented
         game.settings.register("custom-hotbar", "chbPage1", {
