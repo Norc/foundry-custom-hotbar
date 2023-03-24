@@ -30,14 +30,8 @@ export class CustomHotbar extends Hotbar {
      */
     this._hover = null;
 
-    /**
-     * 
-     */
     this.customMacros = [];
 
-    /**
-     * 
-     */
     this.populator = populator;
   }
   
@@ -383,9 +377,6 @@ export class CustomHotbar extends Hotbar {
   }
 
 
-
-
-
   /**
    * Get the Macro entity being dropped in the customHotbar. If the data comes from a non-World source, create the Macro
    * @param {Object} data             The data transfer attached to the DragEvent
@@ -445,7 +436,6 @@ export class CustomHotbar extends Hotbar {
       }
     }
 
-    
 
     // Handle hover-out
     else {
