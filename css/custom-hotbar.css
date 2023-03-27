@@ -26,6 +26,11 @@
   bottom: var(--custom-hotbar-chb-y-pos);  
   left: var(--custom-hotbar-chb-x-pos);
 }
+
+#custom-hotbar.flexrow.dorako-ui { 
+	position: absolute; 
+}
+
 #custom-hotbar .bar-controls {
   flex: 0 0 32px;
   height: 100%;

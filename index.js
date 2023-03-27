@@ -23,8 +23,6 @@ async function customHotbarInit() {
 
   CustomHotbarSettings.register();
   
-
-  //
   //initialize CSS variables to match current settings and user flags
   //
 
@@ -44,6 +42,11 @@ async function customHotbarInit() {
   r.style.setProperty('--custom-hotbar-core-border-color-inactive', CustomHotbarSettings.getCoreBorderColorInactive());
   r.style.setProperty('--custom-hotbar-core-x-pos', `${CustomHotbarSettings.getCoreXPos()}px`);
   r.style.setProperty('--custom-hotbar-core-y-pos', `${CustomHotbarSettings.getCoreYPos()}px`);
+
+  //Fix for PF2e Dorako UI resizing the hotbar slightly - didn't want to add too many to the core sets.
+  if (game.modules.get("pf2e-dorako-ui").active) {
+  	r.style.setProperty('--custom-hotbar-chb-y-pos', `${14 + CustomHotbarSettings.getCHBYPos()}px`);
+  }
 
   let chbDisplay = "flex"; 
   /* TODO: shouldn't this be a user flag? or a combo with a getter?? */
@@ -195,8 +198,8 @@ Hooks.on("renderSettingsConfig", async () => {
   let coreDisableDiv = chbDisableDiv.nextElementSibling;
   coreDisableDiv.setAttribute('id', 'coreDisableDiv');
 
-  let keyHintDiv = coreDisableDiv.nextElementSibling;
-  keyHintDiv.setAttribute('id', 'keyHintDiv');
+  // let keyHintDiv = coreDisableDiv.nextElementSibling;
+  // keyHintDiv.setAttribute('id', 'keyHintDiv');
 });
 
 /* NOTE: ERRORS/ISSUES WITH CORE HOTBAR (to verify with 0.8.x and log)
