@@ -1,27 +1,20 @@
 {   
-    "name": "custom-hotbar",
     "id": "custom-hotbar",   
     "title": "Custom Hotbar",   
     "description": "An extra fully functional hotbar (currently 1 row only) above the first.",   
-    "author": "Norc",
-    "version": "2.3.0",
+    "authors": [ { "name": "Norc" } ],
+    "version": "2.3.1",
     "minimumCoreVersion": 10,
     "compatibility": {
       "minimum": 10,
-      "verified": "10.286"
+      "verified": 11
     },
     "esmodules": [
       "index.js"
       ],
-    "dependencies": [ { "name": "lib-df-hotkeys" }, { "name": "colorsettings" }  ],
-    "requires": [{
-      "id": "lib-df-hotkeys",
-      "type": "module",
-      "manifest": "https://raw.githubusercontent.com/ardittristan/VTTColorSettings/2.9.0/module.json",
-      "compatibility": {
-        "verified": "2.9.0"
-      }
-     }],  
+	  "relationships": {
+	      "optional": [{ "id": "colorsettings" }]
+	  },
     "languages": [
         {
       "lang": "pt-BR",
@@ -36,7 +29,7 @@
     "styles": [
       "./css/custom-hotbar.css","./css/core-hotbar.css"
       ],
-    "manifest": "https://github.com/Norc/foundry-custom-hotbar/releases/download/v2.3.0.2/module.json",
-    "download": "https://github.com/Norc/foundry-custom-hotbar/archive/v2.3.0.2.zip",
+    "manifest": "https://github.com/Norc/foundry-custom-hotbar/releases/download/v2.3.1/module.json",
+    "download": "https://github.com/Norc/foundry-custom-hotbar/archive/v2.3.1.zip",
     "url": "https://github.com/Norc/foundry-custom-hotbar"
   }
